@@ -8,6 +8,7 @@ type InboxData = {
   sight: { balance: number; incoming: number; resolvedRecently: number };
   meet: {
     letter: number;
+    letterArrived?: number;
     mirror: number;
     duet: number;
     resonance: number;
@@ -130,6 +131,19 @@ const TONE_GLOW = "#f5e6c8";
 
 function buildItems(d: InboxData, userId: string): Item[] {
   const out: Item[] = [];
+
+  // 비행기 도착 — 종이비행기가 닿은 순간. 가장 떨림 있는 신호
+  if ((d.meet.letterArrived ?? 0) > 0) {
+    out.push({
+      key: "letter-arrived",
+      label: "✈ 비행기가 도착",
+      title: `${d.meet.letterArrived}통의 편지가 도착했어요`,
+      subtitle: "거리만큼 천천히 — 마침내 닿았어요",
+      count: d.meet.letterArrived ?? 0,
+      href: `/meet/letter?u=${userId}`,
+      tone: TONE_GOLD
+    });
+  }
 
   // 편지 답장 차례 — 가장 깊은 사람일 가능성 → 1순위
   if (d.meet.letter > 0) {

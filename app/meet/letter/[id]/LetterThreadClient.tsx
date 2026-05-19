@@ -166,14 +166,17 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
                   </div>
 
                   {l.inTransit && !l.senderIsMe ? (
-                    <InTransitPlaceholder arrivesAt={l.arrivesAt} />
+                    <InTransitPlaceholder arrivesAt={l.arrivesAt} createdAt={l.createdAt} />
                   ) : (
                     <>
                       {l.text && <LetterBody text={l.text} />}
                       {l.inTransit && l.senderIsMe && l.arrivesAt && (
-                        <p className="mt-3 text-[10px] tracking-widest text-nadi-gold/70">
-                          ✦ 비행 중 — {formatRemaining(l.arrivesAt)} 후 도착
-                        </p>
+                        <div className="mt-3 rounded-xl border border-nadi-gold/30 bg-black/20 px-4 py-3">
+                          <p className="text-[10px] tracking-widest text-nadi-gold/80">
+                            ✦ 비행 중 — 상대에게 도착하기 전이에요
+                          </p>
+                          <FlightTrack createdAt={l.createdAt} arrivesAt={l.arrivesAt} />
+                        </div>
                       )}
                     </>
                   )}
@@ -268,17 +271,91 @@ function LetterBody({ text }: { text: string }) {
   );
 }
 
-function InTransitPlaceholder({ arrivesAt }: { arrivesAt: string | null }) {
-  const remaining = arrivesAt ? formatRemaining(arrivesAt) : "곧";
+function InTransitPlaceholder({
+  arrivesAt,
+  createdAt
+}: {
+  arrivesAt: string | null;
+  createdAt: string;
+}) {
   return (
     <div className="mt-3 rounded-2xl border border-dashed border-nadi-gold/30 bg-black/20 px-5 py-6 text-center">
       <p className="serif text-base text-nadi-glow">✦ 비행 중인 편지</p>
-      <p className="mt-2 text-[11px] tracking-widest text-ink-100/55">
-        {remaining} 후 도착
-      </p>
-      <p className="mt-2 text-[10px] tracking-widest text-ink-100/35">
+      <p className="mt-2 text-[11px] tracking-widest text-ink-100/35">
         종이비행기가 — 둘 사이의 거리만큼 천천히 날아오고 있어요.
       </p>
+      <FlightTrack createdAt={createdAt} arrivesAt={arrivesAt} />
+    </div>
+  );
+}
+
+/** 출발-도착 사이 비행 진행도를 종이비행기 SVG로 시각화. 1초마다 위치 업데이트 */
+function FlightTrack({
+  createdAt,
+  arrivesAt
+}: {
+  createdAt: string;
+  arrivesAt: string | null;
+}) {
+  const [, force] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => force((n) => n + 1), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  const start = Date.parse(createdAt);
+  const end = arrivesAt ? Date.parse(arrivesAt) : start;
+  const span = Math.max(1, end - start);
+  const now = Date.now();
+  const progress = Math.max(0, Math.min(1, (now - start) / span));
+
+  const remainingMs = Math.max(0, end - now);
+  const remainingLabel = formatRemaining(arrivesAt ?? new Date().toISOString());
+
+  // 320 wide track, plane in middle
+  const trackWidth = 280;
+  const planeX = 10 + progress * trackWidth;
+
+  return (
+    <div className="mt-4">
+      <svg viewBox="0 0 300 50" className="w-full" xmlns="http://www.w3.org/2000/svg">
+        {/* 점선 궤적 */}
+        <line
+          x1="10"
+          y1="35"
+          x2="290"
+          y2="35"
+          stroke="rgba(212,175,111,0.35)"
+          strokeWidth="0.6"
+          strokeDasharray="2 3"
+        />
+        {/* 출발 */}
+        <circle cx="10" cy="35" r="3" fill="#d4af6f" />
+        <text x="10" y="48" textAnchor="middle" fontSize="6" fill="rgba(245,230,200,0.5)">
+          출발
+        </text>
+        {/* 도착 */}
+        <circle cx="290" cy="35" r="3" fill={remainingMs <= 0 ? "#d4af6f" : "rgba(245,230,200,0.4)"} />
+        <text x="290" y="48" textAnchor="middle" fontSize="6" fill="rgba(245,230,200,0.5)">
+          도착
+        </text>
+        {/* 종이비행기 — 진행 위치 */}
+        <g transform={`translate(${planeX} 30) rotate(8)`}>
+          <path
+            d="M -6 0 L 6 -3 L -2 0 L 6 3 Z"
+            fill="#f5e6c8"
+            stroke="#d4af6f"
+            strokeWidth="0.5"
+          />
+        </g>
+        {/* 진행 텍스트 */}
+        <text x="150" y="14" textAnchor="middle" fontSize="8" fill="#d4af6f" fontWeight="bold">
+          {Math.round(progress * 100)}%
+        </text>
+        <text x="150" y="24" textAnchor="middle" fontSize="6" fill="rgba(245,230,200,0.6)">
+          {remainingMs <= 0 ? "도착함" : `${remainingLabel} 후 도착`}
+        </text>
+      </svg>
     </div>
   );
 }

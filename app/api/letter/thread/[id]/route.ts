@@ -37,10 +37,17 @@ export async function GET(
     maybeProcessThread(id);
 
     const last = thread.letters[thread.letters.length - 1];
+    // 마지막 글이 상대로부터 왔는데 아직 도착 전(arrivesAt > now)이면 — 아직 못 봤으니 답장 불가
+    const lastInTransitFromPartner =
+      !!last &&
+      last.senderId !== userId &&
+      !!last.arrivesAt &&
+      last.arrivesAt > now;
     const myTurn =
       thread.status === "ACTIVE" &&
       (thread.unlimited || thread.letterCount < 10) &&
-      (!last || last.senderId !== userId);
+      (!last || last.senderId !== userId) &&
+      !lastInTransitFromPartner;
 
     const partnerId =
       thread.initiatorId === userId ? thread.receiverId : thread.initiatorId;

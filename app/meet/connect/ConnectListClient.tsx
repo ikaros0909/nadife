@@ -97,6 +97,14 @@ export function ConnectListClient({ userId }: { userId: string }) {
             </Group>
           )}
 
+          {grouped("connected").length > 0 && (
+            <Group title="✦ 연결된 사람" tone="gold">
+              {grouped("connected").map((it) => (
+                <Card key={it.partnerId} it={it} userId={userId} />
+              ))}
+            </Group>
+          )}
+
           {grouped("ready").length > 0 && (
             <Group title="충분히 깊어진 사람" tone="gold">
               {grouped("ready").map((it) => (
@@ -108,14 +116,6 @@ export function ConnectListClient({ userId }: { userId: string }) {
           {grouped("proposed_by_me").length > 0 && (
             <Group title="내가 제안한 연결 (답을 기다리는 중)" tone="gold">
               {grouped("proposed_by_me").map((it) => (
-                <Card key={it.partnerId} it={it} userId={userId} />
-              ))}
-            </Group>
-          )}
-
-          {grouped("connected").length > 0 && (
-            <Group title="연결된 사람" tone="gold">
-              {grouped("connected").map((it) => (
                 <Card key={it.partnerId} it={it} userId={userId} />
               ))}
             </Group>

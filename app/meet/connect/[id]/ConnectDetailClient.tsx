@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
+import { WORLD_TYPES, getWorldType } from "@/lib/world-map";
+import { toSvg } from "@/lib/journey";
 
 type Detail = {
   partner: {
@@ -231,11 +233,14 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
 
           {/* 연결됨 — 무제한 편지 채널 진입 */}
           {data.connection?.status === "CONNECTED" && (
-            <ConnectedUnlocks
-              meId={userId}
-              partnerId={data.partner.partnerId}
-              distance={data.distance}
-            />
+            <>
+              <ConnectedUnlocks
+                meId={userId}
+                partnerId={data.partner.partnerId}
+                distance={data.distance}
+              />
+              <JourneyOverlay meId={userId} partnerId={data.partner.partnerId} />
+            </>
           )}
 
           {/* 인연의 결 — 카테고리별 요약 */}
@@ -605,4 +610,173 @@ function ConnectedUnlocks({
       </a>
     </section>
   );
+}
+
+// ──────────────── 공통 궤적 overlay ────────────────
+
+type OverlayPoint = {
+  id: string;
+  source: "MAIN" | "SUB" | "DAILY";
+  date: string;
+  worldSlug: string;
+  axisX: number;
+  axisY: number;
+};
+
+const OVERLAY_SIZE = 380;
+const OVERLAY_PAD = 30;
+
+function JourneyOverlay({ meId, partnerId }: { meId: string; partnerId: string }) {
+  const [data, setData] = useState<{
+    me: { points: OverlayPoint[] };
+    partner: { points: OverlayPoint[] };
+  } | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const r = await fetch(`/api/connect/overlay?u=${meId}&t=${partnerId}`, { cache: "no-store" });
+        if (!r.ok) return;
+        const j = await r.json();
+        if (alive) setData({ me: j.me, partner: j.partner });
+      } catch {}
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [meId, partnerId]);
+
+  const mePath = useMemo(() => buildPath(data?.me.points ?? []), [data]);
+  const theirPath = useMemo(() => buildPath(data?.partner.points ?? []), [data]);
+
+  if (!data) return null;
+
+  const meCount = data.me.points.length;
+  const theirCount = data.partner.points.length;
+  const sharedWorlds = computeSharedWorlds(data.me.points, data.partner.points);
+
+  return (
+    <section className="mt-6 rounded-3xl border border-nadi-gold/30 bg-black/30 p-6">
+      <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+        ✦ 공통 궤적
+      </p>
+      <h3 className="serif mt-3 text-lg leading-snug text-nadi-glow">
+        같은 평면 위 — 두 사람의 결.
+      </h3>
+      <p className="mt-2 text-[11px] leading-relaxed text-ink-100/55">
+        나(<span className="text-nadi-gold">금색</span>)와 그쪽(<span className="text-nadi-rose">분홍</span>)의 궤적이 16개의 세계 위에 겹쳐 그려졌어요.
+      </p>
+
+      <div className="mt-4 overflow-hidden rounded-2xl border border-nadi-gold/20 bg-[radial-gradient(circle_at_center,_rgba(212,175,111,0.06),_transparent_70%),linear-gradient(180deg,#0b0e1a,#11142b)]">
+        <svg
+          viewBox={`0 0 ${OVERLAY_SIZE} ${OVERLAY_SIZE}`}
+          className="block w-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="me-path" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#d4af6f" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#d4af6f" stopOpacity="1" />
+            </linearGradient>
+            <linearGradient id="their-path" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#c47b8a" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#c47b8a" stopOpacity="1" />
+            </linearGradient>
+          </defs>
+
+          <line x1={OVERLAY_SIZE / 2} y1={OVERLAY_PAD} x2={OVERLAY_SIZE / 2} y2={OVERLAY_SIZE - OVERLAY_PAD} stroke="rgba(212,175,111,0.12)" />
+          <line x1={OVERLAY_PAD} y1={OVERLAY_SIZE / 2} x2={OVERLAY_SIZE - OVERLAY_PAD} y2={OVERLAY_SIZE / 2} stroke="rgba(212,175,111,0.12)" />
+
+          {WORLD_TYPES.map((w) => {
+            const { cx, cy } = toSvg(w.axisX, w.axisY, OVERLAY_SIZE, OVERLAY_PAD);
+            const isShared = sharedWorlds.has(w.slug);
+            return (
+              <g key={w.slug}>
+                <circle cx={cx} cy={cy} r={isShared ? 4 : 2.5} fill={w.hue} opacity={isShared ? 0.6 : 0.22} />
+                {isShared && (
+                  <circle cx={cx} cy={cy} r={9} fill="none" stroke={w.hue} strokeWidth="0.6" opacity="0.5" />
+                )}
+              </g>
+            );
+          })}
+
+          {theirPath && (
+            <path d={theirPath} fill="none" stroke="url(#their-path)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="2 3" />
+          )}
+          {mePath && (
+            <path d={mePath} fill="none" stroke="url(#me-path)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          )}
+
+          {data.partner.points.map((p, i) => {
+            const w = getWorldType(p.worldSlug);
+            const { cx, cy } = toSvg(w.axisX, w.axisY, OVERLAY_SIZE, OVERLAY_PAD);
+            const isLatest = i === data.partner.points.length - 1;
+            return (
+              <circle
+                key={`their-${p.id}`}
+                cx={cx}
+                cy={cy}
+                r={isLatest ? 5 : 3.5}
+                fill="#c47b8a"
+                stroke="#0b0e1a"
+                strokeWidth="1.2"
+                opacity={isLatest ? 1 : 0.85}
+              />
+            );
+          })}
+          {data.me.points.map((p, i) => {
+            const w = getWorldType(p.worldSlug);
+            const { cx, cy } = toSvg(w.axisX, w.axisY, OVERLAY_SIZE, OVERLAY_PAD);
+            const isLatest = i === data.me.points.length - 1;
+            return (
+              <circle
+                key={`me-${p.id}`}
+                cx={cx}
+                cy={cy}
+                r={isLatest ? 5.5 : 4}
+                fill="#d4af6f"
+                stroke="#0b0e1a"
+                strokeWidth="1.2"
+              />
+            );
+          })}
+        </svg>
+      </div>
+
+      <div className="mt-4 grid grid-cols-3 gap-2 text-[10px] tracking-widest">
+        <div className="rounded-lg border border-nadi-gold/25 bg-nadi-gold/5 px-3 py-2 text-center">
+          <div className="text-ink-100/55">내 점</div>
+          <div className="serif mt-1 text-nadi-gold">{meCount}</div>
+        </div>
+        <div className="rounded-lg border border-nadi-rose/25 bg-nadi-rose/5 px-3 py-2 text-center">
+          <div className="text-ink-100/55">그쪽 점</div>
+          <div className="serif mt-1 text-nadi-rose">{theirCount}</div>
+        </div>
+        <div className="rounded-lg border border-nadi-glow/25 bg-black/40 px-3 py-2 text-center">
+          <div className="text-ink-100/55">겹친 세계</div>
+          <div className="serif mt-1 text-nadi-glow">{sharedWorlds.size}</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function buildPath(points: OverlayPoint[]): string {
+  if (points.length < 2) return "";
+  return points
+    .map((p, i) => {
+      const w = getWorldType(p.worldSlug);
+      const { cx, cy } = toSvg(w.axisX, w.axisY, OVERLAY_SIZE, OVERLAY_PAD);
+      return `${i === 0 ? "M" : "L"} ${cx} ${cy}`;
+    })
+    .join(" ");
+}
+
+function computeSharedWorlds(a: OverlayPoint[], b: OverlayPoint[]): Set<string> {
+  const aSet = new Set(a.map((p) => p.worldSlug));
+  const bSet = new Set(b.map((p) => p.worldSlug));
+  const shared = new Set<string>();
+  for (const s of aSet) if (bSet.has(s)) shared.add(s);
+  return shared;
 }

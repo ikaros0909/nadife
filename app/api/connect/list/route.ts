@@ -132,12 +132,12 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    // 정렬 — 제안 받음 → 충분히 깊어짐 → 깊어지는 중 → ... 그리고 점수 내림차순
+    // 정렬 — 제안 받음(액션 필요) → 연결됨(소중함) → 충분히 깊어짐(액션 가능) → ...
     const stageOrder: Record<string, number> = {
       proposed_to_me: 0,
-      ready: 1,
-      proposed_by_me: 2,
-      connected: 3,
+      connected: 1,
+      ready: 2,
+      proposed_by_me: 3,
       deepening: 4,
       disconnected: 5,
       declined: 6,

@@ -54,6 +54,7 @@ export async function GET(req: NextRequest) {
               alias: true,
               text: true,
               createdAt: true,
+              arrivesAt: true,
               readAt: true
             }
           }
@@ -140,9 +141,31 @@ export async function GET(req: NextRequest) {
     ]);
 
     // ─── 편지 답장 차례 ───
+    // 마지막 글이 상대에게서 왔고, 도착했으며(arrivesAt이 null이거나 과거), 한도 안 찼을 때
+    const nowMs = Date.now();
     const letterAwaitingMe = letterThreads.filter((t) => {
       const last = t.letters[0];
-      return !!last && last.senderId !== userId && t.letterCount < 10;
+      if (!last || last.senderId === userId) return false;
+      if (!t.unlimited && t.letterCount >= 10) return false;
+      // 비행 중인 편지는 아직 답장 차례 아님
+      if (last.arrivesAt && last.arrivesAt.getTime() > nowMs) return false;
+      return true;
+    });
+
+    // ─── 방금 도착한 편지 (24h 안에 arrivesAt이 지난, 아직 안 읽은 글) ───
+    const dayAgo = new Date(nowMs - 24 * 60 * 60 * 1000);
+    const recentlyArrivedLetters = await prisma.letter.findMany({
+      where: {
+        senderId: { not: userId },
+        readAt: null,
+        arrivesAt: { not: null, lte: new Date(), gt: dayAgo },
+        thread: {
+          OR: [{ initiatorId: userId }, { receiverId: userId }]
+        }
+      },
+      take: 5,
+      orderBy: { arrivesAt: "desc" },
+      select: { id: true, threadId: true, alias: true, arrivesAt: true }
     });
 
     // ─── 미러 양방향 — 상대도 신호를 보냈는가 ───
@@ -185,6 +208,7 @@ export async function GET(req: NextRequest) {
     // ─── 카운트 묶음 ───
     const meetCount =
       letterAwaitingMe.length +
+      recentlyArrivedLetters.length +
       (mirrorReciprocated ? 1 : 0) +
       duetMyTurn.length +
       resonanceEchoes +
@@ -222,6 +246,7 @@ export async function GET(req: NextRequest) {
       },
       meet: {
         letter: letterAwaitingMe.length,
+        letterArrived: recentlyArrivedLetters.length,
         mirror: mirrorReciprocated ? 1 : 0,
         duet: duetMyTurn.length,
         resonance: resonanceEchoes,
