@@ -10,6 +10,7 @@ import {
   checkEligibility,
   computeAffinity
 } from "@/lib/affinity";
+import { checkMutualMatch, distanceBucket, distanceKm } from "@/lib/match";
 
 export async function GET(req: NextRequest) {
   try {
@@ -23,16 +24,43 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "자기 자신은 볼 수 없어요." }, { status: 400 });
     }
 
-    const [partner, aff] = await Promise.all([
+    const [partner, me, aff] = await Promise.all([
       prisma.user.findUnique({
         where: { id: partnerId },
         include: {
           personas: { where: { kind: "MAIN" }, orderBy: { createdAt: "desc" }, take: 1 }
         }
       }),
+      prisma.user.findUnique({ where: { id: userId } }),
       computeAffinity(userId, partnerId)
     ]);
-    if (!partner) return NextResponse.json({ error: "상대가 없어요." }, { status: 404 });
+    if (!partner || !me) return NextResponse.json({ error: "상대가 없어요." }, { status: 404 });
+
+    // 매칭 검증 — 양방향
+    const mutual = checkMutualMatch(
+      { gender: me.gender, country: me.country, region: me.region, birthYear: me.birthYear },
+      {
+        connectGenders: me.connectGenders,
+        connectCountries: me.connectCountries,
+        connectRegions: me.connectRegions,
+        connectAgeMin: me.connectAgeMin,
+        connectAgeMax: me.connectAgeMax
+      },
+      { gender: partner.gender, country: partner.country, region: partner.region, birthYear: partner.birthYear },
+      {
+        connectGenders: partner.connectGenders,
+        connectCountries: partner.connectCountries,
+        connectRegions: partner.connectRegions,
+        connectAgeMin: partner.connectAgeMin,
+        connectAgeMax: partner.connectAgeMax
+      }
+    );
+
+    // 거리 — 양측 모두 opt-in이고 좌표가 있을 때만
+    let distance: number | null = null;
+    if (me.geoOptIn && partner.geoOptIn && me.geoLat != null && me.geoLng != null && partner.geoLat != null && partner.geoLng != null) {
+      distance = distanceKm(me.geoLat, me.geoLng, partner.geoLat, partner.geoLng);
+    }
 
     const [a, b] = canonicalPair(userId, partnerId);
     const conn = await prisma.connection.findUnique({
@@ -104,6 +132,17 @@ export async function GET(req: NextRequest) {
         message: "message" in eligibility ? eligibility.message : null,
         cooldownUntil:
           "cooldownUntil" in eligibility ? eligibility.cooldownUntil?.toISOString() ?? null : null
+      },
+      match: {
+        matched: mutual.matched,
+        myPrefsOk: mutual.mineSide.ok,    // 내 조건이 그쪽을 받아들이는가
+        theirPrefsOk: mutual.theirsSide.ok // 그쪽 조건이 나를 받아들이는가
+      },
+      distance: {
+        bothOptIn: !!(me.geoOptIn && partner.geoOptIn),
+        bucket: distance !== null ? distanceBucket(distance) : null,
+        // 정확한 km은 5km 미만에서만 노출 — 그 외는 버킷만
+        approxKm: distance !== null && distance < 5 ? Math.round(distance * 10) / 10 : null
       }
     });
   } catch (err: unknown) {

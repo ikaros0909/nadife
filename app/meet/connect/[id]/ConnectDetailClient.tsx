@@ -65,6 +65,16 @@ type Detail = {
     message: string | null;
     cooldownUntil: string | null;
   };
+  match: {
+    matched: boolean;
+    myPrefsOk: boolean;
+    theirPrefsOk: boolean;
+  };
+  distance: {
+    bothOptIn: boolean;
+    bucket: string | null;
+    approxKm: number | null;
+  };
 };
 
 const SOURCE_LABEL: Record<string, string> = {
@@ -174,6 +184,59 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
               </div>
             )}
           </section>
+
+          {/* 매칭 + 거리 — 연결 자격 */}
+          <section className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div
+              className={
+                data.match.matched
+                  ? "rounded-2xl border border-nadi-gold/40 bg-nadi-gold/5 px-5 py-4"
+                  : "rounded-2xl border border-nadi-rose/30 bg-nadi-rose/5 px-5 py-4"
+              }
+            >
+              <p className="text-[10px] tracking-[0.3em] text-nadi-gold">조건</p>
+              <p className="serif mt-2 text-sm text-nadi-glow">
+                {data.match.matched
+                  ? "두 사람의 조건이 맞아요"
+                  : "조건이 맞지 않아요"}
+              </p>
+              {!data.match.matched && (
+                <p className="mt-1 text-[10px] tracking-widest text-ink-100/45">
+                  {!data.match.myPrefsOk && "내 조건에 그쪽이 맞지 않아요. "}
+                  {!data.match.theirPrefsOk && "그쪽 조건에 내가 맞지 않아요."}
+                </p>
+              )}
+            </div>
+
+            <div className="rounded-2xl border border-nadi-gold/25 bg-black/30 px-5 py-4">
+              <p className="text-[10px] tracking-[0.3em] text-nadi-gold">거리</p>
+              {data.distance.bothOptIn ? (
+                <>
+                  <p className="serif mt-2 text-sm text-nadi-glow">
+                    {data.distance.bucket ?? "—"}
+                  </p>
+                  {data.distance.approxKm !== null && (
+                    <p className="mt-1 text-[10px] tracking-widest text-ink-100/45">
+                      약 {data.distance.approxKm}km
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="mt-2 text-[11px] leading-relaxed text-ink-100/55">
+                  양쪽 모두 위치 공유를 켜야 보여요.
+                </p>
+              )}
+            </div>
+          </section>
+
+          {/* 연결됨 — 무제한 편지 채널 진입 */}
+          {data.connection?.status === "CONNECTED" && (
+            <ConnectedUnlocks
+              meId={userId}
+              partnerId={data.partner.partnerId}
+              distance={data.distance}
+            />
+          )}
 
           {/* 인연의 결 — 카테고리별 요약 */}
           <section className="mt-8">
@@ -510,6 +573,36 @@ function ActionPanel({
         차단 (영원히 안 만나기)
       </button>
       {actionErr && <p className="mt-3 text-[11px] text-nadi-rose">{actionErr}</p>}
+    </section>
+  );
+}
+
+function ConnectedUnlocks({
+  meId,
+  partnerId,
+  distance
+}: {
+  meId: string;
+  partnerId: string;
+  distance: { bothOptIn: boolean; bucket: string | null; approxKm: number | null };
+}) {
+  return (
+    <section className="mt-6 rounded-3xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/10 to-nadi-rose/10 p-6">
+      <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">✦ 연결된 사이</p>
+      <h3 className="serif mt-3 text-lg leading-snug text-nadi-glow">
+        끊임없이 편지를 주고받을 수 있어요.
+      </h3>
+      <p className="mt-2 text-[11px] leading-relaxed text-ink-100/65">
+        {distance.bothOptIn && distance.bucket
+          ? `${distance.bucket} — 두 사람 사이를 종이비행기가 날아가는 시간만큼, 편지는 천천히 도착해요.`
+          : "위치 공유를 켜면 — 거리에 비례한 비행 시간으로 편지가 도착해요. 같은 도시는 분 단위, 다른 대륙은 며칠."}
+      </p>
+      <a
+        href={`/meet/letter/new?u=${meId}&to=${partnerId}`}
+        className="mt-5 inline-flex rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-2 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90"
+      >
+        ✉ 편지 띄우기
+      </a>
     </section>
   );
 }

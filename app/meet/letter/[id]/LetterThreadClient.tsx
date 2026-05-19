@@ -12,8 +12,10 @@ type Letter = {
   id: string;
   senderIsMe: boolean;
   alias: string;
-  text: string;
+  text: string | null; // null = in transit (recipient view)
   createdAt: string;
+  arrivesAt: string | null;
+  inTransit: boolean;
 };
 
 type ThreadState = {
@@ -22,6 +24,7 @@ type ThreadState = {
     status: string;
     letterCount: number;
     archivedAt?: string;
+    unlimited?: boolean;
     partnerId: string | null;
     partnerAlias: string | null;
   };
@@ -161,7 +164,19 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
                       })}
                     </span>
                   </div>
-                  <LetterBody text={l.text} />
+
+                  {l.inTransit && !l.senderIsMe ? (
+                    <InTransitPlaceholder arrivesAt={l.arrivesAt} />
+                  ) : (
+                    <>
+                      {l.text && <LetterBody text={l.text} />}
+                      {l.inTransit && l.senderIsMe && l.arrivesAt && (
+                        <p className="mt-3 text-[10px] tracking-widest text-nadi-gold/70">
+                          ✦ 비행 중 — {formatRemaining(l.arrivesAt)} 후 도착
+                        </p>
+                      )}
+                    </>
+                  )}
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -251,4 +266,33 @@ function LetterBody({ text }: { text: string }) {
       ))}
     </div>
   );
+}
+
+function InTransitPlaceholder({ arrivesAt }: { arrivesAt: string | null }) {
+  const remaining = arrivesAt ? formatRemaining(arrivesAt) : "곧";
+  return (
+    <div className="mt-3 rounded-2xl border border-dashed border-nadi-gold/30 bg-black/20 px-5 py-6 text-center">
+      <p className="serif text-base text-nadi-glow">✦ 비행 중인 편지</p>
+      <p className="mt-2 text-[11px] tracking-widest text-ink-100/55">
+        {remaining} 후 도착
+      </p>
+      <p className="mt-2 text-[10px] tracking-widest text-ink-100/35">
+        종이비행기가 — 둘 사이의 거리만큼 천천히 날아오고 있어요.
+      </p>
+    </div>
+  );
+}
+
+function formatRemaining(iso: string): string {
+  const ms = Date.parse(iso) - Date.now();
+  if (ms <= 0) return "곧";
+  const totalMin = Math.round(ms / 60_000);
+  const days = Math.floor(totalMin / (60 * 24));
+  const hours = Math.floor((totalMin % (60 * 24)) / 60);
+  const mins = totalMin % 60;
+  const parts: string[] = [];
+  if (days > 0) parts.push(`${days}일`);
+  if (hours > 0) parts.push(`${hours}시간`);
+  if (mins > 0 && days === 0) parts.push(`${mins}분`);
+  return parts.join(" ") || "곧";
 }

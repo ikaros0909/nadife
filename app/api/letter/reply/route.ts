@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { moderate } from "@/lib/moderation";
 import { generateAlias } from "@/lib/alias";
 import { todayKey } from "@/lib/utils";
+import { deliveryDelayMs, distanceKm } from "@/lib/match";
 
 const Body = z.object({
   senderId: z.string(),
@@ -11,7 +12,7 @@ const Body = z.object({
   text: z.string().min(20).max(400)
 });
 
-const MAX_LETTERS = 10; // 5왕복 = 10통
+const MAX_LETTERS = 10; // 5왕복 = 10통 (unlimited 채널이면 무시)
 
 export async function POST(req: NextRequest) {
   try {
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "이 편지함의 사람이 아니에요." }, { status: 403 });
     }
 
-    // 답장 차례인지 확인 — 마지막 편지가 본인이면 안 됨
+    // 답장 차례인지 확인 — 마지막 편지가 본인이면 안 됨 (unlimited여도 동일)
     const last = thread.letters[thread.letters.length - 1];
     if (last && last.senderId === senderId) {
       return NextResponse.json(
@@ -38,7 +39,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (thread.letterCount >= MAX_LETTERS) {
+    // unlimited 채널이 아닐 때만 10통 캡 적용
+    if (!thread.unlimited && thread.letterCount >= MAX_LETTERS) {
       return NextResponse.json({ error: "이 편지함은 이미 가득 찼어요." }, { status: 410 });
     }
 
@@ -49,11 +51,40 @@ export async function POST(req: NextRequest) {
     const alias = generateAlias(senderId, date, "letter");
 
     const newCount = thread.letterCount + 1;
-    const shouldArchive = newCount >= MAX_LETTERS;
+    // unlimited면 archived 안 됨. 한정 채널이면 10통 도달 시 archived.
+    const shouldArchive = !thread.unlimited && newCount >= MAX_LETTERS;
+
+    // 비행 시간 계산 — unlimited 채널일 때만 거리 기반 지연 적용
+    let arrivesAt: Date | null = null;
+    if (thread.unlimited) {
+      const partnerId =
+        thread.initiatorId === senderId ? thread.receiverId : thread.initiatorId;
+      const [me, partner] = await Promise.all([
+        prisma.user.findUnique({
+          where: { id: senderId },
+          select: { geoOptIn: true, geoLat: true, geoLng: true }
+        }),
+        prisma.user.findUnique({
+          where: { id: partnerId },
+          select: { geoOptIn: true, geoLat: true, geoLng: true }
+        })
+      ]);
+      let dist: number | null = null;
+      if (
+        me?.geoOptIn &&
+        partner?.geoOptIn &&
+        me.geoLat != null && me.geoLng != null &&
+        partner.geoLat != null && partner.geoLng != null
+      ) {
+        dist = distanceKm(me.geoLat, me.geoLng, partner.geoLat, partner.geoLng);
+      }
+      const delay = deliveryDelayMs(dist);
+      arrivesAt = new Date(Date.now() + delay);
+    }
 
     await prisma.$transaction(async (tx) => {
       await tx.letter.create({
-        data: { threadId, senderId, alias, text: mod.text, isAI: false }
+        data: { threadId, senderId, alias, text: mod.text, isAI: false, arrivesAt }
       });
       await tx.letterThread.update({
         where: { id: threadId },
@@ -66,9 +97,11 @@ export async function POST(req: NextRequest) {
       });
     });
 
-    // AI 답장은 별도 스케줄러(ai-reply-runner)가 처리. 즉시 트리거는 sweep이 발동하는
-    // /home, /api/inbox, /api/letter/thread/[id] 가 다음 호출될 때.
-    return NextResponse.json({ ok: true, archived: shouldArchive });
+    return NextResponse.json({
+      ok: true,
+      archived: shouldArchive,
+      arrivesAt: arrivesAt?.toISOString() ?? null
+    });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "unknown";
     return NextResponse.json({ error: msg }, { status: 400 });

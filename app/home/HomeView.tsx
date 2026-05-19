@@ -8,6 +8,7 @@ import { PersonalNav } from "@/components/PersonalNav";
 import { WORLD_TYPES, getWorldType } from "@/lib/world-map";
 import { toSvg, type JourneyPoint, type JourneyStats } from "@/lib/journey";
 import { InboxSection } from "./InboxSection";
+import { ConnectSettingsSection } from "./ConnectSettingsSection";
 
 type PersonaSummary = {
   id: string;
@@ -255,6 +256,9 @@ export function HomeView({
 
       {/* 천리안 */}
       <SightSection userId={userId} initial={sight} />
+
+      {/* 연결 조건 + 위치 */}
+      <ConnectSettingsSection userId={userId} />
 
       {/* 메인캐 / 부캐 */}
       <section className="mt-10">

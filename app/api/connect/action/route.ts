@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { canonicalPair, checkEligibility, computeAffinity } from "@/lib/affinity";
+import { checkMutualMatch } from "@/lib/match";
 
 const Body = z.object({
   userId: z.string(),
@@ -86,6 +87,41 @@ async function handlePropose(
     );
   }
 
+  // 조건 매칭 — 양측의 선호도가 서로를 받아들이는가
+  const [me, them] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        gender: true, country: true, region: true, birthYear: true,
+        connectGenders: true, connectCountries: true, connectRegions: true,
+        connectAgeMin: true, connectAgeMax: true
+      }
+    }),
+    prisma.user.findUnique({
+      where: { id: partnerId },
+      select: {
+        gender: true, country: true, region: true, birthYear: true,
+        connectGenders: true, connectCountries: true, connectRegions: true,
+        connectAgeMin: true, connectAgeMax: true
+      }
+    })
+  ]);
+  if (!me || !them) {
+    return NextResponse.json({ error: "사용자를 찾을 수 없어요." }, { status: 404 });
+  }
+  const mutual = checkMutualMatch(
+    me,
+    { connectGenders: me.connectGenders, connectCountries: me.connectCountries, connectRegions: me.connectRegions, connectAgeMin: me.connectAgeMin, connectAgeMax: me.connectAgeMax },
+    them,
+    { connectGenders: them.connectGenders, connectCountries: them.connectCountries, connectRegions: them.connectRegions, connectAgeMin: them.connectAgeMin, connectAgeMax: them.connectAgeMax }
+  );
+  if (!mutual.matched) {
+    return NextResponse.json(
+      { error: "지금은 두 사람의 조건이 맞지 않아요. 인연은 깊지만 — 연결은 어려운 시간이에요.", reason: "match_failed" },
+      { status: 403 }
+    );
+  }
+
   const isAProposer = userId === a;
   const status = isAProposer ? "PROPOSED_A" : "PROPOSED_B";
 
@@ -135,6 +171,18 @@ async function handleAccept(
     where: { userAId_userBId: { userAId: a, userBId: b } },
     data: { status: "CONNECTED", acceptedAt: new Date() }
   });
+
+  // 두 사람 사이의 모든 LetterThread를 무제한 채널로 승격
+  await prisma.letterThread.updateMany({
+    where: {
+      OR: [
+        { initiatorId: a, receiverId: b },
+        { initiatorId: b, receiverId: a }
+      ]
+    },
+    data: { unlimited: true, status: "ACTIVE", archivedAt: null }
+  });
+
   return NextResponse.json({ ok: true, status: "CONNECTED" });
 }
 
@@ -209,6 +257,17 @@ async function handleBlock(
       }
     });
   }
+  // 차단 시 모든 편지함 영구 종료
+  await prisma.letterThread.updateMany({
+    where: {
+      status: "ACTIVE",
+      OR: [
+        { initiatorId: a, receiverId: b },
+        { initiatorId: b, receiverId: a }
+      ]
+    },
+    data: { status: "DROPPED", archivedAt: new Date() }
+  });
   return NextResponse.json({ ok: true });
 }
 

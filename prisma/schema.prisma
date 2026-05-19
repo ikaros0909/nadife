@@ -28,6 +28,19 @@ model User {
   // 천리안 잔량
   sightBalance Int @default(0)
 
+  // 연결 선호도 — 빈 배열이면 무관
+  connectGenders   String[] @default([])
+  connectCountries String[] @default([])
+  connectRegions   String[] @default([])
+  connectAgeMin    Int?
+  connectAgeMax    Int?
+
+  // 위치 (선택) — 1km 그리드로 반올림 저장
+  geoLat       Float?
+  geoLng       Float?
+  geoUpdatedAt DateTime?
+  geoOptIn     Boolean   @default(false)
+
   @@index([isAI, createdAt])
 
   personas  Persona[]
@@ -110,6 +123,7 @@ model LetterThread {
   lastLetterAt     DateTime?
   archivedAt       DateTime?
   aiReplyClaimedAt DateTime? // AI 답장 생성 중 락. null이면 다른 워커가 잡을 수 있음
+  unlimited        Boolean   @default(false) // CONNECTED 사이의 무제한 채널
 
   letters   Letter[]
   initiator User @relation("LetterInitiator", fields: [initiatorId], references: [id], onDelete: Cascade)
@@ -128,12 +142,14 @@ model Letter {
   text      String
   isAI      Boolean   @default(false)
   createdAt DateTime  @default(now())
+  arrivesAt DateTime? // 도착 시각 — null이면 즉시. 거리 기반 비행 시간 적용 후 미래로 설정
   readAt    DateTime?
 
   thread LetterThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
   sender User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
 
   @@index([threadId, createdAt])
+  @@index([threadId, arrivesAt])
 }
 
 // ============== B. 우연의 시간 (Coincidence) ==============
