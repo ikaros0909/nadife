@@ -3,10 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
+import { SightTrigger } from "@/components/SightTrigger";
 import { getWorldType } from "@/lib/world-map";
 
-type Presence = { id: string; alias: string; isMe: boolean; joinedAt: string };
-type Whisper  = { id: string; alias: string; text: string; isMe: boolean; createdAt: string };
+type Presence = { id: string; userId: string; alias: string; isMe: boolean; joinedAt: string };
+type Whisper  = { id: string; userId: string; alias: string; text: string; isMe: boolean; createdAt: string };
 type Room = { id: string; worldType: string; date: string };
 
 export function CampfireClient({ userId }: { userId: string }) {
@@ -120,18 +121,24 @@ export function CampfireClient({ userId }: { userId: string }) {
               {presences.length}명
             </span>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 space-y-2">
             {presences.map((p) => (
-              <span
-                key={p.id}
-                className={
-                  p.isMe
-                    ? "rounded-full border border-nadi-gold/60 bg-nadi-gold/15 px-3 py-1 text-xs text-nadi-glow"
-                    : "rounded-full border border-ink-100/15 bg-black/30 px-3 py-1 text-xs text-ink-100/65"
-                }
-              >
-                {p.alias}{p.isMe && " · 나"}
-              </span>
+              <div key={p.id} className="space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span
+                    className={
+                      p.isMe
+                        ? "rounded-full border border-nadi-gold/60 bg-nadi-gold/15 px-3 py-1 text-xs text-nadi-glow"
+                        : "rounded-full border border-ink-100/15 bg-black/30 px-3 py-1 text-xs text-ink-100/65"
+                    }
+                  >
+                    {p.alias}{p.isMe && " · 나"}
+                  </span>
+                  {!p.isMe && (
+                    <SightTrigger viewerId={userId} targetId={p.userId} size="xs" source="campfire" />
+                  )}
+                </div>
+              </div>
             ))}
           </div>
         </section>
@@ -176,6 +183,11 @@ export function CampfireClient({ userId }: { userId: string }) {
                     <p className="serif mt-2 text-base leading-relaxed text-nadi-glow">
                       {w.text}
                     </p>
+                    {!w.isMe && (
+                      <div className="mt-3">
+                        <SightTrigger viewerId={userId} targetId={w.userId} size="xs" source="campfire" />
+                      </div>
+                    )}
                   </motion.div>
                 ))}
               </AnimatePresence>

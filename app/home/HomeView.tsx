@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
@@ -808,8 +808,123 @@ function SightSection({
           오늘의 디지털 관상을 만들면 천리안 +1
         </p>
       )}
+
+      {/* 내가 사용한 천리안 내역 */}
+      <SightHistory userId={userId} />
     </section>
   );
+}
+
+const SOURCE_LABEL: Record<string, { label: string; href: (u: string) => string; tone: string }> = {
+  mirror:      { label: "미러",        href: (u) => `/meet/mirror?u=${u}`,      tone: "#c47b8a" },
+  campfire:    { label: "모닥불",      href: (u) => `/meet/campfire?u=${u}`,    tone: "#d4af6f" },
+  postbox:     { label: "공중 한 줄",   href: (u) => `/meet/postbox?u=${u}`,     tone: "#c47b8a" },
+  resonance:   { label: "오늘 합주",    href: (u) => `/meet/resonance?u=${u}`,   tone: "#d4af6f" },
+  letter:      { label: "편지함",      href: (u) => `/meet/letter?u=${u}`,      tone: "#d4af6f" },
+  coincidence: { label: "우연의 시간",  href: (u) => `/meet/coincidence?u=${u}`, tone: "#c47b8a" }
+};
+
+type SightHistoryItem = {
+  id: string;
+  status: "SUCCESS" | "PENDING" | "FAILED";
+  source: string | null;
+  createdAt: string;
+  resolvedAt: string | null;
+  target: { id: string; worldType: string | null; title: string | null };
+};
+
+function SightHistory({ userId }: { userId: string }) {
+  const [items, setItems] = useState<SightHistoryItem[] | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    async function load() {
+      try {
+        const r = await fetch(`/api/sight/balance?u=${userId}`, { cache: "no-store" });
+        if (!r.ok) return;
+        const j = await r.json();
+        if (!alive) return;
+        setItems(j.recent ?? []);
+      } catch {}
+    }
+    load();
+    const t = setInterval(load, 60_000);
+    return () => {
+      alive = false;
+      clearInterval(t);
+    };
+  }, [userId]);
+
+  if (!items) return null;
+  if (items.length === 0) {
+    return (
+      <div className="mt-6 rounded-2xl border border-dashed border-ink-100/15 bg-black/20 px-5 py-4 text-center text-[11px] tracking-widest text-ink-100/45">
+        아직 천리안을 펴본 적이 없어요.
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-6">
+      <p className="serif text-xs tracking-[0.4em] text-nadi-gold">내가 사용한 천리안</p>
+      <ul className="mt-3 space-y-2">
+        {items.map((it) => (
+          <SightHistoryRow key={it.id} item={it} userId={userId} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function SightHistoryRow({ item, userId }: { item: SightHistoryItem; userId: string }) {
+  const meta = item.source ? SOURCE_LABEL[item.source] : null;
+  const statusLabel =
+    item.status === "SUCCESS" ? "✦ 닿음" : item.status === "PENDING" ? "기다리는 중" : "✦ 흩어짐";
+  const statusTone =
+    item.status === "SUCCESS"
+      ? "text-nadi-gold"
+      : item.status === "PENDING"
+      ? "text-ink-100/55"
+      : "text-nadi-rose";
+
+  const when = new Date(item.createdAt).toLocaleString("ko-KR", {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  const inner = (
+    <div
+      className="flex items-center justify-between gap-3 rounded-2xl border border-ink-100/10 bg-black/30 px-4 py-3 transition hover:border-nadi-gold/30"
+      style={meta ? { borderLeft: `2px solid ${meta.tone}` } : undefined}
+    >
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2 text-[10px] tracking-[0.3em]">
+          {meta ? (
+            <span style={{ color: meta.tone }}>{meta.label}</span>
+          ) : (
+            <span className="text-ink-100/40">직접</span>
+          )}
+          <span className={statusTone}>{statusLabel}</span>
+        </div>
+        <p className="serif mt-1 truncate text-sm text-nadi-glow">
+          {item.target.title ?? "디지털 자아"}
+        </p>
+        <p className="mt-0.5 text-[10px] tracking-widest text-ink-100/40">{when}</p>
+      </div>
+      {meta && <span className="shrink-0 text-[10px] tracking-widest text-ink-100/45">→</span>}
+    </div>
+  );
+
+  if (meta) {
+    return (
+      <li>
+        <a href={meta.href(userId)}>{inner}</a>
+      </li>
+    );
+  }
+  return <li>{inner}</li>;
 }
 
 function ProfileField({ k, v }: { k: string; v: string | null }) {

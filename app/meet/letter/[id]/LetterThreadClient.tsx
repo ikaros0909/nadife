@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
+import { SightTrigger } from "@/components/SightTrigger";
 import { formatLetterText } from "@/lib/letter-format";
 
 type Letter = {
@@ -15,7 +16,14 @@ type Letter = {
 };
 
 type ThreadState = {
-  thread: { id: string; status: string; letterCount: number; archivedAt?: string };
+  thread: {
+    id: string;
+    status: string;
+    letterCount: number;
+    archivedAt?: string;
+    partnerId: string | null;
+    partnerAlias: string | null;
+  };
   myTurn: boolean;
   letters: Letter[];
 };
@@ -108,6 +116,22 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
           <p className="mt-8 text-[10px] tracking-widest text-ink-100/40">
             {data.thread.letterCount}/10 · {data.thread.status === "ACTIVE" ? "진행 중" : data.thread.status === "ARCHIVED" ? "10통으로 마무리됨" : "그만둠"}
           </p>
+
+          {data.thread.partnerId && (
+            <section className="mt-6 rounded-2xl border border-nadi-gold/25 bg-black/30 px-5 py-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-[10px] tracking-widest text-ink-100/55">
+                  편지 상대 — <span className="text-nadi-glow">{data.thread.partnerAlias ?? "익명"}</span>
+                </div>
+                <SightTrigger
+                  viewerId={userId}
+                  targetId={data.thread.partnerId}
+                  showLetterInvite={false}
+                  source="letter"
+                />
+              </div>
+            </section>
+          )}
 
           <section className="mt-6 space-y-4">
             <AnimatePresence initial={false}>

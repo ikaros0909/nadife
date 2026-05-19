@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
+import { SightTrigger } from "@/components/SightTrigger";
 import { getWorldType } from "@/lib/world-map";
 
 type Note = {
   id: string;
+  userId: string;
   text: string;
   alias: string;
   worldType: string;
@@ -219,23 +221,26 @@ export function ResonanceClient({ userId }: { userId: string }) {
                     <p className="serif mt-2 text-base leading-relaxed text-nadi-glow">
                       “{n.text}”
                     </p>
-                    <div className="mt-3 flex items-center justify-between">
+                    <div className="mt-3 flex items-center justify-between gap-2">
                       <span className="text-[10px] tracking-widest text-ink-100/40">
                         공명 {n.echoCount}
                       </span>
-                      <button
-                        onClick={() => echo(n.id)}
-                        disabled={
-                          !feed.canEcho || n.echoed || echoLoading === n.id
-                        }
-                        className={
-                          n.echoed
-                            ? "rounded-full border border-nadi-gold/60 bg-nadi-gold/15 px-4 py-1 text-[11px] tracking-[0.25em] text-nadi-glow"
-                            : "rounded-full border border-ink-100/15 px-4 py-1 text-[11px] tracking-[0.25em] text-ink-100/65 hover:border-nadi-gold/40 hover:text-nadi-glow disabled:opacity-40"
-                        }
-                      >
-                        {n.echoed ? "✦ 공명함" : echoLoading === n.id ? "…" : "공명하기"}
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <SightTrigger viewerId={userId} targetId={n.userId} size="xs" source="resonance" />
+                        <button
+                          onClick={() => echo(n.id)}
+                          disabled={
+                            !feed.canEcho || n.echoed || echoLoading === n.id
+                          }
+                          className={
+                            n.echoed
+                              ? "rounded-full border border-nadi-gold/60 bg-nadi-gold/15 px-4 py-1 text-[11px] tracking-[0.25em] text-nadi-glow"
+                              : "rounded-full border border-ink-100/15 px-4 py-1 text-[11px] tracking-[0.25em] text-ink-100/65 hover:border-nadi-gold/40 hover:text-nadi-glow disabled:opacity-40"
+                          }
+                        >
+                          {n.echoed ? "✦ 공명함" : echoLoading === n.id ? "…" : "공명하기"}
+                        </button>
+                      </div>
                     </div>
                   </motion.div>
                 );

@@ -43,6 +43,7 @@ export async function GET(req: NextRequest) {
       weekKey: wk,
       drops: drops.map((d) => ({
         id: d.id,
+        authorId: d.authorId,
         alias: d.alias,
         text: d.text,
         replyCount: d._count.replies,
@@ -57,6 +58,7 @@ export async function GET(req: NextRequest) {
             starredReplyId: myDrop.starredReplyId,
             replies: myDrop.replies.map((r) => ({
               id: r.id,
+              replierId: r.replierId,
               alias: r.alias,
               text: r.text,
               createdAt: r.createdAt,

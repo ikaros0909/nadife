@@ -11,3 +11,4 @@ dist
 .idea
 prisma/dev.db
 prisma/migrations/dev*
+*.tsbuildinfo

@@ -3,9 +3,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
+import { SightTrigger } from "@/components/SightTrigger";
 
 type Drop = {
   id: string;
+  authorId: string;
   alias: string;
   text: string;
   replyCount: number;
@@ -15,6 +17,7 @@ type Drop = {
 
 type Reply = {
   id: string;
+  replierId: string;
   alias: string;
   text: string;
   createdAt: string;
@@ -146,7 +149,7 @@ export function PostboxClient({ userId }: { userId: string }) {
         {!feed ? (
           <p className="text-sm text-ink-100/45">불러오는 중…</p>
         ) : feed.myDrop ? (
-          <MyDropPanel myDrop={feed.myDrop} onStar={star} />
+          <MyDropPanel myDrop={feed.myDrop} onStar={star} userId={userId} />
         ) : (
           <div className="rounded-3xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/10 to-nadi-rose/10 p-6">
             <p className="serif text-xs tracking-[0.4em] text-nadi-gold">이번 주의 한 줄</p>
@@ -198,6 +201,9 @@ export function PostboxClient({ userId }: { userId: string }) {
                   <p className="serif mt-2 text-base leading-relaxed text-nadi-glow">
                     “{d.text}”
                   </p>
+                  <div className="mt-3">
+                    <SightTrigger viewerId={userId} targetId={d.authorId} size="xs" source="postbox" />
+                  </div>
                   {d.iReplied ? (
                     <p className="mt-3 text-[10px] tracking-widest text-ink-100/45">
                       이미 답신을 보냈어요.
@@ -233,10 +239,12 @@ export function PostboxClient({ userId }: { userId: string }) {
 
 function MyDropPanel({
   myDrop,
-  onStar
+  onStar,
+  userId
 }: {
   myDrop: MyDrop;
   onStar: (replyId: string) => void;
+  userId: string;
 }) {
   return (
     <div className="rounded-3xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/5 to-nadi-deep/40 p-6">
@@ -278,6 +286,9 @@ function MyDropPanel({
                 <p className="serif mt-1 text-sm leading-relaxed text-nadi-glow">
                   “{r.text}”
                 </p>
+                <div className="mt-2">
+                  <SightTrigger viewerId={userId} targetId={r.replierId} size="xs" source="postbox" />
+                </div>
               </div>
             ))
           )}

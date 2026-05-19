@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       prisma.sightUse.findMany({
         where: { viewerId: userId },
         orderBy: { createdAt: "desc" },
-        take: 10,
+        take: 20,
         include: {
           target: {
             select: {
@@ -53,7 +53,9 @@ export async function GET(req: NextRequest) {
       recent: recentSights.map((s) => ({
         id: s.id,
         status: s.status,
+        source: s.source ?? null,
         createdAt: s.createdAt,
+        resolvedAt: s.resolvedAt,
         target: {
           id: s.target.id,
           worldType: s.target.personas[0]?.worldType ?? null,

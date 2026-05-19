@@ -32,6 +32,8 @@ export async function GET(req: NextRequest) {
             id: myMeeting.id,
             windowTime: myMeeting.windowTime,
             iAmAlice: myMeeting.aliceId === userId,
+            partnerId:
+              myMeeting.aliceId === userId ? myMeeting.bobId : myMeeting.aliceId,
             partnerAlias: myMeeting.aliceId === userId ? myMeeting.bobAlias : myMeeting.aliceAlias,
             myLine: myMeeting.aliceId === userId ? myMeeting.aliceLine : myMeeting.bobLine,
             partnerLine:

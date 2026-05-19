@@ -73,12 +73,14 @@ export async function POST(req: NextRequest) {
       me: { alias },
       presences: presences.map((p) => ({
         id: p.id,
+        userId: p.userId,
         alias: p.alias,
         isMe: p.userId === userId,
         joinedAt: p.joinedAt
       })),
       whispers: whispers.map((w) => ({
         id: w.id,
+        userId: w.userId,
         alias: w.alias,
         text: w.text,
         isMe: w.userId === userId,

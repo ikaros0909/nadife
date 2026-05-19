@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
+import { SightTrigger } from "@/components/SightTrigger";
 
 type Status = {
   windows: string[];
@@ -16,6 +17,7 @@ type Status = {
     id: string;
     windowTime: string;
     iAmAlice: boolean;
+    partnerId: string | null;
     partnerAlias: string;
     myLine: string | null;
     partnerLine: string | null;
@@ -116,6 +118,7 @@ export function CoincidenceClient({ userId }: { userId: string }) {
           {/* 오늘의 미팅이 이미 있으면 그것을 우선 표시 */}
           {status.myMeeting ? (
             <MeetingPanel
+              userId={userId}
               meeting={status.myMeeting}
               draft={draft}
               setDraft={setDraft}
@@ -205,6 +208,7 @@ function ClosedWindow({ status }: { status: Status }) {
 }
 
 function MeetingPanel({
+  userId,
   meeting,
   draft,
   setDraft,
@@ -212,6 +216,7 @@ function MeetingPanel({
   sending,
   err
 }: {
+  userId: string;
   meeting: NonNullable<Status["myMeeting"]>;
   draft: string;
   setDraft: (v: string) => void;
@@ -224,6 +229,17 @@ function MeetingPanel({
       <p className="serif text-[10px] tracking-[0.45em] text-nadi-gold">
         {meeting.windowTime} 우연 · 짝 — <span className="text-nadi-glow">{meeting.partnerAlias}</span>
       </p>
+
+      {meeting.partnerId && (
+        <div className="rounded-2xl border border-nadi-gold/25 bg-black/30 px-4 py-3">
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-[10px] tracking-widest text-ink-100/55">
+              이 우연의 짝은 누구일까?
+            </span>
+            <SightTrigger viewerId={userId} targetId={meeting.partnerId} source="coincidence" />
+          </div>
+        </div>
+      )}
 
       <AnimatePresence>
         {meeting.partnerLine && (

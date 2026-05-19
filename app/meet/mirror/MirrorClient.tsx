@@ -123,7 +123,7 @@ export function MirrorClient({ userId }: { userId: string }) {
       const r = await fetch("/api/sight/use", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ viewerId: userId, targetId: data.other.id })
+        body: JSON.stringify({ viewerId: userId, targetId: data.other.id, source: "mirror" })
       });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || "천리안을 펴지 못했어요.");

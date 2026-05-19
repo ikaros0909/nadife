@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       whisper: {
         id: whisper.id,
+        userId: whisper.userId,
         alias: whisper.alias,
         text: whisper.text,
         isMe: true,

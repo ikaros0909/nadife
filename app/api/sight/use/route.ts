@@ -3,14 +3,17 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { buildReveal, decideInitialStatus } from "@/lib/sight";
 
+const SOURCES = ["mirror", "campfire", "postbox", "resonance", "letter", "coincidence"] as const;
+
 const Body = z.object({
   viewerId: z.string(),
-  targetId: z.string()
+  targetId: z.string(),
+  source: z.enum(SOURCES).optional()
 });
 
 export async function POST(req: NextRequest) {
   try {
-    const { viewerId, targetId } = Body.parse(await req.json());
+    const { viewerId, targetId, source } = Body.parse(await req.json());
     if (viewerId === targetId) {
       return NextResponse.json(
         { error: "자기 자신에게는 천리안을 쓸 수 없어요." },
@@ -71,6 +74,7 @@ export async function POST(req: NextRequest) {
         viewerId,
         targetId,
         status,
+        source: source ?? null,
         resolvedAt: status === "PENDING" ? null : new Date()
       }
     });

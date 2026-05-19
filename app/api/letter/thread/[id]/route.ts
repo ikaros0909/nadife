@@ -34,12 +34,19 @@ export async function GET(
     const myTurn =
       thread.status === "ACTIVE" && thread.letterCount < 10 && (!last || last.senderId !== userId);
 
+    const partnerId =
+      thread.initiatorId === userId ? thread.receiverId : thread.initiatorId;
+    const partnerAlias =
+      thread.letters.find((l) => l.senderId !== userId)?.alias ?? null;
+
     return NextResponse.json({
       thread: {
         id: thread.id,
         status: thread.status,
         letterCount: thread.letterCount,
-        archivedAt: thread.archivedAt
+        archivedAt: thread.archivedAt,
+        partnerId,
+        partnerAlias
       },
       myTurn,
       letters: thread.letters.map((l) => ({

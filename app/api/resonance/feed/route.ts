@@ -67,6 +67,7 @@ export async function GET(req: NextRequest) {
       myEchoCount,
       notes: notes.map((n) => ({
         id: n.id,
+        userId: n.userId,
         text: n.text,
         alias: n.alias,
         worldType: n.worldType,

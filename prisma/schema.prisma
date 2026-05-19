@@ -83,6 +83,7 @@ model SightUse {
   viewerId   String
   targetId   String
   status     String    // PENDING | SUCCESS | FAILED
+  source     String?   // 어디서 사용했는가: mirror | campfire | postbox | resonance | letter | coincidence | null
   createdAt  DateTime  @default(now())
   resolvedAt DateTime?
 
