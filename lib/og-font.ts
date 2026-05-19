@@ -1,16 +1,17 @@
 // @vercel/og 가 윈도우에서 번들 폰트를 못 읽는 이슈 회피용.
-// Google Fonts에서 한국어 폰트를 받아 ArrayBuffer로 캐시한다.
+// Google Fonts에서 한국어 폰트의 *모든* unicode-range subset을 받아 satori에 주입한다.
+// 한 family/weight당 woff2 수십~수백개가 만들어지지만 모듈 레벨 캐시로 첫 요청 후엔 즉시 응답.
 
 type FontWeight = 400 | 500 | 700 | 900;
 
-const cache = new Map<string, ArrayBuffer>();
+const cache = new Map<string, ArrayBuffer[]>();
 
-async function fetchFromGoogleFonts(family: string, weight: FontWeight): Promise<ArrayBuffer> {
+async function fetchFontFiles(family: string, weight: FontWeight): Promise<ArrayBuffer[]> {
   const key = `${family}:${weight}`;
   const cached = cache.get(key);
   if (cached) return cached;
 
-  // User-Agent를 현대 브라우저로 보내면 woff2가 내려옴(satori가 처리 가능).
+  // User-Agent를 모던 브라우저로 보내야 Google Fonts가 woff2 + unicode-range를 내려줌
   const cssRes = await fetch(
     `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@${weight}&display=swap`,
     {
@@ -24,28 +25,44 @@ async function fetchFromGoogleFonts(family: string, weight: FontWeight): Promise
   if (!cssRes.ok) throw new Error(`Google Fonts CSS failed: ${cssRes.status}`);
   const css = await cssRes.text();
 
-  // 가장 첫 번째 url(...)을 잡는다.
-  const match = css.match(/src:\s*url\((https?:\/\/[^)]+)\)\s*format\(['"]?(woff2|woff|truetype)['"]?\)/);
-  if (!match) throw new Error("Could not parse font URL from Google Fonts CSS");
+  // 모든 src url(...) 추출 — 한국어 폰트는 수십개 subset이 옴
+  const urls = [...css.matchAll(/src:\s*url\((https?:\/\/[^)]+)\)/g)].map((m) => m[1]);
+  if (urls.length === 0) {
+    throw new Error(`Could not parse font URLs from Google Fonts CSS for ${family}:${weight}`);
+  }
 
-  const fontRes = await fetch(match[1], { cache: "force-cache" });
-  if (!fontRes.ok) throw new Error(`Font binary fetch failed: ${fontRes.status}`);
-  const buf = await fontRes.arrayBuffer();
-  cache.set(key, buf);
-  return buf;
+  const buffers = await Promise.all(
+    urls.map(async (u) => {
+      const r = await fetch(u, { cache: "force-cache" });
+      if (!r.ok) throw new Error(`Font binary fetch failed: ${r.status} ${u}`);
+      return r.arrayBuffer();
+    })
+  );
+
+  cache.set(key, buffers);
+  return buffers;
 }
 
-export type OgFont = { name: string; data: ArrayBuffer; weight: FontWeight; style: "normal" };
+export type OgFont = {
+  name: string;
+  data: ArrayBuffer;
+  weight: FontWeight;
+  style: "normal";
+};
 
+/**
+ * satori에 넘길 폰트 배열을 만든다. 같은 name으로 여러 buffer를 등록하면
+ * satori가 글리프별로 적절한 subset을 골라 사용한다 — 한글/라틴/기호 누락 zero.
+ */
 export async function loadOgFonts(): Promise<OgFont[]> {
   const [sans400, sans700, serif700] = await Promise.all([
-    fetchFromGoogleFonts("Noto Sans KR", 400),
-    fetchFromGoogleFonts("Noto Sans KR", 700),
-    fetchFromGoogleFonts("Noto Serif KR", 700)
+    fetchFontFiles("Noto Sans KR", 400),
+    fetchFontFiles("Noto Sans KR", 700),
+    fetchFontFiles("Noto Serif KR", 700)
   ]);
-  return [
-    { name: "NotoKR", data: sans400, weight: 400, style: "normal" },
-    { name: "NotoKR", data: sans700, weight: 700, style: "normal" },
-    { name: "NotoSerifKR", data: serif700, weight: 700, style: "normal" }
-  ];
+  const fonts: OgFont[] = [];
+  for (const buf of sans400) fonts.push({ name: "NotoKR", data: buf, weight: 400, style: "normal" });
+  for (const buf of sans700) fonts.push({ name: "NotoKR", data: buf, weight: 700, style: "normal" });
+  for (const buf of serif700) fonts.push({ name: "NotoSerifKR", data: buf, weight: 700, style: "normal" });
+  return fonts;
 }
