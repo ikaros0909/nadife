@@ -42,7 +42,7 @@ export async function generateMetadata({
   ];
   const stats = buildJourneyStats(points);
   const title = `${stats.daysSinceStart}일, ${stats.uniqueWorlds}개의 세계 — NADIFE`;
-  const description = "AI가 그린 나의 페르소나 궤적. 당신은 어떤 세계들을 거쳐왔나요?";
+  const description = `${stats.daysSinceStart}일 동안 거쳐온 ${stats.uniqueWorlds}개의 디지털 세계. NADIFE는 디지털 흔적을 읽는 AI 관상가 — 매일 다른 나의 페르소나를 발견하세요.`;
   const og = `${BASE}/api/og/journey/${userId}`;
   return {
     title,
@@ -50,8 +50,10 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      images: [{ url: og, width: 1200, height: 1200 }],
-      type: "article"
+      siteName: "NADIFE",
+      images: [{ url: og, width: 1200, height: 1200, alt: title }],
+      type: "article",
+      locale: "ko_KR"
     },
     twitter: {
       card: "summary_large_image",
