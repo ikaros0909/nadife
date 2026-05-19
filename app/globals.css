@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-serif: "Noto Serif KR", "Nanum Myeongjo", ui-serif, serif;
+  --font-sans: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", ui-sans-serif, system-ui;
+}
+
+html, body {
+  background: #0b0e1a;
+  color: #f5e6c8;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 별 입자 */
+.stars::before, .stars::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(245,230,200,0.6) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 30%, rgba(245,230,200,0.5) 0 1px, transparent 2px),
+    radial-gradient(circle at 33% 62%, rgba(245,230,200,0.5) 0 1px, transparent 2px),
+    radial-gradient(circle at 88% 76%, rgba(245,230,200,0.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 45% 88%, rgba(245,230,200,0.5) 0 1px, transparent 2px),
+    radial-gradient(circle at 22% 44%, rgba(245,230,200,0.4) 0 1px, transparent 2px),
+    radial-gradient(circle at 60% 12%, rgba(245,230,200,0.55) 0 1px, transparent 2px);
+  z-index: 0;
+  opacity: 0.5;
+}
+.stars::after {
+  background-image:
+    radial-gradient(circle at 8% 70%, rgba(245,230,200,0.35) 0 1px, transparent 2px),
+    radial-gradient(circle at 92% 8%, rgba(245,230,200,0.4) 0 1px, transparent 2px),
+    radial-gradient(circle at 55% 50%, rgba(245,230,200,0.3) 0 1px, transparent 2px);
+  animation: starshift 12s ease-in-out infinite alternate;
+}
+@keyframes starshift {
+  from { transform: translateY(0); opacity: 0.4; }
+  to   { transform: translateY(-12px); opacity: 0.65; }
+}
+
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 111, 0.4) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
+}
+
+.glass {
+  background: rgba(245, 230, 200, 0.04);
+  border: 1px solid rgba(212, 175, 111, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.serif { font-family: var(--font-serif); }
+
+/* 스크롤바 톤 */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0b0e1a; }
+::-webkit-scrollbar-thumb { background: #2a2438; border-radius: 4px; }

@@ -1,0 +1,357 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  nickname  String?
+  birthYear Int?
+  interests String[] // 관심사 키워드
+  platforms String[] // 연동 플랫폼 (Spotify, GitHub 등)
+  activeHours String? // "23-03" 같은 활동 시간대
+  vibe      String?  // 자유 입력 한 줄
+  isAI      Boolean  @default(false) // 시드용 AI 페르소나 여부
+  createdAt DateTime @default(now())
+
+  // 천리안 잠금 해제용 필드 (사용자가 직접 채움)
+  gender     String?
+  country    String?
+  occupation String?
+  region     String?
+
+  // 천리안 잔량
+  sightBalance Int @default(0)
+
+  @@index([isAI, createdAt])
+
+  personas  Persona[]
+  daily     DailyPersona[]
+
+  // 만남
+  campfirePresence CampfirePresence[]
+  campfireWhisper  CampfireWhisper[]
+  mirrorAsViewer   MirrorEncounter[] @relation("MirrorViewer")
+  mirrorAsTarget   MirrorEncounter[] @relation("MirrorTarget")
+  resonanceNotes   ResonanceNote[]
+  resonanceEchoes  ResonanceEcho[]
+
+  // 천리안
+  sightGrants    SightGrant[]
+  sightAsViewer  SightUse[]  @relation("SightViewer")
+  sightAsTarget  SightUse[]  @relation("SightTarget")
+
+  // 편지함
+  letterThreadsInitiated LetterThread[] @relation("LetterInitiator")
+  letterThreadsReceived  LetterThread[] @relation("LetterReceiver")
+  letters                Letter[]
+
+  // 우연
+  coincidenceAsAlice CoincidenceMeeting[] @relation("CoincidenceAlice")
+  coincidenceAsBob   CoincidenceMeeting[] @relation("CoincidenceBob")
+
+  // 듀엣
+  duetAsAuthorA DuetBook[] @relation("DuetAuthorA")
+  duetAsAuthorB DuetBook[] @relation("DuetAuthorB")
+  duetLines     DuetLine[]
+
+  // 공중 한 줄
+  postboxes      Postbox[]
+  postboxReplies PostboxReply[]
+}
+
+// 천리안 발급 기록 — (userId, date) 유니크로 하루 1개 발급 보장
+model SightGrant {
+  id        String   @id @default(cuid())
+  userId    String
+  date      String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+}
+
+// 천리안 사용 — 한 번에 한 명을 들여다본다
+model SightUse {
+  id         String    @id @default(cuid())
+  viewerId   String
+  targetId   String
+  status     String    // PENDING | SUCCESS | FAILED
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+
+  viewer User @relation("SightViewer", fields: [viewerId], references: [id], onDelete: Cascade)
+  target User @relation("SightTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@index([viewerId, createdAt])
+  @@index([targetId, status])
+}
+
+// ============== A. 편지함 (Slow Letters) ==============
+// 두 사람 간 최대 5왕복의 익명 펜팔
+model LetterThread {
+  id               String    @id @default(cuid())
+  initiatorId      String
+  receiverId       String
+  status           String    @default("ACTIVE") // ACTIVE | ARCHIVED | DROPPED
+  letterCount      Int       @default(0)
+  createdAt        DateTime  @default(now())
+  lastLetterAt     DateTime?
+  archivedAt       DateTime?
+  aiReplyClaimedAt DateTime? // AI 답장 생성 중 락. null이면 다른 워커가 잡을 수 있음
+
+  letters   Letter[]
+  initiator User @relation("LetterInitiator", fields: [initiatorId], references: [id], onDelete: Cascade)
+  receiver  User @relation("LetterReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@index([initiatorId])
+  @@index([receiverId])
+  @@index([status, lastLetterAt])
+}
+
+model Letter {
+  id        String    @id @default(cuid())
+  threadId  String
+  senderId  String
+  alias     String
+  text      String
+  isAI      Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  readAt    DateTime?
+
+  thread LetterThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  sender User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([threadId, createdAt])
+}
+
+// ============== B. 우연의 시간 (Coincidence) ==============
+// 매일 정해진 시각, 1분 동안만 열리는 임시 페어링
+model CoincidenceMeeting {
+  id         String    @id @default(cuid())
+  date       String    // YYYY-MM-DD
+  windowTime String    // "23:33"
+  aliceId    String
+  bobId      String?   // 페어 대기 중에는 null
+  aliceAlias String
+  bobAlias   String?
+  aliceLine  String?
+  bobLine    String?
+  aliceAt    DateTime?
+  bobAt      DateTime?
+  createdAt  DateTime  @default(now())
+  sealedAt   DateTime?
+
+  alice User  @relation("CoincidenceAlice", fields: [aliceId], references: [id], onDelete: Cascade)
+  bob   User? @relation("CoincidenceBob",   fields: [bobId],   references: [id], onDelete: Cascade)
+
+  @@unique([date, windowTime, aliceId])
+  @@unique([date, windowTime, bobId])
+  @@index([aliceId])
+  @@index([bobId])
+}
+
+// ============== C. 미러 듀엣 (Duet Book) ==============
+// 천리안이 서로 닿은 두 사람의 5장 시제 공동 책
+model DuetBook {
+  id          String    @id @default(cuid())
+  authorAId   String
+  authorBId   String
+  themes      String[]  // 5 시제(theme)
+  status      String    @default("OPEN") // OPEN | COMPLETE
+  createdAt   DateTime  @default(now())
+  completedAt DateTime?
+
+  lines   DuetLine[]
+  authorA User       @relation("DuetAuthorA", fields: [authorAId], references: [id], onDelete: Cascade)
+  authorB User       @relation("DuetAuthorB", fields: [authorBId], references: [id], onDelete: Cascade)
+
+  @@unique([authorAId, authorBId])
+  @@index([authorAId])
+  @@index([authorBId])
+}
+
+model DuetLine {
+  id        String   @id @default(cuid())
+  bookId    String
+  authorId  String
+  themeIdx  Int
+  text      String
+  alias     String
+  createdAt DateTime @default(now())
+
+  book   DuetBook @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  author User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@unique([bookId, authorId, themeIdx])
+  @@index([bookId])
+}
+
+// ============== D. 공중 한 줄 (Secret Postbox) ==============
+// 일주일에 한 번 띄우는 한 줄, 익명 답신을 받고 그 중 하나에만 별표
+model Postbox {
+  id             String   @id @default(cuid())
+  authorId       String
+  weekKey        String   // "2026-W21"
+  text           String
+  alias          String
+  starredReplyId String?  @unique
+  createdAt      DateTime @default(now())
+
+  replies PostboxReply[]
+  author  User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@unique([authorId, weekKey])
+  @@index([weekKey, createdAt])
+}
+
+model PostboxReply {
+  id        String   @id @default(cuid())
+  postboxId String
+  replierId String
+  text      String
+  alias     String
+  createdAt DateTime @default(now())
+
+  postbox Postbox @relation(fields: [postboxId], references: [id], onDelete: Cascade)
+  replier User    @relation(fields: [replierId], references: [id], onDelete: Cascade)
+
+  @@unique([postboxId, replierId])
+  @@index([postboxId, createdAt])
+}
+
+model Persona {
+  id          String   @id @default(cuid())
+  userId      String
+  kind        String   // MAIN | SUB | SHADOW
+  worldType   String   // 16 WORLD TYPES 중 하나 (slug)
+  title       String   // ex) "심해형 인간"
+  oneLiner    String
+  rhythm      String   // 사회적 리듬
+  speed       String   // 관계 속도
+  emotion     String   // 감정 표현
+  recovery    String   // 회복 방식
+  energy      String   // 사회적 에너지
+  narrative   String   // AI가 쓴 짧은 산문
+  axisX       Float    // -1.0 ~ 1.0  안정·느림 ↔ 변화·속도
+  axisY       Float    // -1.0 ~ 1.0  혼자몰입 ↔ 사람중심
+  revealed    Boolean  @default(false) // SUB의 경우 reveal 의식 완료 여부
+  revealAt    DateTime?
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model DailyPersona {
+  id        String   @id @default(cuid())
+  userId    String
+  date      String   // YYYY-MM-DD
+  mood      String   // 사용자 선택 한 단어
+  worldType String
+  title     String
+  oneLiner  String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@index([userId])
+}
+
+// 1. 세계 모닥불 — 같은 WORLD TYPE 24h 익명 방
+model Campfire {
+  id        String   @id @default(cuid())
+  worldType String
+  date      String   // YYYY-MM-DD
+  createdAt DateTime @default(now())
+
+  presences CampfirePresence[]
+  whispers  CampfireWhisper[]
+
+  @@unique([worldType, date])
+  @@index([date])
+}
+
+model CampfirePresence {
+  id         String   @id @default(cuid())
+  campfireId String
+  userId     String
+  alias      String
+  joinedAt   DateTime @default(now())
+
+  campfire Campfire @relation(fields: [campfireId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([campfireId, userId])
+  @@index([campfireId])
+}
+
+model CampfireWhisper {
+  id         String   @id @default(cuid())
+  campfireId String
+  userId     String
+  alias      String
+  text       String
+  createdAt  DateTime @default(now())
+
+  campfire Campfire @relation(fields: [campfireId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([campfireId])
+}
+
+// 2. 페르소나 미러 — 하루 한 명, 반대편 세계 사람
+model MirrorEncounter {
+  id          String   @id @default(cuid())
+  userId      String   // 보는 사람
+  otherUserId String   // 보여지는 사람
+  date        String
+  signal      String?  // null | "curious" | "echo" | "song"
+  signalAt    DateTime?
+  createdAt   DateTime @default(now())
+
+  user      User @relation("MirrorViewer", fields: [userId], references: [id], onDelete: Cascade)
+  otherUser User @relation("MirrorTarget", fields: [otherUserId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@index([userId])
+}
+
+// 3. 오늘 합주 — 같은 컨디션 사람들의 한 줄
+model ResonanceNote {
+  id        String   @id @default(cuid())
+  userId    String
+  date      String
+  mood      String
+  worldType String
+  text      String
+  alias     String
+  createdAt DateTime @default(now())
+
+  echoes ResonanceEcho[]
+  user   User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@index([date])
+}
+
+model ResonanceEcho {
+  id        String   @id @default(cuid())
+  noteId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  note ResonanceNote @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([noteId, userId])
+  @@index([userId])
+}
