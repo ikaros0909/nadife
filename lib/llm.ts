@@ -28,7 +28,7 @@ export type LlmRequest = {
   messages: LlmMessage[];
   temperature?: number;
   maxTokens?: number;
-  /** 구조화된 JSON 출력을 요청. local 모델은 system_prompt에 스키마가 주입되고 후처리로 파싱한다. */
+  /** 구조화된 JSON 출력을 요청. local 모델은 system_prompt에 자연어 가이드가 주입되고 후처리로 파싱한다. */
   jsonSchema?: LlmJsonSchema;
   /** 강제 모델명 — 미지정 시 provider 기본값 */
   model?: string;
@@ -86,6 +86,9 @@ async function openaiComplete(req: LlmRequest): Promise<string> {
 
 // ────────────────── Local (stream-it) ──────────────────
 
+const MAX_LOCAL_RETRIES = 1;
+const RETRY_DELAY_MS = 800;
+
 async function localComplete(req: LlmRequest): Promise<string> {
   const url = process.env.LOCAL_LLM_URL;
   if (!url) throw new Error("LOCAL_LLM_URL not set");
@@ -95,7 +98,7 @@ async function localComplete(req: LlmRequest): Promise<string> {
   const model = req.model || process.env.LOCAL_LLM_MODEL || "exaone3.5:32b";
   const timeoutMs = Number(process.env.LOCAL_LLM_TIMEOUT_MS ?? "60000");
 
-  // 1) system_prompt 빌드 — 모든 system 메시지 합치고, JSON 스키마 강제 지시 부가
+  // 1) system_prompt 빌드 — 모든 system 메시지 합치고, JSON 가이드 부가
   const sysMessages = req.messages.filter((m) => m.role === "system");
   let systemPrompt = sysMessages.map((m) => m.content).join("\n\n");
 
@@ -103,14 +106,12 @@ async function localComplete(req: LlmRequest): Promise<string> {
     systemPrompt += `
 
 [출력 형식 — 매우 중요]
-응답은 반드시 다음 JSON 스키마에 정확히 맞는 JSON 객체 하나여야 한다. 주석·설명·마크다운 코드펜스 금지. 키 이름과 enum 값을 정확히 그대로 사용.
+답은 반드시 아래 JSON 형식으로만 작성한다. 마크다운 코드펜스(\`\`\`)·주석·설명 일체 금지. 키 이름은 정확히 그대로.
 
-스키마:
-${JSON.stringify(req.jsonSchema.schema, null, 2)}`;
+${buildJsonGuide(req.jsonSchema.schema)}`;
   }
 
   // 2) user/assistant 메시지를 단일 message 필드로 직렬화
-  //    대부분 한 턴이지만 멀티턴이면 역할 라벨을 명시
   const turns = req.messages.filter((m) => m.role !== "system");
   const message =
     turns.length === 1 && turns[0].role === "user"
@@ -123,37 +124,58 @@ ${JSON.stringify(req.jsonSchema.schema, null, 2)}`;
   if (apiKey) headers["X-API-Key"] = apiKey;
   if (secretKey) headers["X-Secret-Key"] = secretKey;
 
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), timeoutMs);
+  const body = JSON.stringify({
+    message,
+    system_prompt: systemPrompt || undefined,
+    model,
+    temperature: req.temperature ?? 0.5
+  });
 
-  let res: Response;
-  try {
-    res = await fetch(url, {
-      method: "POST",
-      headers,
-      signal: ctrl.signal,
-      body: JSON.stringify({
-        message,
-        system_prompt: systemPrompt || undefined,
-        model,
-        temperature: req.temperature ?? 0.5
-      })
-    });
-  } finally {
+  // 5xx 발생 시 1회 재시도
+  for (let attempt = 0; attempt <= MAX_LOCAL_RETRIES; attempt++) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), timeoutMs);
+
+    let res: Response;
+    try {
+      res = await fetch(url, { method: "POST", headers, signal: ctrl.signal, body });
+    } catch (err) {
+      clearTimeout(t);
+      // network/timeout — 마지막 시도면 throw, 아니면 재시도
+      if (attempt < MAX_LOCAL_RETRIES) {
+        console.warn(`[local-llm] network error, retrying (${attempt + 1}/${MAX_LOCAL_RETRIES})`, err);
+        await sleep(RETRY_DELAY_MS);
+        continue;
+      }
+      throw err;
+    }
     clearTimeout(t);
+
+    if (res.ok) {
+      return await parseLocalResponse(res, model);
+    }
+
+    // 5xx면 재시도, 4xx면 즉시 throw
+    const bodyText = await res.text().catch(() => "");
+    if (res.status >= 500 && res.status < 600 && attempt < MAX_LOCAL_RETRIES) {
+      console.warn(
+        `[local-llm] ${res.status}: ${bodyText.slice(0, 100)} — retrying (${attempt + 1}/${MAX_LOCAL_RETRIES})`
+      );
+      await sleep(RETRY_DELAY_MS);
+      continue;
+    }
+    throw new Error(`local LLM ${res.status}: ${bodyText.slice(0, 200)}`);
   }
 
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`local LLM ${res.status}: ${body.slice(0, 200)}`);
-  }
+  throw new Error("local LLM: 재시도 모두 실패");
+}
 
+async function parseLocalResponse(res: Response, model: string): Promise<string> {
   const json = (await res.json()) as Record<string, unknown>;
 
   // stream-it 응답 계약: { answer, model, usage: { input_tokens, output_tokens, total_tokens } }
   const answer = typeof json.answer === "string" ? json.answer : null;
 
-  // 토큰 사용량 로깅 — 비용/성능 가시화
   const usage = json.usage as
     | { input_tokens?: number; output_tokens?: number; total_tokens?: number }
     | undefined;
@@ -171,9 +193,56 @@ ${JSON.stringify(req.jsonSchema.schema, null, 2)}`;
     if (typeof v === "string" && v.trim()) return v;
   }
 
-  throw new Error(
-    `local LLM: 응답에 answer가 없어요. keys=${Object.keys(json).join(",")}`
-  );
+  throw new Error(`local LLM: 응답에 answer가 없어요. keys=${Object.keys(json).join(",")}`);
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+// ────────────────── 로컬 모델용 JSON 가이드 빌더 ──────────────────
+
+type SchemaProp = {
+  type?: string;
+  enum?: unknown[];
+  description?: string;
+  items?: SchemaProp;
+};
+
+/**
+ * JSON 스키마를 로컬 LLM이 따르기 쉬운 "예시 형태"로 변환한다.
+ * 스키마 raw dump (additionalProperties: false 등)는 모델이 헷갈려해서 500 유발할 수 있음.
+ */
+function buildJsonGuide(schema: Record<string, unknown>): string {
+  const props = schema.properties as Record<string, SchemaProp> | undefined;
+  if (!props || typeof props !== "object") {
+    return JSON.stringify(schema, null, 2);
+  }
+
+  const lines: string[] = ["{"];
+  const entries = Object.entries(props);
+  for (let i = 0; i < entries.length; i++) {
+    const [key, prop] = entries[i];
+    const comma = i < entries.length - 1 ? "," : "";
+    let valueHint = '"<문자열>"';
+
+    if (Array.isArray(prop.enum) && prop.enum.length > 0) {
+      const enumList = prop.enum.slice(0, 50).join(" | ");
+      valueHint = `"<반드시 다음 중 하나: ${enumList}>"`;
+    } else if (prop.type === "number" || prop.type === "integer") {
+      valueHint = "<숫자>";
+    } else if (prop.type === "boolean") {
+      valueHint = "<true 또는 false>";
+    } else if (prop.type === "array") {
+      valueHint = "[<문자열>, ...]";
+    } else if (prop.description) {
+      valueHint = `"<${prop.description}>"`;
+    }
+
+    lines.push(`  "${key}": ${valueHint}${comma}`);
+  }
+  lines.push("}");
+  return lines.join("\n");
 }
 
 // ────────────────── JSON 추출 헬퍼 ──────────────────
