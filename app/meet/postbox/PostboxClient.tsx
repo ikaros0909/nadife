@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
 import { SightTrigger } from "@/components/SightTrigger";
+import { AiPolishButton } from "@/components/AiPolishButton";
 
 type Drop = {
   id: string;
@@ -160,6 +161,13 @@ export function PostboxClient({ userId }: { userId: string }) {
               rows={3}
               className="mt-3 w-full resize-none rounded-xl border border-nadi-gold/20 bg-transparent px-4 py-3 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
             />
+            <div className="mt-3">
+              <AiPolishButton
+                kind="postbox-drop"
+                current={draft}
+                onPolished={(t) => setDraft(t.slice(0, 200))}
+              />
+            </div>
             <div className="mt-3 flex items-center justify-between">
               <span className="text-[10px] tracking-widest text-ink-100/40">
                 {draft.length}/200 · 일주일에 1회
@@ -209,22 +217,33 @@ export function PostboxClient({ userId }: { userId: string }) {
                       이미 답신을 보냈어요.
                     </p>
                   ) : (
-                    <div className="mt-3 flex gap-2">
-                      <input
-                        value={replyDraft[d.id] ?? ""}
-                        onChange={(e) =>
-                          setReplyDraft({ ...replyDraft, [d.id]: e.target.value.slice(0, 200) })
+                    <div className="mt-3 space-y-2">
+                      <div className="flex gap-2">
+                        <input
+                          value={replyDraft[d.id] ?? ""}
+                          onChange={(e) =>
+                            setReplyDraft({ ...replyDraft, [d.id]: e.target.value.slice(0, 200) })
+                          }
+                          placeholder="익명 답신 한 줄"
+                          className="flex-1 rounded-xl border border-ink-100/15 bg-transparent px-3 py-2 text-xs text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+                        />
+                        <button
+                          onClick={() => reply(d.id)}
+                          disabled={replying === d.id || (replyDraft[d.id] ?? "").length < 2}
+                          className="rounded-xl border border-nadi-gold/40 bg-nadi-gold/10 px-3 text-[11px] tracking-widest text-nadi-glow hover:bg-nadi-gold/20 disabled:opacity-50"
+                        >
+                          {replying === d.id ? "…" : "답신"}
+                        </button>
+                      </div>
+                      <AiPolishButton
+                        kind="postbox-reply"
+                        current={replyDraft[d.id] ?? ""}
+                        onPolished={(t) =>
+                          setReplyDraft({ ...replyDraft, [d.id]: t.slice(0, 200) })
                         }
-                        placeholder="익명 답신 한 줄"
-                        className="flex-1 rounded-xl border border-ink-100/15 bg-transparent px-3 py-2 text-xs text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+                        context={d.text}
+                        size="sm"
                       />
-                      <button
-                        onClick={() => reply(d.id)}
-                        disabled={replying === d.id || (replyDraft[d.id] ?? "").length < 2}
-                        className="rounded-xl border border-nadi-gold/40 bg-nadi-gold/10 px-3 text-[11px] tracking-widest text-nadi-glow hover:bg-nadi-gold/20 disabled:opacity-50"
-                      >
-                        {replying === d.id ? "…" : "답신"}
-                      </button>
                     </div>
                   )}
                 </motion.div>

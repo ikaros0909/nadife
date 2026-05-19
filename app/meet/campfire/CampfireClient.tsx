@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
 import { SightTrigger } from "@/components/SightTrigger";
+import { AiPolishButton } from "@/components/AiPolishButton";
 import { getWorldType } from "@/lib/world-map";
 
 type Presence = { id: string; userId: string; alias: string; isMe: boolean; joinedAt: string };
@@ -203,6 +204,13 @@ export function CampfireClient({ userId }: { userId: string }) {
               rows={2}
               className="w-full resize-none bg-transparent px-2 py-1 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none"
             />
+            <div className="mt-2 px-1">
+              <AiPolishButton
+                kind="campfire-whisper"
+                current={draft}
+                onPolished={(t) => setDraft(t.slice(0, 140))}
+              />
+            </div>
             <div className="mt-2 flex items-center justify-between">
               <span className="text-[10px] tracking-widest text-ink-100/40">
                 {draft.length}/140

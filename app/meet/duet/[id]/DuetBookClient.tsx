@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
+import { AiPolishButton } from "@/components/AiPolishButton";
 
 type Line = {
   id: string;
@@ -144,6 +145,17 @@ export function DuetBookClient({ userId, bookId }: { userId: string; bookId: str
                       rows={3}
                       className="w-full resize-none bg-transparent text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none"
                     />
+                    <div className="mt-2">
+                      <AiPolishButton
+                        kind="duet-line"
+                        current={drafts[idx] ?? ""}
+                        onPolished={(t) =>
+                          setDrafts({ ...drafts, [idx]: t.slice(0, 200) })
+                        }
+                        context={`시제(時題): ${theme}${slot.theirs ? `\n상대의 한 줄: ${slot.theirs.text}` : ""}`}
+                        size="sm"
+                      />
+                    </div>
                     <div className="mt-2 flex items-center justify-between">
                       <span className="text-[10px] tracking-widest text-ink-100/40">
                         {(drafts[idx] ?? "").length}/200

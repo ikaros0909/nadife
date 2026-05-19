@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PersonalNav } from "@/components/PersonalNav";
 import { SightTrigger } from "@/components/SightTrigger";
+import { AiPolishButton } from "@/components/AiPolishButton";
 
 type Status = {
   windows: string[];
@@ -282,6 +283,14 @@ function MeetingPanel({
               rows={3}
               className="mt-3 w-full resize-none rounded-xl border border-nadi-gold/20 bg-transparent px-4 py-3 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
             />
+            <div className="mt-3">
+              <AiPolishButton
+                kind="coincidence-line"
+                current={draft}
+                onPolished={(t) => setDraft(t.slice(0, 200))}
+                context={meeting.partnerLine ?? null}
+              />
+            </div>
             <div className="mt-3 flex items-center justify-between">
               <span className="text-[10px] tracking-widest text-ink-100/40">
                 {draft.length}/200

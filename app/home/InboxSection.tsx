@@ -13,6 +13,7 @@ type InboxData = {
     resonance: number;
     postboxReplies: number;
     postboxStarred: number;
+    connectProposals?: number;
     total: number;
   };
   counts: { home: number; meet: number; total: number };
@@ -222,6 +223,19 @@ function buildItems(d: InboxData, userId: string): Item[] {
       title: "이번 주, 누군가 당신의 답신에 별표했어요",
       count: 1,
       href: `/meet/postbox?u=${userId}`,
+      tone: TONE_ROSE
+    });
+  }
+
+  // 연결 제안 도착 — 매우 중요한 신호. 우선순위 높임
+  if ((d.meet.connectProposals ?? 0) > 0) {
+    out.push({
+      key: "connect-proposal",
+      label: "✦ 연결 제안",
+      title: `${d.meet.connectProposals}명이 당신과의 정식 연결을 청해왔어요`,
+      subtitle: "충분히 검토한 뒤에 결정하세요",
+      count: d.meet.connectProposals ?? 0,
+      href: `/meet/connect?u=${userId}`,
       tone: TONE_ROSE
     });
   }

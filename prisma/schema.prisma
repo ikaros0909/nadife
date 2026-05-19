@@ -46,6 +46,10 @@ model User {
   sightAsViewer  SightUse[]  @relation("SightViewer")
   sightAsTarget  SightUse[]  @relation("SightTarget")
 
+  // 연결 (인연이 깊어진 사람)
+  connectionsA Connection[] @relation("ConnectionA")
+  connectionsB Connection[] @relation("ConnectionB")
+
   // 편지함
   letterThreadsInitiated LetterThread[] @relation("LetterInitiator")
   letterThreadsReceived  LetterThread[] @relation("LetterReceiver")
@@ -225,6 +229,43 @@ model PostboxReply {
 
   @@unique([postboxId, replierId])
   @@index([postboxId, createdAt])
+}
+
+// ============== 연결 (Connection) — 인연이 깊어진 사람과의 정식 매칭 ==============
+// userAId < userBId 로 canonical 저장. 양측 모두 명시적 동의 필요.
+//
+// status 흐름:
+//   READY       — 임계점 도달, 아직 누구도 제안 안 함 (실제로는 record가 없을 수 있음)
+//   PROPOSED_A  — A가 제안 (proposerId = userAId)
+//   PROPOSED_B  — B가 제안 (proposerId = userBId)
+//   CONNECTED   — 양측 동의 완료
+//   DECLINED    — 거절됨 (재제안 가능, 단 알림 없음)
+//   DISCONNECTED — 연결됐다가 해제됨
+//   BLOCKED     — 차단 (영구. 모든 후속 인터랙션 차단)
+model Connection {
+  id               String    @id @default(cuid())
+  userAId          String    // canonical: userAId < userBId
+  userBId          String
+  status           String    @default("PROPOSED_A") // PROPOSED_A | PROPOSED_B | CONNECTED | DECLINED | DISCONNECTED | BLOCKED
+  proposerId       String?   // 마지막 제안자
+  proposedAt       DateTime?
+  acceptedAt       DateTime?
+  declinedAt       DateTime?
+  declinedById     String?
+  disconnectedAt   DateTime?
+  disconnectedById String?
+  blockedAt        DateTime?
+  blockedById      String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  userA User @relation("ConnectionA", fields: [userAId], references: [id], onDelete: Cascade)
+  userB User @relation("ConnectionB", fields: [userBId], references: [id], onDelete: Cascade)
+
+  @@unique([userAId, userBId])
+  @@index([userAId])
+  @@index([userBId])
+  @@index([status])
 }
 
 model Persona {

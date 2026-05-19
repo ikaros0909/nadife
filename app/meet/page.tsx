@@ -24,7 +24,7 @@ export default async function MeetHub({
 
   const date = todayKey();
 
-  const [main, daily, mirror, myNote, letterInboxCount, openDuetCount] = await Promise.all([
+  const [main, daily, mirror, myNote, letterInboxCount, openDuetCount, connectProposalsToMe, connectedCount] = await Promise.all([
     prisma.persona.findFirst({
       where: { userId, kind: "MAIN" },
       orderBy: { createdAt: "desc" }
@@ -42,6 +42,19 @@ export default async function MeetHub({
       where: {
         status: "OPEN",
         OR: [{ authorAId: userId }, { authorBId: userId }]
+      }
+    }),
+    prisma.connection.count({
+      where: {
+        status: { in: ["PROPOSED_A", "PROPOSED_B"] },
+        proposerId: { not: userId },
+        OR: [{ userAId: userId }, { userBId: userId }]
+      }
+    }),
+    prisma.connection.count({
+      where: {
+        status: "CONNECTED",
+        OR: [{ userAId: userId }, { userBId: userId }]
       }
     })
   ]);
@@ -301,6 +314,50 @@ export default async function MeetHub({
           </p>
           <p className="mt-5 text-[10px] tracking-widest text-nadi-rose group-hover:text-nadi-glow">
             공중 한 줄 →
+          </p>
+        </Link>
+
+        {/* ─── 분류 3. 인연이 깊어진 사람과의 연결 ─── */}
+        <p className="serif mt-8 text-[10px] tracking-[0.45em] text-nadi-gold/70">
+          이어지는 인연
+        </p>
+
+        {/* 8. 연결 */}
+        <Link
+          href={`/meet/connect?u=${userId}`}
+          className="group block overflow-hidden rounded-3xl border border-nadi-gold/40 p-7 transition hover:-translate-y-0.5"
+          style={{
+            background:
+              "radial-gradient(circle at 100% 50%, rgba(212,175,111,0.22), transparent 55%), radial-gradient(circle at 0% 100%, rgba(196,123,138,0.18), transparent 55%), rgba(11,14,26,0.6)"
+          }}
+        >
+          <div className="flex items-center justify-between">
+            <span className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+              CONNECT · 연결
+            </span>
+            <span className="flex items-center gap-2">
+              {connectProposalsToMe > 0 && (
+                <span className="rounded-full bg-nadi-rose px-2 py-0.5 text-[10px] font-bold text-white">
+                  제안 {connectProposalsToMe}
+                </span>
+              )}
+              {connectedCount > 0 && (
+                <span className="rounded-full border border-nadi-gold/40 bg-nadi-gold/10 px-3 py-1 text-[10px] tracking-[0.3em] text-nadi-glow">
+                  연결 {connectedCount}
+                </span>
+              )}
+            </span>
+          </div>
+          <h3 className="serif mt-6 text-2xl leading-snug text-nadi-glow">
+            우연이 천천히 쌓여
+            <br />
+            인연이 된 사람들.
+          </h3>
+          <p className="mt-3 text-xs leading-relaxed text-ink-100/65">
+            편지·천리안·공명·듀엣·우연이 충분히 겹친 사람과만 정식 연결을 제안할 수 있어요. 양측이 모두 동의해야 시작되고, 언제든 해제·차단할 수 있습니다.
+          </p>
+          <p className="mt-5 text-[10px] tracking-widest text-nadi-gold group-hover:text-nadi-glow">
+            연결 →
           </p>
         </Link>
       </section>

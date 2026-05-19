@@ -34,7 +34,8 @@ export async function GET(req: NextRequest) {
       openDuets,
       myResonance,
       myPostbox,
-      starredMyReplyHits
+      starredMyReplyHits,
+      connectProposalsToMe
     ] = await Promise.all([
       // 1. 편지: 진행 중 + 마지막 편지 가져오기
       prisma.letterThread.findMany({
@@ -126,6 +127,15 @@ export async function GET(req: NextRequest) {
           postbox: { weekKey: wk, starredReplyId: { not: null } }
         },
         include: { postbox: { select: { starredReplyId: true } } }
+      }),
+
+      // 10. 연결 — 나에게 도착한 제안
+      prisma.connection.findMany({
+        where: {
+          status: { in: ["PROPOSED_A", "PROPOSED_B"] },
+          proposerId: { not: userId },
+          OR: [{ userAId: userId }, { userBId: userId }]
+        }
       })
     ]);
 
@@ -179,7 +189,8 @@ export async function GET(req: NextRequest) {
       duetMyTurn.length +
       resonanceEchoes +
       postboxReplies +
-      (iWasStarred ? 1 : 0);
+      (iWasStarred ? 1 : 0) +
+      connectProposalsToMe.length;
 
     const homeCount = sightIncoming + sightResolvedSinceYesterday.length;
 
@@ -216,6 +227,7 @@ export async function GET(req: NextRequest) {
         resonance: resonanceEchoes,
         postboxReplies,
         postboxStarred: iWasStarred ? 1 : 0,
+        connectProposals: connectProposalsToMe.length,
         total: meetCount
       },
       counts: {
