@@ -142,20 +142,20 @@ export function MirrorClient({ userId }: { userId: string }) {
       <PersonalNav userId={userId} current="meet" />
 
       <section className="pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-rose">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-rose">
           MIRROR · 페르소나 미러
         </p>
 
         {loading && (
-          <h1 className="serif mt-4 text-2xl text-nadi-glow">
+          <h1 className="serif mt-4 text-2xl text-nadip-glow">
             오늘의 거울을 비추는 중…
           </h1>
         )}
-        {err && <p className="mt-4 text-sm text-nadi-rose">{err}</p>}
+        {err && <p className="mt-4 text-sm text-nadip-rose">{err}</p>}
 
         {data?.empty && (
           <div className="mt-10 rounded-3xl border border-dashed border-ink-100/15 bg-black/20 p-10 text-center">
-            <h2 className="serif text-2xl text-nadi-glow">오늘은 거울이 비어 있어요.</h2>
+            <h2 className="serif text-2xl text-nadip-glow">오늘은 거울이 비어 있어요.</h2>
             <p className="mt-3 text-sm text-ink-100/60">
               아직 만날 수 있는 다른 세계 사람이 충분하지 않아요.
               <br />
@@ -175,13 +175,13 @@ export function MirrorClient({ userId }: { userId: string }) {
             className="mt-10"
           >
             <div
-              className="overflow-hidden rounded-3xl border border-nadi-rose/30 p-8 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]"
+              className="overflow-hidden rounded-3xl border border-nadip-rose/30 p-8 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]"
               style={{
                 background: `radial-gradient(circle at 30% 0%, ${world.hue}33, transparent 55%), radial-gradient(circle at 100% 100%, ${world.hueAlt}55, transparent 55%), linear-gradient(180deg, rgba(11,14,26,0.85), rgba(17,20,43,0.95))`
               }}
             >
               <div className="flex items-center justify-between text-[10px] tracking-[0.4em]">
-                <span className="text-nadi-rose">오늘의 거울</span>
+                <span className="text-nadip-rose">오늘의 거울</span>
                 <span style={{ color: world.hue }}>{world.vibe}</span>
               </div>
               <p className="mt-6 text-xs tracking-[0.35em] text-ink-100/50">
@@ -193,7 +193,7 @@ export function MirrorClient({ userId }: { userId: string }) {
               >
                 {data.other.title}
               </h2>
-              <p className="serif mt-4 text-base leading-relaxed text-nadi-glow">
+              <p className="serif mt-4 text-base leading-relaxed text-nadip-glow">
                 “{data.other.oneLiner}”
               </p>
               <p className="mt-4 text-sm leading-[1.95] text-ink-100/70">
@@ -208,16 +208,16 @@ export function MirrorClient({ userId }: { userId: string }) {
               </div>
 
               {data.other.todayMood && (
-                <div className="mt-5 rounded-xl border border-nadi-rose/20 bg-black/30 px-4 py-3 text-xs text-ink-100/75">
-                  오늘 이 사람은 — <span className="text-nadi-glow">{data.other.todayMood}</span>의 결로 살고 있어요.
+                <div className="mt-5 rounded-xl border border-nadip-rose/20 bg-black/30 px-4 py-3 text-xs text-ink-100/75">
+                  오늘 이 사람은 — <span className="text-nadip-glow">{data.other.todayMood}</span>의 결로 살고 있어요.
                 </div>
               )}
             </div>
 
             {/* 천리안 */}
-            <div className="mt-8 rounded-3xl border border-nadi-gold/30 bg-gradient-to-br from-nadi-gold/5 to-nadi-deep/30 p-6">
+            <div className="mt-8 rounded-3xl border border-nadip-gold/30 bg-gradient-to-br from-nadip-gold/5 to-nadip-deep/30 p-6">
               <div className="flex items-center justify-between">
-                <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+                <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
                   ✦ 천리안
                 </p>
                 {sight && (
@@ -229,7 +229,7 @@ export function MirrorClient({ userId }: { userId: string }) {
 
               {!sight && !confirming && (
                 <>
-                  <h3 className="serif mt-3 text-lg leading-snug text-nadi-glow">
+                  <h3 className="serif mt-3 text-lg leading-snug text-nadip-glow">
                     이 사람이 누구인지 알고 싶다면.
                   </h3>
                   <p className="mt-2 text-xs leading-relaxed text-ink-100/60">
@@ -240,7 +240,7 @@ export function MirrorClient({ userId }: { userId: string }) {
                   <button
                     onClick={() => setConfirming(true)}
                     disabled={sightLoading}
-                    className="mt-5 w-full rounded-2xl border border-nadi-gold/40 bg-nadi-gold/10 px-6 py-3 text-sm tracking-[0.3em] text-nadi-glow hover:bg-nadi-gold/20"
+                    className="mt-5 w-full rounded-2xl border border-nadip-gold/40 bg-nadip-gold/10 px-6 py-3 text-sm tracking-[0.3em] text-nadip-glow hover:bg-nadip-gold/20"
                   >
                     ✦ 천리안 사용
                   </button>
@@ -248,8 +248,8 @@ export function MirrorClient({ userId }: { userId: string }) {
               )}
 
               {confirming && !sight && (
-                <div className="mt-4 rounded-2xl border border-nadi-gold/40 bg-black/40 p-5 text-center">
-                  <p className="serif text-base text-nadi-glow">
+                <div className="mt-4 rounded-2xl border border-nadip-gold/40 bg-black/40 p-5 text-center">
+                  <p className="serif text-base text-nadip-glow">
                     천리안 1개를 사용하시겠어요?
                   </p>
                   <p className="mt-2 text-xs text-ink-100/55">
@@ -265,7 +265,7 @@ export function MirrorClient({ userId }: { userId: string }) {
                     <button
                       onClick={useSight}
                       disabled={sightLoading}
-                      className="flex-1 rounded-xl bg-gradient-to-r from-nadi-gold to-nadi-rose px-4 py-2 text-xs tracking-widest text-nadi-night hover:opacity-90 disabled:opacity-50"
+                      className="flex-1 rounded-xl bg-gradient-to-r from-nadip-gold to-nadip-rose px-4 py-2 text-xs tracking-widest text-nadip-night hover:opacity-90 disabled:opacity-50"
                     >
                       {sightLoading ? "펴는 중…" : "✦ 펴기"}
                     </button>
@@ -274,7 +274,7 @@ export function MirrorClient({ userId }: { userId: string }) {
               )}
 
               {sightErr && (
-                <p className="mt-3 text-[11px] text-nadi-rose">{sightErr}</p>
+                <p className="mt-3 text-[11px] text-nadip-rose">{sightErr}</p>
               )}
 
               {sight && (
@@ -287,9 +287,9 @@ export function MirrorClient({ userId }: { userId: string }) {
             </div>
 
             {/* 신호 보내기 */}
-            <div className="mt-8 rounded-3xl border border-nadi-rose/25 bg-nadi-rose/5 p-6">
-              <p className="serif text-[10px] tracking-[0.5em] text-nadi-rose">신호</p>
-              <h3 className="serif mt-3 text-lg leading-snug text-nadi-glow">
+            <div className="mt-8 rounded-3xl border border-nadip-rose/25 bg-nadip-rose/5 p-6">
+              <p className="serif text-[10px] tracking-[0.5em] text-nadip-rose">신호</p>
+              <h3 className="serif mt-3 text-lg leading-snug text-nadip-glow">
                 {data.mySignal
                   ? "오늘의 신호는 보내졌어요."
                   : "딱 하나만 보낼 수 있어요."}
@@ -299,13 +299,13 @@ export function MirrorClient({ userId }: { userId: string }) {
               </p>
 
               {data.mySignal ? (
-                <div className="mt-5 rounded-2xl border border-nadi-rose/30 bg-black/30 px-5 py-4">
-                  <p className="text-[10px] tracking-widest text-nadi-rose">보낸 신호</p>
-                  <p className="serif mt-2 text-base text-nadi-glow">
+                <div className="mt-5 rounded-2xl border border-nadip-rose/30 bg-black/30 px-5 py-4">
+                  <p className="text-[10px] tracking-widest text-nadip-rose">보낸 신호</p>
+                  <p className="serif mt-2 text-base text-nadip-glow">
                     “{labelOf(data.mySignal)}”
                   </p>
                   {data.reciprocated && (
-                    <p className="mt-3 text-sm text-nadi-gold">
+                    <p className="mt-3 text-sm text-nadip-gold">
                       ✦ 같은 시간에 — 저쪽에서도 당신에게 신호를 보냈어요.
                     </p>
                   )}
@@ -320,7 +320,7 @@ export function MirrorClient({ userId }: { userId: string }) {
                       className={
                         opt.value === "pass"
                           ? "w-full rounded-2xl border border-ink-100/15 bg-black/20 px-5 py-3 text-left text-xs tracking-[0.25em] text-ink-100/55 hover:border-ink-100/30 disabled:opacity-50"
-                          : "w-full rounded-2xl border border-nadi-rose/30 bg-nadi-rose/5 px-5 py-3 text-left text-sm text-nadi-glow hover:bg-nadi-rose/15 disabled:opacity-50"
+                          : "w-full rounded-2xl border border-nadip-rose/30 bg-nadip-rose/5 px-5 py-3 text-left text-sm text-nadip-glow hover:bg-nadip-rose/15 disabled:opacity-50"
                       }
                     >
                       {opt.label}
@@ -344,7 +344,7 @@ function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="rounded-xl border border-ink-100/10 bg-black/20 px-3 py-2">
       <div className="text-[10px] tracking-[0.3em] text-ink-100/45">{k}</div>
-      <div className="serif mt-0.5 text-sm text-nadi-glow">{v}</div>
+      <div className="serif mt-0.5 text-sm text-nadip-glow">{v}</div>
     </div>
   );
 }
@@ -367,9 +367,9 @@ function SightRevealPanel({
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-4 rounded-2xl border border-nadi-gold/30 bg-black/30 px-5 py-5 text-center"
+        className="mt-4 rounded-2xl border border-nadip-gold/30 bg-black/30 px-5 py-5 text-center"
       >
-        <p className="serif text-base text-nadi-glow">기다리는 중…</p>
+        <p className="serif text-base text-nadip-glow">기다리는 중…</p>
         <p className="mt-2 text-xs leading-relaxed text-ink-100/55">{reveal.message}</p>
       </motion.div>
     );
@@ -379,9 +379,9 @@ function SightRevealPanel({
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-4 rounded-2xl border border-nadi-rose/30 bg-black/30 px-5 py-5 text-center"
+        className="mt-4 rounded-2xl border border-nadip-rose/30 bg-black/30 px-5 py-5 text-center"
       >
-        <p className="serif text-base text-nadi-rose">✦ 흩어짐</p>
+        <p className="serif text-base text-nadip-rose">✦ 흩어짐</p>
         <p className="mt-2 text-xs leading-relaxed text-ink-100/55">{reveal.message}</p>
       </motion.div>
     );
@@ -411,8 +411,8 @@ function SightRevealPanel({
       </div>
 
       {t && (
-        <div className="rounded-2xl border border-nadi-gold/25 bg-black/40 p-4">
-          <p className="text-[10px] tracking-[0.35em] text-nadi-gold">궤적</p>
+        <div className="rounded-2xl border border-nadip-gold/25 bg-black/40 p-4">
+          <p className="text-[10px] tracking-[0.35em] text-nadip-gold">궤적</p>
           <div className="mt-3 grid grid-cols-3 gap-2 text-center">
             <Stat n={t.daysSinceStart} l="일째" />
             <Stat n={t.uniqueWorlds} l="세계" />
@@ -498,7 +498,7 @@ function DuetInvite({ userId, targetId }: { userId: string; targetId: string }) 
     return (
       <a
         href={`/meet/duet/${state.bookId}`}
-        className="block rounded-2xl border border-nadi-gold/40 bg-nadi-gold/10 p-4 text-center text-xs tracking-widest text-nadi-glow hover:bg-nadi-gold/20"
+        className="block rounded-2xl border border-nadip-gold/40 bg-nadip-gold/10 p-4 text-center text-xs tracking-widest text-nadip-glow hover:bg-nadip-gold/20"
       >
         ✦ 이 사람과의 듀엣 책 열기 ({state.bookStatus === "COMPLETE" ? "완성됨" : "쓰는 중"})
       </a>
@@ -514,17 +514,17 @@ function DuetInvite({ userId, targetId }: { userId: string; targetId: string }) 
     );
   }
   return (
-    <div className="rounded-2xl border border-nadi-gold/40 bg-gradient-to-r from-nadi-gold/10 to-nadi-rose/10 p-4 text-center">
-      <p className="serif text-sm text-nadi-glow">두 천리안이 닿았어요.</p>
+    <div className="rounded-2xl border border-nadip-gold/40 bg-gradient-to-r from-nadip-gold/10 to-nadip-rose/10 p-4 text-center">
+      <p className="serif text-sm text-nadip-glow">두 천리안이 닿았어요.</p>
       <p className="mt-1 text-[11px] text-ink-100/55">함께 짧은 책을 쓸 수 있어요.</p>
       <button
         onClick={open}
         disabled={opening}
-        className="mt-3 rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-1.5 text-xs tracking-widest text-nadi-night hover:opacity-90 disabled:opacity-50"
+        className="mt-3 rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-6 py-1.5 text-xs tracking-widest text-nadip-night hover:opacity-90 disabled:opacity-50"
       >
         {opening ? "여는 중…" : "✦ 듀엣 열기"}
       </button>
-      {err && <p className="mt-2 text-[11px] text-nadi-rose">{err}</p>}
+      {err && <p className="mt-2 text-[11px] text-nadip-rose">{err}</p>}
     </div>
   );
 }
@@ -533,7 +533,7 @@ function LetterInvite({ userId, targetId }: { userId: string; targetId: string }
   return (
     <a
       href={`/meet/letter/new?u=${userId}&to=${targetId}`}
-      className="block rounded-2xl border border-nadi-rose/30 bg-black/30 p-4 text-center text-xs tracking-widest text-nadi-glow hover:bg-nadi-rose/10"
+      className="block rounded-2xl border border-nadip-rose/30 bg-black/30 p-4 text-center text-xs tracking-widest text-nadip-glow hover:bg-nadip-rose/10"
     >
       ✉ 이 사람에게 편지 쓰기
     </a>
@@ -546,12 +546,12 @@ function RevealField({ k, v }: { k: string; v?: string }) {
     <div
       className={
         has
-          ? "rounded-xl border border-nadi-gold/30 bg-nadi-gold/5 px-3 py-2"
+          ? "rounded-xl border border-nadip-gold/30 bg-nadip-gold/5 px-3 py-2"
           : "rounded-xl border border-ink-100/10 bg-black/20 px-3 py-2"
       }
     >
       <div className="text-[10px] tracking-[0.3em] text-ink-100/45">{k}</div>
-      <div className={has ? "serif mt-0.5 text-sm text-nadi-glow" : "serif mt-0.5 text-sm text-ink-100/35"}>
+      <div className={has ? "serif mt-0.5 text-sm text-nadip-glow" : "serif mt-0.5 text-sm text-ink-100/35"}>
         {has ? v : "알 수 없음"}
       </div>
     </div>
@@ -561,7 +561,7 @@ function RevealField({ k, v }: { k: string; v?: string }) {
 function Stat({ n, l }: { n: number; l: string }) {
   return (
     <div className="rounded-xl border border-ink-100/10 bg-black/40 px-2 py-2">
-      <div className="serif text-xl text-nadi-glow">{n}</div>
+      <div className="serif text-xl text-nadip-glow">{n}</div>
       <div className="mt-0.5 text-[10px] tracking-widest text-ink-100/45">{l}</div>
     </div>
   );

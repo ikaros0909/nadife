@@ -20,7 +20,7 @@ const config: Config = {
           800: "#1a1817",
           900: "#0d0c0b"
         },
-        nadi: {
+        nadip: {
           gold: "#d4af6f",
           rose: "#c47b8a",
           night: "#0b0e1a",

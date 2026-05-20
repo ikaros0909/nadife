@@ -37,7 +37,7 @@ export async function GET(
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: "NotoKR" }}>
           <div style={{ fontSize: 28, letterSpacing: "0.4em", color: "#d4af6f", fontWeight: 700 }}>
-            NADIFE
+            NADIPE
           </div>
           <div style={{ fontSize: 22, color: "#bfb7a3", letterSpacing: "0.2em" }}>{kindLabel}</div>
         </div>

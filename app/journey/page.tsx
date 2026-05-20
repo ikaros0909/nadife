@@ -17,20 +17,20 @@ export default async function JourneyPage({
     return (
       <main className="relative z-10 mx-auto flex min-h-screen max-w-md items-center justify-center px-6">
         <div className="text-center">
-          <p className="serif text-2xl text-nadi-glow">아직 궤적이 없어요.</p>
+          <p className="serif text-2xl text-nadip-glow">아직 궤적이 없어요.</p>
           <p className="mt-4 text-sm text-ink-100/60">
             이메일로 시작했었다면 이어가기, 아니면 새로 시작하세요.
           </p>
           <div className="mt-8 flex flex-col gap-3">
             <Link
               href="/me"
-              className="rounded-full border border-nadi-gold/40 bg-nadi-gold/10 px-8 py-3 text-xs tracking-[0.3em] text-nadi-glow hover:bg-nadi-gold/20"
+              className="rounded-full border border-nadip-gold/40 bg-nadip-gold/10 px-8 py-3 text-xs tracking-[0.3em] text-nadip-glow hover:bg-nadip-gold/20"
             >
               이메일로 이어가기
             </Link>
             <Link
               href="/onboard"
-              className="rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-8 py-3 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90"
+              className="rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-8 py-3 text-xs tracking-[0.3em] text-nadip-night hover:opacity-90"
             >
               처음 시작하기
             </Link>
@@ -51,7 +51,7 @@ export default async function JourneyPage({
   if (!user) {
     return (
       <main className="relative z-10 mx-auto flex min-h-screen max-w-md items-center justify-center px-6 text-center text-ink-100/60">
-        사용자를 찾을 수 없어요. <Link href="/me" className="text-nadi-gold underline">다시 시도</Link>
+        사용자를 찾을 수 없어요. <Link href="/me" className="text-nadip-gold underline">다시 시도</Link>
       </main>
     );
   }

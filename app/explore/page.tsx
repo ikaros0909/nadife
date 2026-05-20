@@ -78,16 +78,16 @@ export default async function ExplorePage({
         <PersonalNav userId={userId} current="explore" />
       ) : (
         <header className="flex items-center justify-between py-6">
-          <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+          <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
             다른 세계 탐험
           </p>
-          <Link href="/" className="text-xs tracking-widest text-ink-100/40 hover:text-nadi-glow">
+          <Link href="/" className="text-xs tracking-widest text-ink-100/40 hover:text-nadip-glow">
             ← 홈
           </Link>
         </header>
       )}
 
-      <h1 className="serif mt-4 text-3xl leading-snug text-nadi-glow sm:text-4xl">
+      <h1 className="serif mt-4 text-3xl leading-snug text-nadip-glow sm:text-4xl">
         우리는 모두
         <br />
         다른 세계를 살아간다.
@@ -103,7 +103,7 @@ export default async function ExplorePage({
           return (
             <article
               key={w.slug}
-              className="rounded-3xl border border-nadi-gold/15 bg-black/30 p-7"
+              className="rounded-3xl border border-nadip-gold/15 bg-black/30 p-7"
               style={{
                 borderLeft: `2px solid ${w.hue}`,
                 boxShadow: isMine ? `0 0 60px -20px ${w.hue}` : undefined
@@ -115,14 +115,14 @@ export default async function ExplorePage({
                     {w.glyph}
                   </span>
                   <div>
-                    <h2 className="serif text-xl text-nadi-glow">{w.title}</h2>
+                    <h2 className="serif text-xl text-nadip-glow">{w.title}</h2>
                     <p className="text-[10px] tracking-[0.3em] text-ink-100/40">
                       {w.keywords.join(" · ")}
                     </p>
                   </div>
                 </div>
                 {isMine && (
-                  <span className="rounded-full border border-nadi-gold/40 bg-nadi-gold/10 px-3 py-1 text-[10px] tracking-[0.3em] text-nadi-gold">
+                  <span className="rounded-full border border-nadip-gold/40 bg-nadip-gold/10 px-3 py-1 text-[10px] tracking-[0.3em] text-nadip-gold">
                     당신의 좌표
                   </span>
                 )}
@@ -131,7 +131,7 @@ export default async function ExplorePage({
               <div className="mt-6 space-y-5">
                 {essays.map((e, i) => (
                   <div key={i}>
-                    <h3 className="serif text-base text-nadi-glow">{e.title}</h3>
+                    <h3 className="serif text-base text-nadip-glow">{e.title}</h3>
                     <p className="serif mt-2 text-sm leading-[1.95] text-ink-100/70">{e.body}</p>
                   </div>
                 ))}
@@ -141,13 +141,13 @@ export default async function ExplorePage({
         })}
       </div>
 
-      <div className="mt-16 rounded-3xl border border-nadi-gold/30 bg-gradient-to-br from-nadi-gold/5 to-nadi-rose/5 p-7 text-center">
-        <h3 className="serif text-xl text-nadi-glow">
+      <div className="mt-16 rounded-3xl border border-nadip-gold/30 bg-gradient-to-br from-nadip-gold/5 to-nadip-rose/5 p-7 text-center">
+        <h3 className="serif text-xl text-nadip-glow">
           당신의 세계는 어디인가요?
         </h3>
         <Link
           href="/onboard"
-          className="mt-5 inline-flex rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-8 py-3 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90"
+          className="mt-5 inline-flex rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-8 py-3 text-xs tracking-[0.3em] text-nadip-night hover:opacity-90"
         >
           내 관상 보러 가기
         </Link>

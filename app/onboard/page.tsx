@@ -78,7 +78,7 @@ export default function OnboardPage() {
   return (
     <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-xl flex-col px-6 py-14">
       <header className="flex items-center justify-between">
-        <p className="serif text-xs tracking-[0.5em] text-nadi-gold">NADIFE</p>
+        <p className="serif text-xs tracking-[0.5em] text-nadip-gold">NADIPE</p>
         <p className="text-xs tracking-widest text-ink-100/40">
           {step + 1} / {STEPS}
         </p>
@@ -86,7 +86,7 @@ export default function OnboardPage() {
 
       <div className="mt-3 h-[2px] w-full bg-ink-100/10">
         <div
-          className="h-full bg-gradient-to-r from-nadi-gold to-nadi-rose transition-all"
+          className="h-full bg-gradient-to-r from-nadip-gold to-nadip-rose transition-all"
           style={{ width: `${((step + 1) / STEPS) * 100}%` }}
         />
       </div>
@@ -102,7 +102,7 @@ export default function OnboardPage() {
         >
           {step === 0 && (
             <div>
-              <h2 className="serif text-3xl leading-snug text-nadi-glow">
+              <h2 className="serif text-3xl leading-snug text-nadip-glow">
                 먼저, 당신의 디지털 흔적을
                 <br />
                 남길 곳을 알려주세요.
@@ -115,7 +115,7 @@ export default function OnboardPage() {
                 placeholder="email@domain.com"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="mt-10 w-full rounded-xl border border-nadi-gold/30 bg-transparent px-5 py-4 text-lg text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
+                className="mt-10 w-full rounded-xl border border-nadip-gold/30 bg-transparent px-5 py-4 text-lg text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold"
               />
               <div className="mt-4 grid grid-cols-2 gap-3">
                 <input
@@ -123,14 +123,14 @@ export default function OnboardPage() {
                   placeholder="닉네임 (선택)"
                   value={form.nickname}
                   onChange={(e) => setForm({ ...form, nickname: e.target.value })}
-                  className="rounded-xl border border-ink-100/15 bg-transparent px-4 py-3 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+                  className="rounded-xl border border-ink-100/15 bg-transparent px-4 py-3 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold/50"
                 />
                 <input
                   type="number"
                   placeholder="출생연도 (선택)"
                   value={form.birthYear}
                   onChange={(e) => setForm({ ...form, birthYear: e.target.value })}
-                  className="rounded-xl border border-ink-100/15 bg-transparent px-4 py-3 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+                  className="rounded-xl border border-ink-100/15 bg-transparent px-4 py-3 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold/50"
                 />
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function OnboardPage() {
 
           {step === 1 && (
             <div>
-              <h2 className="serif text-3xl leading-snug text-nadi-glow">
+              <h2 className="serif text-3xl leading-snug text-nadip-glow">
                 무엇이 당신의 시간을
                 <br />
                 가장 많이 가져가나요?
@@ -159,7 +159,7 @@ export default function OnboardPage() {
 
           {step === 2 && (
             <div>
-              <h2 className="serif text-3xl leading-snug text-nadi-glow">
+              <h2 className="serif text-3xl leading-snug text-nadip-glow">
                 당신은 어디에
                 <br />
                 흔적을 남기나요?
@@ -176,7 +176,7 @@ export default function OnboardPage() {
                 ))}
               </div>
 
-              <h3 className="serif mt-12 text-base text-nadi-glow/80">언제 가장 깨어있나요?</h3>
+              <h3 className="serif mt-12 text-base text-nadip-glow/80">언제 가장 깨어있나요?</h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 {HOURS.map((h) => (
                   <Chip
@@ -192,7 +192,7 @@ export default function OnboardPage() {
 
           {step === 3 && (
             <div>
-              <h2 className="serif text-3xl leading-snug text-nadi-glow">
+              <h2 className="serif text-3xl leading-snug text-nadip-glow">
                 마지막으로,
                 <br />
                 지금의 당신을 한 줄로.
@@ -205,11 +205,11 @@ export default function OnboardPage() {
                 onChange={(e) => setForm({ ...form, vibe: e.target.value })}
                 rows={4}
                 placeholder='예: "요즘은 새벽이 더 편하다"'
-                className="mt-8 w-full rounded-xl border border-nadi-gold/30 bg-transparent px-5 py-4 text-base text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
+                className="mt-8 w-full rounded-xl border border-nadip-gold/30 bg-transparent px-5 py-4 text-base text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold"
               />
 
               {err && (
-                <p className="mt-4 text-sm text-nadi-rose">{err}</p>
+                <p className="mt-4 text-sm text-nadip-rose">{err}</p>
               )}
             </div>
           )}
@@ -220,7 +220,7 @@ export default function OnboardPage() {
         <button
           onClick={() => setStep((s) => Math.max(0, s - 1))}
           disabled={step === 0 || loading}
-          className="px-4 py-2 text-sm tracking-widest text-ink-100/50 transition hover:text-nadi-glow disabled:opacity-30"
+          className="px-4 py-2 text-sm tracking-widest text-ink-100/50 transition hover:text-nadip-glow disabled:opacity-30"
         >
           ← 이전
         </button>
@@ -229,7 +229,7 @@ export default function OnboardPage() {
           <button
             onClick={() => setStep((s) => s + 1)}
             disabled={step === 0 && !form.email}
-            className="rounded-full bg-nadi-gold/15 px-8 py-3 text-sm tracking-[0.3em] text-nadi-glow ring-1 ring-nadi-gold/40 transition hover:bg-nadi-gold/25 disabled:opacity-40"
+            className="rounded-full bg-nadip-gold/15 px-8 py-3 text-sm tracking-[0.3em] text-nadip-glow ring-1 ring-nadip-gold/40 transition hover:bg-nadip-gold/25 disabled:opacity-40"
           >
             다음 →
           </button>
@@ -237,7 +237,7 @@ export default function OnboardPage() {
           <button
             onClick={submit}
             disabled={loading || !form.email}
-            className="rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-10 py-3 text-sm tracking-[0.3em] text-nadi-night transition hover:opacity-90 disabled:opacity-50"
+            className="rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-10 py-3 text-sm tracking-[0.3em] text-nadip-night transition hover:opacity-90 disabled:opacity-50"
           >
             {loading ? "AI 분석 중…" : "관상 보기"}
           </button>
@@ -254,8 +254,8 @@ function Chip({ label, on, onClick }: { label: string; on: boolean; onClick: () 
       onClick={onClick}
       className={
         on
-          ? "rounded-full border border-nadi-gold/70 bg-nadi-gold/20 px-4 py-2 text-sm text-nadi-glow"
-          : "rounded-full border border-ink-100/15 px-4 py-2 text-sm text-ink-100/60 hover:border-nadi-gold/40 hover:text-nadi-glow"
+          ? "rounded-full border border-nadip-gold/70 bg-nadip-gold/20 px-4 py-2 text-sm text-nadip-glow"
+          : "rounded-full border border-ink-100/15 px-4 py-2 text-sm text-ink-100/60 hover:border-nadip-gold/40 hover:text-nadip-glow"
       }
     >
       {label}

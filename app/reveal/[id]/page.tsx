@@ -19,7 +19,7 @@ export default async function RevealPage({
         <div className="text-center text-ink-100/60">
           페르소나를 찾을 수 없습니다.
           <div className="mt-6">
-            <Link href="/" className="text-nadi-gold underline">다시 시작</Link>
+            <Link href="/" className="text-nadip-gold underline">다시 시작</Link>
           </div>
         </div>
       </main>

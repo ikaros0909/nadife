@@ -91,10 +91,10 @@ export function DuetBookClient({ userId, bookId }: { userId: string; bookId: str
       <PersonalNav userId={userId} current="meet" />
 
       <header className="flex items-center justify-between pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">DUET</p>
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">DUET</p>
         <Link
           href={`/meet/duet?u=${userId}`}
-          className="text-xs tracking-widest text-ink-100/45 hover:text-nadi-glow"
+          className="text-xs tracking-widest text-ink-100/45 hover:text-nadip-glow"
         >
           ← 듀엣 목록
         </Link>
@@ -114,10 +114,10 @@ export function DuetBookClient({ userId, bookId }: { userId: string; bookId: str
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.05 }}
-              className="rounded-3xl border border-nadi-gold/25 bg-black/30 p-6"
+              className="rounded-3xl border border-nadip-gold/25 bg-black/30 p-6"
             >
               <div className="flex items-center justify-between">
-                <p className="serif text-[10px] tracking-[0.4em] text-nadi-gold">
+                <p className="serif text-[10px] tracking-[0.4em] text-nadip-gold">
                   {String(idx + 1).padStart(2, "0")} · {theme}
                 </p>
                 <span className="text-[10px] tracking-widest text-ink-100/40">
@@ -128,14 +128,14 @@ export function DuetBookClient({ userId, bookId }: { userId: string; bookId: str
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {/* 내 줄 */}
                 {slot.mine ? (
-                  <div className="rounded-2xl border border-nadi-gold/30 bg-nadi-gold/10 px-4 py-3">
-                    <p className="text-[10px] tracking-widest text-nadi-gold">나</p>
-                    <p className="serif mt-1 text-sm leading-relaxed text-nadi-glow">
+                  <div className="rounded-2xl border border-nadip-gold/30 bg-nadip-gold/10 px-4 py-3">
+                    <p className="text-[10px] tracking-widest text-nadip-gold">나</p>
+                    <p className="serif mt-1 text-sm leading-relaxed text-nadip-glow">
                       {slot.mine.text}
                     </p>
                   </div>
                 ) : canWrite ? (
-                  <div className="rounded-2xl border border-nadi-gold/30 bg-nadi-gold/5 px-4 py-3">
+                  <div className="rounded-2xl border border-nadip-gold/30 bg-nadip-gold/5 px-4 py-3">
                     <textarea
                       value={drafts[idx] ?? ""}
                       onChange={(e) =>
@@ -143,7 +143,7 @@ export function DuetBookClient({ userId, bookId }: { userId: string; bookId: str
                       }
                       placeholder="한 줄 (~200자)"
                       rows={3}
-                      className="w-full resize-none bg-transparent text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none"
+                      className="w-full resize-none bg-transparent text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none"
                     />
                     <div className="mt-2">
                       <AiPolishButton
@@ -163,7 +163,7 @@ export function DuetBookClient({ userId, bookId }: { userId: string; bookId: str
                       <button
                         onClick={() => submit(idx)}
                         disabled={submitting === idx || !(drafts[idx] ?? "").trim()}
-                        className="rounded-full bg-nadi-gold/20 px-4 py-1 text-[11px] tracking-widest text-nadi-glow ring-1 ring-nadi-gold/40 hover:bg-nadi-gold/30 disabled:opacity-50"
+                        className="rounded-full bg-nadip-gold/20 px-4 py-1 text-[11px] tracking-widest text-nadip-glow ring-1 ring-nadip-gold/40 hover:bg-nadip-gold/30 disabled:opacity-50"
                       >
                         {submitting === idx ? "…" : "한 줄"}
                       </button>
@@ -177,9 +177,9 @@ export function DuetBookClient({ userId, bookId }: { userId: string; bookId: str
 
                 {/* 상대 줄 */}
                 {slot.theirs ? (
-                  <div className="rounded-2xl border border-nadi-rose/25 bg-black/30 px-4 py-3">
-                    <p className="text-[10px] tracking-widest text-nadi-rose">{slot.theirs.alias}</p>
-                    <p className="serif mt-1 text-sm leading-relaxed text-nadi-glow">
+                  <div className="rounded-2xl border border-nadip-rose/25 bg-black/30 px-4 py-3">
+                    <p className="text-[10px] tracking-widest text-nadip-rose">{slot.theirs.alias}</p>
+                    <p className="serif mt-1 text-sm leading-relaxed text-nadip-glow">
                       {slot.theirs.text}
                     </p>
                   </div>
@@ -194,10 +194,10 @@ export function DuetBookClient({ userId, bookId }: { userId: string; bookId: str
         })}
       </section>
 
-      {err && <p className="mt-6 text-sm text-nadi-rose">{err}</p>}
+      {err && <p className="mt-6 text-sm text-nadip-rose">{err}</p>}
 
       {data.book.status === "COMPLETE" && (
-        <p className="mt-10 text-center text-[11px] tracking-[0.4em] text-nadi-gold">
+        <p className="mt-10 text-center text-[11px] tracking-[0.4em] text-nadip-gold">
           ✦ 한 권의 책이 완성되었어요.
         </p>
       )}

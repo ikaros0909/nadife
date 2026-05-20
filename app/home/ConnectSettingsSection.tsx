@@ -94,17 +94,17 @@ export function ConnectSettingsSection({ userId }: { userId: string }) {
 
   return (
     <section className="mt-10">
-      <h3 className="serif text-sm tracking-[0.4em] text-nadi-gold">✦ 연결 설정</h3>
+      <h3 className="serif text-sm tracking-[0.4em] text-nadip-gold">✦ 연결 설정</h3>
       <p className="mt-2 text-[11px] tracking-widest text-ink-100/45">
         깊은 인연이 쌓여도 — 조건이 맞아야 연결됩니다.
       </p>
 
-      <div className="mt-4 rounded-2xl border border-nadi-gold/20 bg-black/30 p-5">
+      <div className="mt-4 rounded-2xl border border-nadip-gold/20 bg-black/30 p-5">
         <div className="flex items-center justify-between">
-          <p className="serif text-xs tracking-[0.4em] text-nadi-gold">내가 받아들이는 결</p>
+          <p className="serif text-xs tracking-[0.4em] text-nadip-gold">내가 받아들이는 결</p>
           <button
             onClick={() => setEditing((v) => !v)}
-            className="text-[10px] tracking-widest text-ink-100/60 hover:text-nadi-glow"
+            className="text-[10px] tracking-widest text-ink-100/60 hover:text-nadip-glow"
           >
             {editing ? "취소" : "수정"}
           </button>
@@ -128,9 +128,9 @@ export function ConnectSettingsSection({ userId }: { userId: string }) {
       </div>
 
       {/* GPS / 위치 */}
-      <div className="mt-4 rounded-2xl border border-nadi-gold/20 bg-black/30 p-5">
+      <div className="mt-4 rounded-2xl border border-nadip-gold/20 bg-black/30 p-5">
         <div className="flex items-center justify-between">
-          <p className="serif text-xs tracking-[0.4em] text-nadi-gold">위치 공유</p>
+          <p className="serif text-xs tracking-[0.4em] text-nadip-gold">위치 공유</p>
           <span className="text-[10px] tracking-widest text-ink-100/45">
             {profile.geoOptIn ? "켜짐" : "꺼짐"}
           </span>
@@ -145,7 +145,7 @@ export function ConnectSettingsSection({ userId }: { userId: string }) {
               <button
                 onClick={shareLocation}
                 disabled={savingGeo}
-                className="flex-1 rounded-xl border border-nadi-gold/30 bg-nadi-gold/5 px-4 py-2 text-xs tracking-widest text-nadi-glow hover:bg-nadi-gold/15 disabled:opacity-50"
+                className="flex-1 rounded-xl border border-nadip-gold/30 bg-nadip-gold/5 px-4 py-2 text-xs tracking-widest text-nadip-glow hover:bg-nadip-gold/15 disabled:opacity-50"
               >
                 {savingGeo ? "받는 중…" : "위치 갱신"}
               </button>
@@ -161,7 +161,7 @@ export function ConnectSettingsSection({ userId }: { userId: string }) {
             <button
               onClick={shareLocation}
               disabled={savingGeo}
-              className="w-full rounded-xl bg-gradient-to-r from-nadi-gold to-nadi-rose px-4 py-2 text-xs tracking-widest text-nadi-night hover:opacity-90 disabled:opacity-50"
+              className="w-full rounded-xl bg-gradient-to-r from-nadip-gold to-nadip-rose px-4 py-2 text-xs tracking-widest text-nadip-night hover:opacity-90 disabled:opacity-50"
             >
               {savingGeo ? "받는 중…" : "위치 공유 켜기"}
             </button>
@@ -172,7 +172,7 @@ export function ConnectSettingsSection({ userId }: { userId: string }) {
             마지막 갱신 — {new Date(profile.geoUpdatedAt).toLocaleString("ko-KR")}
           </p>
         )}
-        {err && <p className="mt-2 text-[11px] text-nadi-rose">{err}</p>}
+        {err && <p className="mt-2 text-[11px] text-nadip-rose">{err}</p>}
       </div>
     </section>
   );
@@ -205,7 +205,7 @@ function PrefsView({ profile }: { profile: Profile }) {
             {it.values.map((v) => (
               <span
                 key={v}
-                className="rounded-full border border-nadi-gold/30 bg-nadi-gold/5 px-3 py-0.5 text-[11px] text-nadi-glow"
+                className="rounded-full border border-nadip-gold/30 bg-nadip-gold/5 px-3 py-0.5 text-[11px] text-nadip-glow"
               >
                 {v}
               </span>
@@ -216,7 +216,7 @@ function PrefsView({ profile }: { profile: Profile }) {
       {ageRange && (
         <div className="flex items-center gap-2">
           <span className="text-[10px] tracking-widest text-ink-100/50">나이</span>
-          <span className="rounded-full border border-nadi-gold/30 bg-nadi-gold/5 px-3 py-0.5 text-[11px] text-nadi-glow">
+          <span className="rounded-full border border-nadip-gold/30 bg-nadip-gold/5 px-3 py-0.5 text-[11px] text-nadip-glow">
             {ageRange}
           </span>
         </div>
@@ -276,7 +276,7 @@ function PrefsEditor({
       <button
         onClick={save}
         disabled={saving}
-        className="mt-2 w-full rounded-xl bg-gradient-to-r from-nadi-gold to-nadi-rose px-4 py-2 text-xs tracking-widest text-nadi-night hover:opacity-90 disabled:opacity-50"
+        className="mt-2 w-full rounded-xl bg-gradient-to-r from-nadip-gold to-nadip-rose px-4 py-2 text-xs tracking-widest text-nadip-night hover:opacity-90 disabled:opacity-50"
       >
         {saving ? "저장 중…" : "저장"}
       </button>
@@ -305,7 +305,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="mt-1 w-full rounded-lg border border-ink-100/15 bg-transparent px-3 py-1.5 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+        className="mt-1 w-full rounded-lg border border-ink-100/15 bg-transparent px-3 py-1.5 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold/50"
       />
     </label>
   );

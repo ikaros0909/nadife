@@ -87,7 +87,7 @@ export async function GET(
           }}
         >
           <div style={{ fontSize: 28, letterSpacing: "0.4em", color: "#d4af6f", fontWeight: 700 }}>
-            NADIFE
+            NADIPE
           </div>
           <div style={{ fontSize: 22, color: "#bfb7a3", letterSpacing: "0.3em" }}>
             JOURNEY · 궤적
@@ -233,7 +233,7 @@ export async function GET(
         >
           <div style={{ fontSize: 20, color: "#bfb7a3" }}>우리는 모두 다른 세계를 살아간다</div>
           <div style={{ fontSize: 20, color: "#d4af6f", letterSpacing: "0.3em" }}>
-            NADIFE
+            NADIPE
           </div>
         </div>
       </div>

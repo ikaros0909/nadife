@@ -1,9 +1,9 @@
-# NADIFE — 나의 디지털 페르소나
+# NADIPE — 나의 디지털 페르소나
 
 AI가 읽어주는 **디지털 관상** & **멀티 페르소나 탐험** MVP.
 한 명이 아닌, **메인캐 / 부캐 / 오늘의 나** — 16개의 세계 좌표 위에서 자기 자신을 발견합니다.
 
-> "당신은 한 명이 아닙니다." — NADIFE
+> "당신은 한 명이 아닙니다." — NADIPE
 
 ## 폭발적 이슈화 설계
 
@@ -17,7 +17,7 @@ AI가 읽어주는 **디지털 관상** & **멀티 페르소나 탐험** MVP.
 ## 사전 준비
 
 - Node.js 18.18+ (권장 20+)
-- PostgreSQL `nadife` DB (이미 생성된 상태)
+- PostgreSQL `nadipe` DB (이미 생성된 상태)
 - OpenAI API Key (`OPENAI_API_KEY`)
 
 ## 설치 & 실행
@@ -59,7 +59,7 @@ npm run dev
 
 | 키 | 설명 |
 |---|---|
-| `DATABASE_URL` | `postgresql://USER:PASS@localhost:5432/nadife?schema=public` |
+| `DATABASE_URL` | `postgresql://USER:PASS@localhost:5432/nadipe?schema=public` |
 | `OPENAI_API_KEY` | OpenAI 시크릿 키 (필수 — 비어 있으면 mock 폴백) |
 | `OPENAI_MODEL` | 기본 `gpt-4o-mini` (가성비). `gpt-4o`로 올리면 카피 품질 ↑ |
 | `NEXT_PUBLIC_BASE_URL` | OG 카드 절대 URL (배포 시 도메인) |

@@ -104,10 +104,10 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
       <PersonalNav userId={userId} current="meet" />
 
       <header className="flex items-center justify-between pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">LETTER</p>
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">LETTER</p>
         <Link
           href={`/meet/letter?u=${userId}`}
-          className="text-xs tracking-widest text-ink-100/45 hover:text-nadi-glow"
+          className="text-xs tracking-widest text-ink-100/45 hover:text-nadip-glow"
         >
           ← 편지함
         </Link>
@@ -122,10 +122,10 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
           </p>
 
           {data.thread.partnerId && (
-            <section className="mt-6 rounded-2xl border border-nadi-gold/25 bg-black/30 px-5 py-4">
+            <section className="mt-6 rounded-2xl border border-nadip-gold/25 bg-black/30 px-5 py-4">
               <div className="flex items-center justify-between gap-3">
                 <div className="text-[10px] tracking-widest text-ink-100/55">
-                  편지 상대 — <span className="text-nadi-glow">{data.thread.partnerAlias ?? "익명"}</span>
+                  편지 상대 — <span className="text-nadip-glow">{data.thread.partnerAlias ?? "익명"}</span>
                 </div>
                 <SightTrigger
                   viewerId={userId}
@@ -147,8 +147,8 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
                   transition={{ duration: 0.5, delay: i * 0.03 }}
                   className={
                     l.senderIsMe
-                      ? "rounded-3xl border border-nadi-gold/30 bg-nadi-gold/5 px-6 py-5"
-                      : "rounded-3xl border border-nadi-rose/25 bg-black/30 px-6 py-5"
+                      ? "rounded-3xl border border-nadip-gold/30 bg-nadip-gold/5 px-6 py-5"
+                      : "rounded-3xl border border-nadip-rose/25 bg-black/30 px-6 py-5"
                   }
                 >
                   <div className="flex items-center justify-between text-[10px] tracking-widest text-ink-100/45">
@@ -171,8 +171,8 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
                     <>
                       {l.text && <LetterBody text={l.text} />}
                       {l.inTransit && l.senderIsMe && l.arrivesAt && (
-                        <div className="mt-3 rounded-xl border border-nadi-gold/30 bg-black/20 px-4 py-3">
-                          <p className="text-[10px] tracking-widest text-nadi-gold/80">
+                        <div className="mt-3 rounded-xl border border-nadip-gold/30 bg-black/20 px-4 py-3">
+                          <p className="text-[10px] tracking-widest text-nadip-gold/80">
                             ✦ 비행 중 — 상대에게 도착하기 전이에요
                           </p>
                           <FlightTrack createdAt={l.createdAt} arrivesAt={l.arrivesAt} />
@@ -188,14 +188,14 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
           {data.thread.status === "ACTIVE" && (
             <section className="mt-10">
               {data.myTurn ? (
-                <div className="rounded-3xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/10 to-nadi-deep/40 p-6">
-                  <p className="serif text-xs tracking-[0.4em] text-nadi-gold">내 답장</p>
+                <div className="rounded-3xl border border-nadip-gold/40 bg-gradient-to-br from-nadip-gold/10 to-nadip-deep/40 p-6">
+                  <p className="serif text-xs tracking-[0.4em] text-nadip-gold">내 답장</p>
                   <textarea
                     value={draft}
                     onChange={(e) => setDraft(e.target.value.slice(0, 400))}
                     placeholder="300~400자. 마음에 결을 담아주세요."
                     rows={8}
-                    className="mt-3 w-full resize-none rounded-xl border border-nadi-gold/20 bg-transparent px-4 py-3 text-[15px] leading-[1.85] text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
+                    className="mt-3 w-full resize-none rounded-xl border border-nadip-gold/20 bg-transparent px-4 py-3 text-[15px] leading-[1.85] text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold"
                   />
                   <div className="mt-3">
                     <AiPolishButton
@@ -217,16 +217,16 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
                     <button
                       onClick={reply}
                       disabled={sending || draft.length < 20}
-                      className="rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-7 py-2 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90 disabled:opacity-50"
+                      className="rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-7 py-2 text-xs tracking-[0.3em] text-nadip-night hover:opacity-90 disabled:opacity-50"
                     >
                       {sending ? "보내는 중…" : "흘려보내기"}
                     </button>
                   </div>
-                  {err && <p className="mt-2 text-[11px] text-nadi-rose">{err}</p>}
+                  {err && <p className="mt-2 text-[11px] text-nadip-rose">{err}</p>}
                 </div>
               ) : (
                 <div className="rounded-3xl border border-dashed border-ink-100/15 bg-black/20 px-6 py-8 text-center">
-                  <p className="serif text-base text-nadi-glow">상대의 답을 기다리는 중…</p>
+                  <p className="serif text-base text-nadip-glow">상대의 답을 기다리는 중…</p>
                   <p className="mt-2 text-xs text-ink-100/55">
                     하루에 한 번 — 답장은 천천히 도착해요. (30초마다 확인 중)
                   </p>
@@ -236,7 +236,7 @@ export function LetterThreadClient({ userId, threadId }: { userId: string; threa
               <button
                 onClick={drop}
                 disabled={dropping}
-                className="mt-4 text-[11px] tracking-widest text-ink-100/45 underline hover:text-nadi-rose disabled:opacity-40"
+                className="mt-4 text-[11px] tracking-widest text-ink-100/45 underline hover:text-nadip-rose disabled:opacity-40"
               >
                 이 편지함을 그만 닫기
               </button>
@@ -262,7 +262,7 @@ function LetterBody({ text }: { text: string }) {
       {paragraphs.map((p, i) => (
         <p
           key={i}
-          className="serif whitespace-pre-wrap text-[15px] leading-[1.95] text-nadi-glow"
+          className="serif whitespace-pre-wrap text-[15px] leading-[1.95] text-nadip-glow"
         >
           {p.trim()}
         </p>
@@ -279,8 +279,8 @@ function InTransitPlaceholder({
   createdAt: string;
 }) {
   return (
-    <div className="mt-3 rounded-2xl border border-dashed border-nadi-gold/30 bg-black/20 px-5 py-6 text-center">
-      <p className="serif text-base text-nadi-glow">✦ 비행 중인 편지</p>
+    <div className="mt-3 rounded-2xl border border-dashed border-nadip-gold/30 bg-black/20 px-5 py-6 text-center">
+      <p className="serif text-base text-nadip-glow">✦ 비행 중인 편지</p>
       <p className="mt-2 text-[11px] tracking-widest text-ink-100/35">
         종이비행기가 — 둘 사이의 거리만큼 천천히 날아오고 있어요.
       </p>

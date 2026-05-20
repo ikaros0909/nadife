@@ -98,10 +98,10 @@ export function CoincidenceClient({ userId }: { userId: string }) {
       <PersonalNav userId={userId} current="meet" />
 
       <section className="pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
           COINCIDENCE · 우연의 시간
         </p>
-        <h1 className="serif mt-4 text-3xl leading-tight text-nadi-glow">
+        <h1 className="serif mt-4 text-3xl leading-tight text-nadip-glow">
           단 1분.
           <br />
           한 줄만 흘려보내는 순간.
@@ -158,9 +158,9 @@ function ActiveWindow({
     <motion.section
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-10 rounded-3xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/15 to-nadi-rose/10 p-8 text-center"
+      className="mt-10 rounded-3xl border border-nadip-gold/40 bg-gradient-to-br from-nadip-gold/15 to-nadip-rose/10 p-8 text-center"
     >
-      <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">지금 — 열림</p>
+      <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">지금 — 열림</p>
       <p
         className="serif mt-4 text-7xl"
         style={{
@@ -175,14 +175,14 @@ function ActiveWindow({
         남은 시간 {Math.max(0, status.secondsRemainingInCurrent)}초
       </p>
       {waitingMeetingId ? (
-        <p className="mt-6 text-sm text-nadi-glow">
+        <p className="mt-6 text-sm text-nadip-glow">
           누군가 같은 시간에 들어오기를 기다리는 중…
         </p>
       ) : (
         <button
           onClick={onJoin}
           disabled={joining}
-          className="mt-6 rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-10 py-3 text-sm tracking-[0.3em] text-nadi-night hover:opacity-90 disabled:opacity-50"
+          className="mt-6 rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-10 py-3 text-sm tracking-[0.3em] text-nadip-night hover:opacity-90 disabled:opacity-50"
         >
           {joining ? "입장 중…" : "✦ 들어가기"}
         </button>
@@ -199,7 +199,7 @@ function ClosedWindow({ status }: { status: Status }) {
   return (
     <section className="mt-10 rounded-3xl border border-ink-100/15 bg-black/30 p-8 text-center">
       <p className="serif text-[10px] tracking-[0.5em] text-ink-100/55">다음 우연까지</p>
-      <p className="serif mt-3 text-5xl text-nadi-glow">{status.nextWindow}</p>
+      <p className="serif mt-3 text-5xl text-nadip-glow">{status.nextWindow}</p>
       <p className="mt-3 text-xs tracking-widest text-ink-100/55">{fmt} 후</p>
       <p className="mt-6 text-[11px] text-ink-100/45">
         그 1분 안에 들어와 있는 사람들끼리 한 명씩 — 우연히 — 짝이 됩니다.
@@ -227,12 +227,12 @@ function MeetingPanel({
 }) {
   return (
     <section className="mt-10 space-y-4">
-      <p className="serif text-[10px] tracking-[0.45em] text-nadi-gold">
-        {meeting.windowTime} 우연 · 짝 — <span className="text-nadi-glow">{meeting.partnerAlias}</span>
+      <p className="serif text-[10px] tracking-[0.45em] text-nadip-gold">
+        {meeting.windowTime} 우연 · 짝 — <span className="text-nadip-glow">{meeting.partnerAlias}</span>
       </p>
 
       {meeting.partnerId && (
-        <div className="rounded-2xl border border-nadi-gold/25 bg-black/30 px-4 py-3">
+        <div className="rounded-2xl border border-nadip-gold/25 bg-black/30 px-4 py-3">
           <div className="flex items-center justify-between gap-3">
             <span className="text-[10px] tracking-widest text-ink-100/55">
               이 우연의 짝은 누구일까?
@@ -247,10 +247,10 @@ function MeetingPanel({
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-3xl border border-nadi-rose/30 bg-black/30 px-6 py-5"
+            className="rounded-3xl border border-nadip-rose/30 bg-black/30 px-6 py-5"
           >
             <p className="text-[10px] tracking-widest text-ink-100/45">{meeting.partnerAlias}</p>
-            <p className="serif mt-2 text-base leading-relaxed text-nadi-glow">
+            <p className="serif mt-2 text-base leading-relaxed text-nadip-glow">
               “{meeting.partnerLine}”
             </p>
           </motion.div>
@@ -261,10 +261,10 @@ function MeetingPanel({
             key="mine-done"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-3xl border border-nadi-gold/40 bg-nadi-gold/5 px-6 py-5"
+            className="rounded-3xl border border-nadip-gold/40 bg-nadip-gold/5 px-6 py-5"
           >
-            <p className="text-[10px] tracking-widest text-nadi-gold">나</p>
-            <p className="serif mt-2 text-base leading-relaxed text-nadi-glow">
+            <p className="text-[10px] tracking-widest text-nadip-gold">나</p>
+            <p className="serif mt-2 text-base leading-relaxed text-nadip-glow">
               “{meeting.myLine}”
             </p>
           </motion.div>
@@ -273,15 +273,15 @@ function MeetingPanel({
             key="mine-write"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-3xl border border-nadi-gold/40 bg-nadi-gold/10 px-6 py-5"
+            className="rounded-3xl border border-nadip-gold/40 bg-nadip-gold/10 px-6 py-5"
           >
-            <p className="text-[10px] tracking-widest text-nadi-gold">내가 흘려보낼 한 줄</p>
+            <p className="text-[10px] tracking-widest text-nadip-gold">내가 흘려보낼 한 줄</p>
             <textarea
               value={draft}
               onChange={(e) => setDraft(e.target.value.slice(0, 200))}
               placeholder="200자 — 한 줄. 다시 못 보내요."
               rows={3}
-              className="mt-3 w-full resize-none rounded-xl border border-nadi-gold/20 bg-transparent px-4 py-3 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
+              className="mt-3 w-full resize-none rounded-xl border border-nadip-gold/20 bg-transparent px-4 py-3 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold"
             />
             <div className="mt-3">
               <AiPolishButton
@@ -298,12 +298,12 @@ function MeetingPanel({
               <button
                 onClick={onSay}
                 disabled={sending || draft.length < 2}
-                className="rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-7 py-2 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90 disabled:opacity-50"
+                className="rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-7 py-2 text-xs tracking-[0.3em] text-nadip-night hover:opacity-90 disabled:opacity-50"
               >
                 {sending ? "흘려보내는 중…" : "✦ 흘려보내기"}
               </button>
             </div>
-            {err && <p className="mt-2 text-[11px] text-nadi-rose">{err}</p>}
+            {err && <p className="mt-2 text-[11px] text-nadip-rose">{err}</p>}
           </motion.div>
         )}
       </AnimatePresence>

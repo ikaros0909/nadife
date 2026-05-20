@@ -78,8 +78,8 @@ export function SightTrigger({
 
   const btnCls =
     size === "xs"
-      ? "rounded-full border border-nadi-gold/35 bg-nadi-gold/5 px-2.5 py-0.5 text-[10px] tracking-widest text-nadi-gold hover:bg-nadi-gold/15"
-      : "rounded-full border border-nadi-gold/40 bg-nadi-gold/10 px-3 py-1 text-[11px] tracking-widest text-nadi-gold hover:bg-nadi-gold/20";
+      ? "rounded-full border border-nadip-gold/35 bg-nadip-gold/5 px-2.5 py-0.5 text-[10px] tracking-widest text-nadip-gold hover:bg-nadip-gold/15"
+      : "rounded-full border border-nadip-gold/40 bg-nadip-gold/10 px-3 py-1 text-[11px] tracking-widest text-nadip-gold hover:bg-nadip-gold/20";
 
   return (
     <div className="inline-block w-full">
@@ -103,9 +103,9 @@ export function SightTrigger({
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="mt-2 rounded-2xl border border-nadi-gold/40 bg-black/50 px-4 py-3 text-center"
+            className="mt-2 rounded-2xl border border-nadip-gold/40 bg-black/50 px-4 py-3 text-center"
           >
-            <p className="serif text-sm text-nadi-glow">천리안 1개를 사용할까요?</p>
+            <p className="serif text-sm text-nadip-glow">천리안 1개를 사용할까요?</p>
             <p className="mt-1 text-[10px] tracking-widest text-ink-100/55">
               한 번 펴면 되돌릴 수 없어요.
             </p>
@@ -119,12 +119,12 @@ export function SightTrigger({
               <button
                 onClick={pop}
                 disabled={loading}
-                className="flex-1 rounded-xl bg-gradient-to-r from-nadi-gold to-nadi-rose px-3 py-1.5 text-[11px] tracking-widest text-nadi-night hover:opacity-90 disabled:opacity-50"
+                className="flex-1 rounded-xl bg-gradient-to-r from-nadip-gold to-nadip-rose px-3 py-1.5 text-[11px] tracking-widest text-nadip-night hover:opacity-90 disabled:opacity-50"
               >
                 {loading ? "펴는 중…" : "✦ 펴기"}
               </button>
             </div>
-            {err && <p className="mt-2 text-[11px] text-nadi-rose">{err}</p>}
+            {err && <p className="mt-2 text-[11px] text-nadip-rose">{err}</p>}
           </motion.div>
         )}
       </AnimatePresence>
@@ -152,9 +152,9 @@ function RevealPanel({
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-3 rounded-2xl border border-nadi-gold/30 bg-black/40 px-4 py-3 text-center"
+        className="mt-3 rounded-2xl border border-nadip-gold/30 bg-black/40 px-4 py-3 text-center"
       >
-        <p className="serif text-sm text-nadi-glow">기다리는 중…</p>
+        <p className="serif text-sm text-nadip-glow">기다리는 중…</p>
         <p className="mt-1 text-[11px] leading-relaxed text-ink-100/55">{reveal.message}</p>
       </motion.div>
     );
@@ -164,9 +164,9 @@ function RevealPanel({
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-3 rounded-2xl border border-nadi-rose/30 bg-black/40 px-4 py-3 text-center"
+        className="mt-3 rounded-2xl border border-nadip-rose/30 bg-black/40 px-4 py-3 text-center"
       >
-        <p className="serif text-sm text-nadi-rose">✦ 흩어짐</p>
+        <p className="serif text-sm text-nadip-rose">✦ 흩어짐</p>
         <p className="mt-1 text-[11px] leading-relaxed text-ink-100/55">{reveal.message}</p>
       </motion.div>
     );
@@ -195,8 +195,8 @@ function RevealPanel({
       </div>
 
       {t && (
-        <div className="rounded-2xl border border-nadi-gold/25 bg-black/40 p-3">
-          <p className="text-[9px] tracking-[0.35em] text-nadi-gold">궤적</p>
+        <div className="rounded-2xl border border-nadip-gold/25 bg-black/40 p-3">
+          <p className="text-[9px] tracking-[0.35em] text-nadip-gold">궤적</p>
           <div className="mt-2 grid grid-cols-3 gap-1.5 text-center">
             <Stat n={t.daysSinceStart} l="일째" />
             <Stat n={t.uniqueWorlds} l="세계" />
@@ -226,7 +226,7 @@ function RevealPanel({
       {showLetterInvite && reveal.isHuman && (
         <a
           href={`/meet/letter/new?u=${viewerId}&to=${targetId}`}
-          className="block rounded-2xl border border-nadi-rose/30 bg-black/30 p-3 text-center text-[11px] tracking-widest text-nadi-glow hover:bg-nadi-rose/10"
+          className="block rounded-2xl border border-nadip-rose/30 bg-black/30 p-3 text-center text-[11px] tracking-widest text-nadip-glow hover:bg-nadip-rose/10"
         >
           ✉ 이 사람에게 편지 쓰기
         </a>
@@ -241,12 +241,12 @@ function RevealField({ k, v }: { k: string; v?: string }) {
     <div
       className={
         has
-          ? "rounded-lg border border-nadi-gold/30 bg-nadi-gold/5 px-2 py-1.5"
+          ? "rounded-lg border border-nadip-gold/30 bg-nadip-gold/5 px-2 py-1.5"
           : "rounded-lg border border-ink-100/10 bg-black/20 px-2 py-1.5"
       }
     >
       <div className="text-[9px] tracking-[0.25em] text-ink-100/45">{k}</div>
-      <div className={has ? "serif mt-0.5 text-[12px] text-nadi-glow" : "serif mt-0.5 text-[12px] text-ink-100/35"}>
+      <div className={has ? "serif mt-0.5 text-[12px] text-nadip-glow" : "serif mt-0.5 text-[12px] text-ink-100/35"}>
         {has ? v : "알 수 없음"}
       </div>
     </div>
@@ -256,7 +256,7 @@ function RevealField({ k, v }: { k: string; v?: string }) {
 function Stat({ n, l }: { n: number; l: string }) {
   return (
     <div className="rounded-lg border border-ink-100/10 bg-black/40 px-1.5 py-1.5">
-      <div className="serif text-base text-nadi-glow">{n}</div>
+      <div className="serif text-base text-nadip-glow">{n}</div>
       <div className="mt-0.5 text-[9px] tracking-widest text-ink-100/45">{l}</div>
     </div>
   );

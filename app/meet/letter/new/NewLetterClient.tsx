@@ -63,16 +63,16 @@ export function NewLetterClient({
       <PersonalNav userId={userId} current="meet" />
 
       <header className="flex items-center justify-between pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">NEW LETTER</p>
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">NEW LETTER</p>
         <Link
           href={`/meet/letter?u=${userId}`}
-          className="text-xs tracking-widest text-ink-100/45 hover:text-nadi-glow"
+          className="text-xs tracking-widest text-ink-100/45 hover:text-nadip-glow"
         >
           ← 편지함
         </Link>
       </header>
 
-      <h1 className="serif mt-8 text-2xl leading-tight text-nadi-glow">
+      <h1 className="serif mt-8 text-2xl leading-tight text-nadip-glow">
         누구에게 첫 편지를 띄울까요?
       </h1>
       <p className="mt-2 text-xs text-ink-100/55">
@@ -80,7 +80,7 @@ export function NewLetterClient({
       </p>
 
       <section className="mt-8">
-        <p className="serif text-[10px] tracking-[0.4em] text-nadi-gold">비슷한 결</p>
+        <p className="serif text-[10px] tracking-[0.4em] text-nadip-gold">비슷한 결</p>
         <div className="mt-3 grid gap-2 sm:grid-cols-3">
           {nearCandidates.map((c) => (
             <CandCard key={c.id} c={c} on={targetId === c.id} onClick={() => setTargetId(c.id)} />
@@ -89,7 +89,7 @@ export function NewLetterClient({
       </section>
 
       <section className="mt-8">
-        <p className="serif text-[10px] tracking-[0.4em] text-nadi-rose">정반대의 결</p>
+        <p className="serif text-[10px] tracking-[0.4em] text-nadip-rose">정반대의 결</p>
         <div className="mt-3 grid gap-2 sm:grid-cols-3">
           {farCandidates.map((c) => (
             <CandCard key={c.id} c={c} on={targetId === c.id} onClick={() => setTargetId(c.id)} />
@@ -97,8 +97,8 @@ export function NewLetterClient({
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-nadi-gold/30 bg-black/30 p-6">
-        <p className="serif text-xs tracking-[0.4em] text-nadi-gold">
+      <section className="mt-10 rounded-3xl border border-nadip-gold/30 bg-black/30 p-6">
+        <p className="serif text-xs tracking-[0.4em] text-nadip-gold">
           {selected ? `${selected.alias}에게` : "받는 사람을 골라주세요"}
         </p>
         {selected && (
@@ -111,7 +111,7 @@ export function NewLetterClient({
           onChange={(e) => setDraft(e.target.value.slice(0, 400))}
           placeholder="첫 문장 — 가장 어렵죠. 천천히, 일상의 한 결을 적어주세요. (300~400자)"
           rows={9}
-          className="mt-4 w-full resize-none rounded-xl border border-nadi-gold/20 bg-transparent px-4 py-3 text-[15px] leading-[1.85] text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
+          className="mt-4 w-full resize-none rounded-xl border border-nadip-gold/20 bg-transparent px-4 py-3 text-[15px] leading-[1.85] text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold"
         />
         <div className="mt-3">
           <AiPolishButton
@@ -128,12 +128,12 @@ export function NewLetterClient({
           <button
             onClick={send}
             disabled={sending || !targetId || draft.length < 20}
-            className="rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-7 py-2 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90 disabled:opacity-50"
+            className="rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-7 py-2 text-xs tracking-[0.3em] text-nadip-night hover:opacity-90 disabled:opacity-50"
           >
             {sending ? "보내는 중…" : "✉ 첫 편지 띄우기"}
           </button>
         </div>
-        {err && <p className="mt-2 text-[11px] text-nadi-rose">{err}</p>}
+        {err && <p className="mt-2 text-[11px] text-nadip-rose">{err}</p>}
       </section>
     </main>
   );
@@ -154,15 +154,15 @@ function CandCard({
       className={
         "rounded-2xl border p-4 text-left transition " +
         (on
-          ? "border-nadi-gold/70 bg-nadi-gold/15 ring-1 ring-nadi-gold/40"
-          : "border-ink-100/10 bg-black/30 hover:border-nadi-gold/40")
+          ? "border-nadip-gold/70 bg-nadip-gold/15 ring-1 ring-nadip-gold/40"
+          : "border-ink-100/10 bg-black/30 hover:border-nadip-gold/40")
       }
       style={!on ? { borderLeft: `2px solid ${c.hue}55` } : undefined}
     >
       <p className="text-[10px] tracking-[0.3em]" style={{ color: c.hue }}>
         {c.worldTitle}
       </p>
-      <p className="serif mt-2 text-base text-nadi-glow">{c.alias}</p>
+      <p className="serif mt-2 text-base text-nadip-glow">{c.alias}</p>
       <p className="mt-1 text-[10px] leading-relaxed text-ink-100/55 line-clamp-2">
         “{c.oneLiner}”
       </p>

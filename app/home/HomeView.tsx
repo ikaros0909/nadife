@@ -149,10 +149,10 @@ export function HomeView({
 
       {/* 인사말 + 핵심 통계 */}
       <section className="pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
           {nickname ?? email}
         </p>
-        <h1 className="serif mt-4 text-3xl leading-[1.2] text-nadi-glow sm:text-4xl">
+        <h1 className="serif mt-4 text-3xl leading-[1.2] text-nadip-glow sm:text-4xl">
           {todayDaily ? "오늘의 당신이" : "오늘 당신은"}
           <br />
           {todayDaily ? (
@@ -160,7 +160,7 @@ export function HomeView({
               <span style={{ color: todayWorld!.hue }}>{todayWorld!.title}</span>의 세계에 있어요.
             </>
           ) : (
-            <span className="bg-gradient-to-r from-nadi-gold to-nadi-rose bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-nadip-gold to-nadip-rose bg-clip-text text-transparent">
               어떤 사람인가요?
             </span>
           )}
@@ -179,23 +179,23 @@ export function HomeView({
       <section className="mt-10">
         {todayDaily && todayWorld ? (
           <div
-            className="rounded-3xl border border-nadi-gold/25 p-7"
+            className="rounded-3xl border border-nadip-gold/25 p-7"
             style={{
               background: `radial-gradient(circle at 30% 0%, ${todayWorld.hue}33, transparent 60%), linear-gradient(180deg, rgba(11,14,26,0.8), rgba(17,20,43,0.95))`
             }}
           >
             <div className="flex items-center justify-between">
-              <p className="serif text-[10px] tracking-[0.45em] text-nadi-gold">
+              <p className="serif text-[10px] tracking-[0.45em] text-nadip-gold">
                 오늘의 페르소나
               </p>
-              <span className="rounded-full border border-nadi-gold/30 px-3 py-1 text-[10px] tracking-[0.3em] text-ink-100/70">
+              <span className="rounded-full border border-nadip-gold/30 px-3 py-1 text-[10px] tracking-[0.3em] text-ink-100/70">
                 {todayDaily.mood}
               </span>
             </div>
             <h2 className="serif mt-6 text-4xl leading-tight" style={{ color: todayWorld.hue }}>
               {todayWorld.title}
             </h2>
-            <p className="serif mt-3 text-base leading-relaxed text-nadi-glow">
+            <p className="serif mt-3 text-base leading-relaxed text-nadip-glow">
               “{todayDaily.oneLiner}”
             </p>
             <p className="mt-4 text-[10px] tracking-[0.3em] text-ink-100/45">
@@ -206,12 +206,12 @@ export function HomeView({
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-3xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/10 to-nadi-rose/10 p-7"
+            className="rounded-3xl border border-nadip-gold/40 bg-gradient-to-br from-nadip-gold/10 to-nadip-rose/10 p-7"
           >
-            <p className="serif text-[10px] tracking-[0.45em] text-nadi-gold">
+            <p className="serif text-[10px] tracking-[0.45em] text-nadip-gold">
               오늘의 체크인
             </p>
-            <h2 className="serif mt-3 text-2xl leading-snug text-nadi-glow">
+            <h2 className="serif mt-3 text-2xl leading-snug text-nadip-glow">
               오늘 당신은 어떤 사람인가요?
             </h2>
             <p className="mt-2 text-xs text-ink-100/60">
@@ -224,7 +224,7 @@ export function HomeView({
                   key={m}
                   onClick={() => submitMood(m)}
                   disabled={moodLoading}
-                  className="rounded-full border border-ink-100/15 px-4 py-2 text-sm text-ink-100/70 transition hover:border-nadi-gold/50 hover:bg-nadi-gold/10 hover:text-nadi-glow disabled:opacity-40"
+                  className="rounded-full border border-ink-100/15 px-4 py-2 text-sm text-ink-100/70 transition hover:border-nadip-gold/50 hover:bg-nadip-gold/10 hover:text-nadip-glow disabled:opacity-40"
                 >
                   {m}
                 </button>
@@ -236,7 +236,7 @@ export function HomeView({
                 value={moodInput}
                 onChange={(e) => setMoodInput(e.target.value)}
                 placeholder="직접 적기"
-                className="flex-1 rounded-xl border border-nadi-gold/30 bg-transparent px-4 py-3 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
+                className="flex-1 rounded-xl border border-nadip-gold/30 bg-transparent px-4 py-3 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold"
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && moodInput.trim()) submitMood(moodInput.trim());
                 }}
@@ -244,12 +244,12 @@ export function HomeView({
               <button
                 onClick={() => moodInput.trim() && submitMood(moodInput.trim())}
                 disabled={moodLoading || !moodInput.trim()}
-                className="rounded-xl bg-nadi-gold/15 px-5 text-xs tracking-[0.25em] text-nadi-glow ring-1 ring-nadi-gold/40 hover:bg-nadi-gold/25 disabled:opacity-50"
+                className="rounded-xl bg-nadip-gold/15 px-5 text-xs tracking-[0.25em] text-nadip-glow ring-1 ring-nadip-gold/40 hover:bg-nadip-gold/25 disabled:opacity-50"
               >
                 {moodLoading ? "AI…" : "결정"}
               </button>
             </div>
-            {moodErr && <p className="mt-3 text-xs text-nadi-rose">{moodErr}</p>}
+            {moodErr && <p className="mt-3 text-xs text-nadip-rose">{moodErr}</p>}
           </motion.div>
         )}
       </section>
@@ -263,10 +263,10 @@ export function HomeView({
       {/* 메인캐 / 부캐 */}
       <section className="mt-10">
         <div className="flex items-center justify-between">
-          <h3 className="serif text-sm tracking-[0.4em] text-nadi-gold">나의 페르소나</h3>
+          <h3 className="serif text-sm tracking-[0.4em] text-nadip-gold">나의 페르소나</h3>
           <Link
             href={`/onboard`}
-            className="text-[10px] tracking-widest text-ink-100/40 hover:text-nadi-glow"
+            className="text-[10px] tracking-widest text-ink-100/40 hover:text-nadip-glow"
           >
             새로 분석 →
           </Link>
@@ -291,12 +291,12 @@ export function HomeView({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="rounded-2xl border border-nadi-rose/40 bg-gradient-to-br from-nadi-rose/10 to-nadi-deep/30 p-6"
+              className="rounded-2xl border border-nadip-rose/40 bg-gradient-to-br from-nadip-rose/10 to-nadip-deep/30 p-6"
             >
-              <p className="serif text-[10px] tracking-[0.45em] text-nadi-rose">
+              <p className="serif text-[10px] tracking-[0.45em] text-nadip-rose">
                 숨은 부캐
               </p>
-              <h4 className="serif mt-3 text-lg leading-snug text-nadi-glow">
+              <h4 className="serif mt-3 text-lg leading-snug text-nadip-glow">
                 AI는 당신이 몰랐던
                 <br />
                 또 다른 당신을 알고 있어요.
@@ -304,11 +304,11 @@ export function HomeView({
               <button
                 onClick={revealSub}
                 disabled={revealLoading}
-                className="mt-5 w-full rounded-xl bg-gradient-to-r from-nadi-rose to-nadi-gold px-4 py-3 text-xs tracking-[0.3em] text-nadi-night transition hover:opacity-90 disabled:opacity-50"
+                className="mt-5 w-full rounded-xl bg-gradient-to-r from-nadip-rose to-nadip-gold px-4 py-3 text-xs tracking-[0.3em] text-nadip-night transition hover:opacity-90 disabled:opacity-50"
               >
                 {revealLoading ? "부캐를 깨우는 중…" : "부캐 리빌 →"}
               </button>
-              {revealErr && <p className="mt-2 text-[11px] text-nadi-rose">{revealErr}</p>}
+              {revealErr && <p className="mt-2 text-[11px] text-nadip-rose">{revealErr}</p>}
             </motion.div>
           )}
         </div>
@@ -317,10 +317,10 @@ export function HomeView({
       {/* 미니 궤적 */}
       <section className="mt-12">
         <div className="flex items-center justify-between">
-          <h3 className="serif text-sm tracking-[0.4em] text-nadi-gold">나의 궤적</h3>
+          <h3 className="serif text-sm tracking-[0.4em] text-nadip-gold">나의 궤적</h3>
           <Link
             href={`/journey?u=${userId}`}
-            className="text-[10px] tracking-widest text-nadi-gold hover:text-nadi-glow"
+            className="text-[10px] tracking-widest text-nadip-gold hover:text-nadip-glow"
           >
             전체 보기 →
           </Link>
@@ -329,7 +329,7 @@ export function HomeView({
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="mt-5 overflow-hidden rounded-3xl border border-nadi-gold/20 bg-[radial-gradient(circle_at_center,_rgba(212,175,111,0.08),_transparent_70%),linear-gradient(180deg,#0b0e1a,#11142b)]"
+          className="mt-5 overflow-hidden rounded-3xl border border-nadip-gold/20 bg-[radial-gradient(circle_at_center,_rgba(212,175,111,0.08),_transparent_70%),linear-gradient(180deg,#0b0e1a,#11142b)]"
         >
           <svg viewBox={`0 0 ${MINI} ${MINI}`} className="block w-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -387,7 +387,7 @@ export function HomeView({
                   style={{ borderTop: `2px solid ${w.hue}` }}
                 >
                   <div className="tracking-widest text-ink-100/40">{d.date.slice(5)}</div>
-                  <div className="serif mt-1 text-xs text-nadi-glow">{w.title}</div>
+                  <div className="serif mt-1 text-xs text-nadip-glow">{w.title}</div>
                 </div>
               );
             })}
@@ -398,10 +398,10 @@ export function HomeView({
       {/* 만남 — 세 갈래 */}
       <section className="mt-12">
         <div className="flex items-center justify-between">
-          <h3 className="serif text-sm tracking-[0.4em] text-nadi-gold">오늘의 만남</h3>
+          <h3 className="serif text-sm tracking-[0.4em] text-nadip-gold">오늘의 만남</h3>
           <Link
             href={`/meet?u=${userId}`}
-            className="text-[10px] tracking-widest text-nadi-gold hover:text-nadi-glow"
+            className="text-[10px] tracking-widest text-nadip-gold hover:text-nadip-glow"
           >
             만남 허브 →
           </Link>
@@ -459,9 +459,9 @@ export function HomeView({
       </section>
 
       {/* 공유 */}
-      <section className="mt-12 rounded-3xl border border-nadi-gold/30 bg-gradient-to-br from-nadi-gold/5 to-nadi-rose/5 p-7">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">SHARE</p>
-        <h3 className="serif mt-3 text-lg leading-snug text-nadi-glow">
+      <section className="mt-12 rounded-3xl border border-nadip-gold/30 bg-gradient-to-br from-nadip-gold/5 to-nadip-rose/5 p-7">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">SHARE</p>
+        <h3 className="serif mt-3 text-lg leading-snug text-nadip-glow">
           이 궤적을 공유하세요.
         </h3>
         <p className="mt-2 text-xs text-ink-100/60">
@@ -470,13 +470,13 @@ export function HomeView({
         <div className="mt-5 flex gap-3">
           <Link
             href={`/j/${userId}`}
-            className="flex-1 rounded-2xl border border-nadi-gold/30 bg-nadi-gold/5 py-3 text-center text-xs tracking-[0.3em] text-nadi-glow hover:bg-nadi-gold/15"
+            className="flex-1 rounded-2xl border border-nadip-gold/30 bg-nadip-gold/5 py-3 text-center text-xs tracking-[0.3em] text-nadip-glow hover:bg-nadip-gold/15"
           >
             공유 페이지 보기
           </Link>
           <Link
             href={`/card/${main.id}`}
-            className="flex-1 rounded-2xl border border-nadi-rose/30 bg-nadi-rose/5 py-3 text-center text-xs tracking-[0.3em] text-nadi-glow hover:bg-nadi-rose/15"
+            className="flex-1 rounded-2xl border border-nadip-rose/30 bg-nadip-rose/5 py-3 text-center text-xs tracking-[0.3em] text-nadip-glow hover:bg-nadip-rose/15"
           >
             메인캐 카드
           </Link>
@@ -501,7 +501,7 @@ function Pill({
     <span
       className={
         highlight
-          ? "rounded-full border border-nadi-gold/40 bg-nadi-gold/10 px-3 py-1 text-nadi-glow"
+          ? "rounded-full border border-nadip-gold/40 bg-nadip-gold/10 px-3 py-1 text-nadip-glow"
           : "rounded-full border border-ink-100/15 bg-black/20 px-3 py-1"
       }
     >
@@ -523,7 +523,7 @@ function MiniPersona({
   userId: string;
   tone?: "gold" | "rose";
 }) {
-  const border = tone === "rose" ? "border-nadi-rose/30" : "border-nadi-gold/25";
+  const border = tone === "rose" ? "border-nadip-rose/30" : "border-nadip-gold/25";
   return (
     <Link
       href={`/card/${persona.id}`}
@@ -533,7 +533,7 @@ function MiniPersona({
       }}
     >
       <div className="flex items-center justify-between">
-        <p className="text-[10px] tracking-[0.4em] text-nadi-gold">{label}</p>
+        <p className="text-[10px] tracking-[0.4em] text-nadip-gold">{label}</p>
         <span
           className="rounded-full px-2 py-0.5 text-[10px] tracking-[0.25em]"
           style={{ color: world.hue, border: `1px solid ${world.hue}44` }}
@@ -569,7 +569,7 @@ function ReferenceCard({
       className="group block rounded-2xl border border-ink-100/15 bg-black/20 p-5 transition hover:border-ink-100/30"
     >
       <div className="text-[10px] tracking-[0.4em] text-ink-100/45">{label}</div>
-      <div className="serif mt-3 text-lg text-nadi-glow">{title}</div>
+      <div className="serif mt-3 text-lg text-nadip-glow">{title}</div>
       <p className="mt-2 text-[11px] leading-relaxed text-ink-100/50">{sub}</p>
       <div className="mt-4 text-[10px] tracking-widest text-ink-100/40 group-hover:text-ink-100/65">
         읽으러 가기 →
@@ -666,7 +666,7 @@ function SightSection({
   return (
     <section id="sight" className="mt-10">
       <div className="flex items-center justify-between">
-        <h3 className="serif text-sm tracking-[0.4em] text-nadi-gold">✦ 천리안</h3>
+        <h3 className="serif text-sm tracking-[0.4em] text-nadip-gold">✦ 천리안</h3>
         <span className="text-[10px] tracking-widest text-ink-100/45">
           {initial.todayGranted ? "오늘 +1 이미 받음" : "오늘의 디지털 관상으로 +1"}
         </span>
@@ -674,7 +674,7 @@ function SightSection({
 
       {/* 잔량 카드 */}
       <div
-        className="mt-4 rounded-3xl border border-nadi-gold/30 p-6"
+        className="mt-4 rounded-3xl border border-nadip-gold/30 p-6"
         style={{
           background:
             "radial-gradient(circle at 30% 0%, rgba(212,175,111,0.18), transparent 55%), rgba(11,14,26,0.55)"
@@ -682,7 +682,7 @@ function SightSection({
       >
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-[10px] tracking-[0.4em] text-nadi-gold">잔량</p>
+            <p className="text-[10px] tracking-[0.4em] text-nadip-gold">잔량</p>
             <p
               className="serif mt-2 text-6xl leading-none"
               style={{
@@ -706,9 +706,9 @@ function SightSection({
 
       {/* 들여다보려는 사람들 (incoming pending) */}
       {pendingIncoming > 0 && (
-        <div className="mt-4 rounded-2xl border border-nadi-rose/40 bg-nadi-rose/10 p-5">
-          <p className="serif text-sm leading-snug text-nadi-glow">
-            <span className="text-nadi-rose">{pendingIncoming}명</span>이
+        <div className="mt-4 rounded-2xl border border-nadip-rose/40 bg-nadip-rose/10 p-5">
+          <p className="serif text-sm leading-snug text-nadip-glow">
+            <span className="text-nadip-rose">{pendingIncoming}명</span>이
             지금 당신을 들여다보려 합니다.
           </p>
           <p className="mt-1 text-xs text-ink-100/60">
@@ -719,7 +719,7 @@ function SightSection({
           <button
             onClick={declineAll}
             disabled={decliningAll}
-            className="mt-3 text-[10px] tracking-widest text-nadi-rose underline hover:text-nadi-glow disabled:opacity-50"
+            className="mt-3 text-[10px] tracking-widest text-nadip-rose underline hover:text-nadip-glow disabled:opacity-50"
           >
             지금 모두 거절하기
           </button>
@@ -729,7 +729,7 @@ function SightSection({
       {/* 프로필 윤곽 — 천리안 답변용 */}
       <div className="mt-4 rounded-2xl border border-ink-100/10 bg-black/30 p-5">
         <div className="flex items-center justify-between">
-          <p className="serif text-xs tracking-[0.4em] text-nadi-gold">나의 윤곽</p>
+          <p className="serif text-xs tracking-[0.4em] text-nadip-gold">나의 윤곽</p>
           <span className="text-[10px] tracking-widest text-ink-100/45">
             {filledCount}/5 채움
           </span>
@@ -749,7 +749,7 @@ function SightSection({
             </div>
             <button
               onClick={() => setEditing(true)}
-              className="mt-4 w-full rounded-xl border border-nadi-gold/30 bg-nadi-gold/5 py-2 text-xs tracking-[0.25em] text-nadi-glow hover:bg-nadi-gold/15"
+              className="mt-4 w-full rounded-xl border border-nadip-gold/30 bg-nadip-gold/5 py-2 text-xs tracking-[0.25em] text-nadip-glow hover:bg-nadip-gold/15"
             >
               윤곽 채우기 / 수정하기
             </button>
@@ -760,34 +760,34 @@ function SightSection({
               placeholder="성별 (예: 여성 / 남성 / 비공개)"
               value={draft.gender}
               onChange={(e) => setDraft({ ...draft, gender: e.target.value })}
-              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold/50"
             />
             <input
               placeholder="출생연도 (예: 1992)"
               type="number"
               value={draft.birthYear}
               onChange={(e) => setDraft({ ...draft, birthYear: e.target.value })}
-              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold/50"
             />
             <input
               placeholder="국적 (예: 한국)"
               value={draft.country}
               onChange={(e) => setDraft({ ...draft, country: e.target.value })}
-              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold/50"
             />
             <input
               placeholder="직업 (예: 디자이너)"
               value={draft.occupation}
               onChange={(e) => setDraft({ ...draft, occupation: e.target.value })}
-              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold/50"
             />
             <input
               placeholder="지역 (예: 서울)"
               value={draft.region}
               onChange={(e) => setDraft({ ...draft, region: e.target.value })}
-              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold/50"
+              className="w-full rounded-xl border border-ink-100/15 bg-transparent px-4 py-2.5 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold/50"
             />
-            {err && <p className="text-[11px] text-nadi-rose">{err}</p>}
+            {err && <p className="text-[11px] text-nadip-rose">{err}</p>}
             <div className="flex gap-2">
               <button
                 onClick={() => setEditing(false)}
@@ -798,7 +798,7 @@ function SightSection({
               <button
                 onClick={save}
                 disabled={saving}
-                className="flex-1 rounded-xl bg-gradient-to-r from-nadi-gold to-nadi-rose px-4 py-2 text-xs tracking-widest text-nadi-night hover:opacity-90 disabled:opacity-50"
+                className="flex-1 rounded-xl bg-gradient-to-r from-nadip-gold to-nadip-rose px-4 py-2 text-xs tracking-widest text-nadip-night hover:opacity-90 disabled:opacity-50"
               >
                 {saving ? "저장 중…" : "저장"}
               </button>
@@ -870,7 +870,7 @@ function SightHistory({ userId }: { userId: string }) {
 
   return (
     <div className="mt-6">
-      <p className="serif text-xs tracking-[0.4em] text-nadi-gold">내가 사용한 천리안</p>
+      <p className="serif text-xs tracking-[0.4em] text-nadip-gold">내가 사용한 천리안</p>
       <ul className="mt-3 space-y-2">
         {items.map((it) => (
           <SightHistoryRow key={it.id} item={it} userId={userId} />
@@ -886,10 +886,10 @@ function SightHistoryRow({ item, userId }: { item: SightHistoryItem; userId: str
     item.status === "SUCCESS" ? "✦ 닿음" : item.status === "PENDING" ? "기다리는 중" : "✦ 흩어짐";
   const statusTone =
     item.status === "SUCCESS"
-      ? "text-nadi-gold"
+      ? "text-nadip-gold"
       : item.status === "PENDING"
       ? "text-ink-100/55"
-      : "text-nadi-rose";
+      : "text-nadip-rose";
 
   const when = new Date(item.createdAt).toLocaleString("ko-KR", {
     month: "2-digit",
@@ -900,7 +900,7 @@ function SightHistoryRow({ item, userId }: { item: SightHistoryItem; userId: str
 
   const inner = (
     <div
-      className="flex items-center justify-between gap-3 rounded-2xl border border-ink-100/10 bg-black/30 px-4 py-3 transition hover:border-nadi-gold/30"
+      className="flex items-center justify-between gap-3 rounded-2xl border border-ink-100/10 bg-black/30 px-4 py-3 transition hover:border-nadip-gold/30"
       style={meta ? { borderLeft: `2px solid ${meta.tone}` } : undefined}
     >
       <div className="min-w-0 flex-1">
@@ -912,7 +912,7 @@ function SightHistoryRow({ item, userId }: { item: SightHistoryItem; userId: str
           )}
           <span className={statusTone}>{statusLabel}</span>
         </div>
-        <p className="serif mt-1 truncate text-sm text-nadi-glow">
+        <p className="serif mt-1 truncate text-sm text-nadip-glow">
           {item.target.title ?? "디지털 자아"}
         </p>
         <p className="mt-0.5 text-[10px] tracking-widest text-ink-100/40">{when}</p>
@@ -936,12 +936,12 @@ function ProfileField({ k, v }: { k: string; v: string | null }) {
     <div
       className={
         v
-          ? "rounded-xl border border-nadi-gold/25 bg-nadi-gold/5 px-3 py-2"
+          ? "rounded-xl border border-nadip-gold/25 bg-nadip-gold/5 px-3 py-2"
           : "rounded-xl border border-ink-100/10 bg-black/20 px-3 py-2"
       }
     >
       <div className="text-[10px] tracking-[0.3em] text-ink-100/45">{k}</div>
-      <div className={v ? "serif mt-0.5 text-sm text-nadi-glow" : "serif mt-0.5 text-sm text-ink-100/35"}>
+      <div className={v ? "serif mt-0.5 text-sm text-nadip-glow" : "serif mt-0.5 text-sm text-ink-100/35"}>
         {v ?? "—"}
       </div>
     </div>
@@ -964,7 +964,7 @@ function MeetCard({
   return (
     <Link
       href={href}
-      className="group block overflow-hidden rounded-2xl border border-nadi-gold/20 p-5 transition hover:-translate-y-0.5"
+      className="group block overflow-hidden rounded-2xl border border-nadip-gold/20 p-5 transition hover:-translate-y-0.5"
       style={{
         background: `radial-gradient(circle at 0% 0%, ${hue}22, transparent 60%), rgba(11,14,26,0.55)`,
         borderLeft: `2px solid ${hue}55`
@@ -973,7 +973,7 @@ function MeetCard({
       <div className="text-[10px] tracking-[0.4em]" style={{ color: hue }}>
         {head}
       </div>
-      <div className="serif mt-3 text-base text-nadi-glow">{title}</div>
+      <div className="serif mt-3 text-base text-nadip-glow">{title}</div>
       <div className="mt-1 text-[10px] tracking-widest text-ink-100/55">{sub}</div>
       <div className="mt-3 text-[10px] tracking-widest text-ink-100/35 group-hover:text-ink-100/65">
         들어가기 →

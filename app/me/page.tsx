@@ -37,15 +37,15 @@ export default function MePage() {
   return (
     <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-md flex-col px-6 py-14">
       <header className="flex items-center justify-between">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">NADIFE</p>
-        <Link href="/" className="text-xs tracking-widest text-ink-100/40 hover:text-nadi-glow">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">NADIPE</p>
+        <Link href="/" className="text-xs tracking-widest text-ink-100/40 hover:text-nadip-glow">
           ← 홈
         </Link>
       </header>
 
       <div className="mt-24">
-        <p className="serif text-xs tracking-[0.45em] text-nadi-gold">이어가기</p>
-        <h1 className="serif mt-6 text-3xl leading-snug text-nadi-glow sm:text-4xl">
+        <p className="serif text-xs tracking-[0.45em] text-nadip-gold">이어가기</p>
+        <h1 className="serif mt-6 text-3xl leading-snug text-nadip-glow sm:text-4xl">
           그동안 거쳐온
           <br />
           당신의 세계들을 다시 봅니다.
@@ -60,23 +60,23 @@ export default function MePage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && submit()}
-          className="mt-10 w-full rounded-xl border border-nadi-gold/30 bg-transparent px-5 py-4 text-lg text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
+          className="mt-10 w-full rounded-xl border border-nadip-gold/30 bg-transparent px-5 py-4 text-lg text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold"
         />
 
         <button
           onClick={submit}
           disabled={loading || !email.trim()}
-          className="mt-4 w-full rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-8 py-4 text-sm tracking-[0.3em] text-nadi-night transition hover:opacity-90 disabled:opacity-50"
+          className="mt-4 w-full rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-8 py-4 text-sm tracking-[0.3em] text-nadip-night transition hover:opacity-90 disabled:opacity-50"
         >
           {loading ? "찾는 중…" : "내 화면 열기"}
         </button>
 
-        {err && <p className="mt-4 text-sm text-nadi-rose">{err}</p>}
+        {err && <p className="mt-4 text-sm text-nadip-rose">{err}</p>}
 
         <div className="mt-10 text-center">
           <Link
             href="/onboard"
-            className="text-xs tracking-widest text-ink-100/40 underline hover:text-nadi-glow"
+            className="text-xs tracking-widest text-ink-100/40 underline hover:text-nadip-glow"
           >
             처음이라면 — 시작하기
           </Link>

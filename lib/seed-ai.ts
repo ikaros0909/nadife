@@ -147,7 +147,7 @@ export async function seedDailyAI(opts?: {
   for (const world of worlds) {
     perWorld[world.slug] = (perWorld[world.slug] ?? 0) + 1;
 
-    const email = `ai-${randId()}@nadi.ai`;
+    const email = `ai-${randId()}@nadip.ai`;
     const user = await prisma.user.create({
       data: {
         email,

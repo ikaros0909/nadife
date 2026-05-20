@@ -57,16 +57,16 @@ export function JourneyView({
       <PersonalNav userId={userId} current="journey" />
 
       <div className="mt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
           {nickname ?? email}
         </p>
-        <h1 className="serif mt-4 text-4xl leading-[1.15] text-nadi-glow sm:text-5xl">
-          <span className="bg-gradient-to-r from-nadi-gold to-nadi-rose bg-clip-text text-transparent">
+        <h1 className="serif mt-4 text-4xl leading-[1.15] text-nadip-glow sm:text-5xl">
+          <span className="bg-gradient-to-r from-nadip-gold to-nadip-rose bg-clip-text text-transparent">
             {stats.daysSinceStart}일
           </span>
           째,
           <br />
-          <span className="bg-gradient-to-r from-nadi-rose to-nadi-gold bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-nadip-rose to-nadip-gold bg-clip-text text-transparent">
             {stats.uniqueWorlds}개의 세계
           </span>
           를 거쳐왔다.
@@ -78,10 +78,10 @@ export function JourneyView({
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="mt-14 overflow-hidden rounded-3xl border border-nadi-gold/20 bg-[radial-gradient(circle_at_center,_rgba(212,175,111,0.08),_transparent_70%),linear-gradient(180deg,#0b0e1a,#11142b)]"
+        className="mt-14 overflow-hidden rounded-3xl border border-nadip-gold/20 bg-[radial-gradient(circle_at_center,_rgba(212,175,111,0.08),_transparent_70%),linear-gradient(180deg,#0b0e1a,#11142b)]"
       >
-        <div className="flex items-center justify-between border-b border-nadi-gold/10 px-6 py-3">
-          <span className="serif text-[10px] tracking-[0.4em] text-nadi-gold">
+        <div className="flex items-center justify-between border-b border-nadip-gold/10 px-6 py-3">
+          <span className="serif text-[10px] tracking-[0.4em] text-nadip-gold">
             WORLD MAP TRAJECTORY
           </span>
           <span className="text-[10px] tracking-widest text-ink-100/40">
@@ -213,7 +213,7 @@ export function JourneyView({
             fill="rgba(245,230,200,0.35)"
             fontFamily="serif"
           >
-            NADIFE
+            NADIPE
           </text>
         </svg>
       </motion.div>
@@ -230,18 +230,18 @@ export function JourneyView({
       <div className="mt-8 grid gap-3 sm:grid-cols-2">
         {stats.mostVisited && (
           <div
-            className="rounded-2xl border border-nadi-gold/25 bg-black/30 p-6"
+            className="rounded-2xl border border-nadip-gold/25 bg-black/30 p-6"
             style={{ borderTop: `2px solid ${stats.mostVisited.hue}` }}
           >
-            <p className="text-[10px] tracking-[0.35em] text-nadi-gold">자주 머문 세계</p>
-            <p className="serif mt-3 text-2xl text-nadi-glow">{stats.mostVisited.title}</p>
+            <p className="text-[10px] tracking-[0.35em] text-nadip-gold">자주 머문 세계</p>
+            <p className="serif mt-3 text-2xl text-nadip-glow">{stats.mostVisited.title}</p>
             <p className="mt-1 text-xs text-ink-100/50">{stats.mostVisited.count}번 방문</p>
           </div>
         )}
         {stats.biggestJump && (
-          <div className="rounded-2xl border border-nadi-rose/25 bg-black/30 p-6">
-            <p className="text-[10px] tracking-[0.35em] text-nadi-rose">가장 먼 자아 점프</p>
-            <p className="serif mt-3 text-base leading-snug text-nadi-glow">
+          <div className="rounded-2xl border border-nadip-rose/25 bg-black/30 p-6">
+            <p className="text-[10px] tracking-[0.35em] text-nadip-rose">가장 먼 자아 점프</p>
+            <p className="serif mt-3 text-base leading-snug text-nadip-glow">
               <span style={{ color: stats.biggestJump.from.hue }}>{stats.biggestJump.from.title}</span>
               {"  →  "}
               <span style={{ color: stats.biggestJump.to.hue }}>{stats.biggestJump.to.title}</span>
@@ -255,8 +255,8 @@ export function JourneyView({
 
       {/* 메인캐 변천사 */}
       {stats.mainEvolutions.length > 0 && (
-        <div className="mt-6 rounded-2xl border border-nadi-gold/20 bg-black/20 p-6">
-          <p className="text-[10px] tracking-[0.35em] text-nadi-gold">메인캐의 변천</p>
+        <div className="mt-6 rounded-2xl border border-nadip-gold/20 bg-black/20 p-6">
+          <p className="text-[10px] tracking-[0.35em] text-nadip-gold">메인캐의 변천</p>
           <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-ink-100/75">
             {stats.mainEvolutions.map((e, i) => {
               const a = getWorldType(e.from);
@@ -274,9 +274,9 @@ export function JourneyView({
       )}
 
       {/* 30일 히트맵 */}
-      <div className="mt-12 rounded-3xl border border-nadi-gold/20 bg-black/20 p-6">
+      <div className="mt-12 rounded-3xl border border-nadip-gold/20 bg-black/20 p-6">
         <div className="flex items-center justify-between">
-          <p className="serif text-[10px] tracking-[0.45em] text-nadi-gold">
+          <p className="serif text-[10px] tracking-[0.45em] text-nadip-gold">
             지난 30일 페르소나 일기
           </p>
           <p className="text-[10px] tracking-widest text-ink-100/40">
@@ -305,8 +305,8 @@ export function JourneyView({
 
       {/* 최근 기록 타임라인 */}
       <div className="mt-12">
-        <p className="serif text-[10px] tracking-[0.45em] text-nadi-gold">RECENT</p>
-        <h2 className="serif mt-3 text-xl text-nadi-glow">최근 기록</h2>
+        <p className="serif text-[10px] tracking-[0.45em] text-nadip-gold">RECENT</p>
+        <h2 className="serif mt-3 text-xl text-nadip-glow">최근 기록</h2>
         <div className="mt-6 space-y-3">
           {[...projected].reverse().slice(0, 10).map((p) => (
             <div
@@ -325,7 +325,7 @@ export function JourneyView({
               </div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <p className="serif text-base text-nadi-glow">{p.worldTitle}</p>
+                  <p className="serif text-base text-nadip-glow">{p.worldTitle}</p>
                   <p className="text-[10px] tracking-widest text-ink-100/40">
                     {p.date.slice(0, 10)}
                   </p>
@@ -340,18 +340,18 @@ export function JourneyView({
       </div>
 
       {/* CTA + 공유 */}
-      <ShareJourney userId={userId} latestTitle={latest?.worldTitle ?? "NADIFE"} stats={stats} />
+      <ShareJourney userId={userId} latestTitle={latest?.worldTitle ?? "NADIPE"} stats={stats} />
 
       <div className="mt-12 flex flex-wrap justify-center gap-3">
         <Link
           href="/home"
-          className="rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-7 py-3 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90"
+          className="rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-7 py-3 text-xs tracking-[0.3em] text-nadip-night hover:opacity-90"
         >
           내 화면으로 →
         </Link>
         <Link
           href={`/today?u=${userId}`}
-          className="rounded-full border border-nadi-gold/40 bg-nadi-gold/10 px-7 py-3 text-xs tracking-[0.3em] text-nadi-glow hover:bg-nadi-gold/20"
+          className="rounded-full border border-nadip-gold/40 bg-nadip-gold/10 px-7 py-3 text-xs tracking-[0.3em] text-nadip-glow hover:bg-nadip-gold/20"
         >
           오늘의 페르소나 +
         </Link>
@@ -379,12 +379,12 @@ function Stat({
     <div
       className={
         highlight
-          ? "rounded-2xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/10 to-nadi-rose/10 p-5"
+          ? "rounded-2xl border border-nadip-gold/40 bg-gradient-to-br from-nadip-gold/10 to-nadip-rose/10 p-5"
           : "rounded-2xl border border-ink-100/10 bg-black/30 p-5"
       }
     >
       <p className="text-[10px] tracking-[0.35em] text-ink-100/45">{label}</p>
-      <p className="serif mt-3 text-3xl text-nadi-glow">
+      <p className="serif mt-3 text-3xl text-nadip-glow">
         {value}
         {unit && <span className="ml-1 text-sm text-ink-100/50">{unit}</span>}
       </p>

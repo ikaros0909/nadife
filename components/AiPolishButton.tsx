@@ -68,8 +68,8 @@ export function AiPolishButton({
 
   const btnCls =
     size === "sm"
-      ? "rounded-full border border-nadi-rose/40 bg-nadi-rose/5 px-2.5 py-0.5 text-[10px] tracking-widest text-nadi-rose hover:bg-nadi-rose/15 disabled:opacity-50"
-      : "rounded-full border border-nadi-rose/40 bg-nadi-rose/5 px-3 py-1 text-[11px] tracking-widest text-nadi-rose hover:bg-nadi-rose/15 disabled:opacity-50";
+      ? "rounded-full border border-nadip-rose/40 bg-nadip-rose/5 px-2.5 py-0.5 text-[10px] tracking-widest text-nadip-rose hover:bg-nadip-rose/15 disabled:opacity-50"
+      : "rounded-full border border-nadip-rose/40 bg-nadip-rose/5 px-3 py-1 text-[11px] tracking-widest text-nadip-rose hover:bg-nadip-rose/15 disabled:opacity-50";
 
   return (
     <div className="inline-flex flex-wrap items-center gap-2">
@@ -86,13 +86,13 @@ export function AiPolishButton({
         <button
           type="button"
           onClick={revert}
-          className="text-[10px] tracking-widest text-ink-100/45 underline hover:text-nadi-glow"
+          className="text-[10px] tracking-widest text-ink-100/45 underline hover:text-nadip-glow"
         >
           ↺ 원래로
         </button>
       )}
       {err && (
-        <span className="text-[10px] tracking-widest text-nadi-rose">{err}</span>
+        <span className="text-[10px] tracking-widest text-nadip-rose">{err}</span>
       )}
     </div>
   );

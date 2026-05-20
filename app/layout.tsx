@@ -4,20 +4,20 @@ import "./globals.css";
 const BASE = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "NADIFE · 나의 디지털 페르소나",
+  title: "NADIPE · 나의 디지털 페르소나",
   description:
     "AI가 읽어주는 나의 디지털 관상. 이메일과 디지털 흔적 몇 가지로 — 메인캐와 숨은 부캐, 매일 다른 나를 발견하세요.",
   metadataBase: new URL(BASE),
   openGraph: {
-    title: "NADIFE · 당신은 한 명이 아닙니다",
+    title: "NADIPE · 당신은 한 명이 아닙니다",
     description: "AI가 읽는 나의 디지털 관상. 메인캐와 숨은 부캐, 그리고 매일 다른 나의 페르소나.",
-    siteName: "NADIFE",
+    siteName: "NADIPE",
     type: "website",
     locale: "ko_KR"
   },
   twitter: {
     card: "summary_large_image",
-    title: "NADIFE · 당신은 한 명이 아닙니다",
+    title: "NADIPE · 당신은 한 명이 아닙니다",
     description: "AI가 읽어주는 나의 디지털 관상."
   }
 };

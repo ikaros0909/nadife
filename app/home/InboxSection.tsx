@@ -49,11 +49,11 @@ export function InboxSection({ userId }: { userId: string }) {
   return (
     <section className="mt-10">
       <div className="flex items-center justify-between">
-        <h3 className="serif text-sm tracking-[0.4em] text-nadi-gold">
+        <h3 className="serif text-sm tracking-[0.4em] text-nadip-gold">
           ✦ 오늘 당신을 기다리는 것
         </h3>
         {data.counts.total > 0 && (
-          <span className="rounded-full border border-nadi-gold/40 bg-nadi-gold/10 px-2 py-0.5 text-[10px] tracking-widest text-nadi-glow">
+          <span className="rounded-full border border-nadip-gold/40 bg-nadip-gold/10 px-2 py-0.5 text-[10px] tracking-widest text-nadip-glow">
             {data.counts.total}
           </span>
         )}
@@ -75,7 +75,7 @@ export function InboxSection({ userId }: { userId: string }) {
               >
                 <Link
                   href={it.href}
-                  className="group flex items-center justify-between gap-3 rounded-2xl border border-nadi-gold/25 bg-black/30 px-5 py-3.5 transition hover:border-nadi-gold/50"
+                  className="group flex items-center justify-between gap-3 rounded-2xl border border-nadip-gold/25 bg-black/30 px-5 py-3.5 transition hover:border-nadip-gold/50"
                   style={{ borderLeft: `2px solid ${it.tone}` }}
                 >
                   <div className="min-w-0 flex-1">
@@ -95,14 +95,14 @@ export function InboxSection({ userId }: { userId: string }) {
                         </span>
                       )}
                     </div>
-                    <p className="serif mt-1 truncate text-sm text-nadi-glow">{it.title}</p>
+                    <p className="serif mt-1 truncate text-sm text-nadip-glow">{it.title}</p>
                     {it.subtitle && (
                       <p className="mt-0.5 truncate text-[11px] text-ink-100/55">
                         {it.subtitle}
                       </p>
                     )}
                   </div>
-                  <span className="shrink-0 text-[10px] tracking-widest text-ink-100/40 group-hover:text-nadi-glow">
+                  <span className="shrink-0 text-[10px] tracking-widest text-ink-100/40 group-hover:text-nadip-glow">
                     →
                   </span>
                 </Link>

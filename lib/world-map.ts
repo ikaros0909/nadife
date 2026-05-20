@@ -1,4 +1,4 @@
-// NADIFE WORLD MAP — 16 WORLD TYPES
+// NADIPE WORLD MAP — 16 WORLD TYPES
 // axisX: -1.0 (안정/느림) ~ 1.0 (변화/속도)
 // axisY: -1.0 (혼자 몰입) ~ 1.0 (사람 중심)
 

@@ -110,7 +110,7 @@ export function ResonanceClient({ userId }: { userId: string }) {
       <main className="relative z-10 mx-auto max-w-2xl px-6 pb-20">
         <PersonalNav userId={userId} current="meet" />
         <section className="mt-10 rounded-3xl border border-dashed border-ink-100/15 bg-black/20 p-10 text-center">
-          <h1 className="serif text-2xl text-nadi-glow">
+          <h1 className="serif text-2xl text-nadip-glow">
             먼저 오늘의 컨디션을 정해주세요.
           </h1>
           <p className="mt-3 text-sm text-ink-100/60">
@@ -118,7 +118,7 @@ export function ResonanceClient({ userId }: { userId: string }) {
           </p>
           <Link
             href={`/today?u=${userId}`}
-            className="mt-6 inline-flex rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-7 py-3 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90"
+            className="mt-6 inline-flex rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-7 py-3 text-xs tracking-[0.3em] text-nadip-night hover:opacity-90"
           >
             오늘의 페르소나 +
           </Link>
@@ -134,10 +134,10 @@ export function ResonanceClient({ userId }: { userId: string }) {
       <PersonalNav userId={userId} current="meet" />
 
       <section className="pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
           RESONANCE · 오늘 합주
         </p>
-        <h1 className="serif mt-4 text-3xl leading-tight text-nadi-glow">
+        <h1 className="serif mt-4 text-3xl leading-tight text-nadip-glow">
           오늘 {myWorld && <span style={{ color: myWorld.hue }}>{feed.todayMood}</span>}의
           <br />
           박자로 사는 사람들
@@ -151,26 +151,26 @@ export function ResonanceClient({ userId }: { userId: string }) {
       <section className="mt-10">
         {feed.myNote ? (
           <div
-            className="rounded-3xl border border-nadi-gold/40 bg-nadi-gold/5 px-6 py-5"
+            className="rounded-3xl border border-nadip-gold/40 bg-nadip-gold/5 px-6 py-5"
             style={{ borderLeft: myWorld ? `2px solid ${myWorld.hue}` : undefined }}
           >
-            <div className="flex items-center justify-between text-[10px] tracking-widest text-nadi-gold">
+            <div className="flex items-center justify-between text-[10px] tracking-widest text-nadip-gold">
               <span>나의 한 줄 · {feed.myNote.alias}</span>
-              <span className="text-nadi-rose">공명 {feed.myNote.echoCount}</span>
+              <span className="text-nadip-rose">공명 {feed.myNote.echoCount}</span>
             </div>
-            <p className="serif mt-3 text-lg leading-snug text-nadi-glow">
+            <p className="serif mt-3 text-lg leading-snug text-nadip-glow">
               “{feed.myNote.text}”
             </p>
           </div>
         ) : (
-          <div className="rounded-3xl border border-nadi-gold/30 bg-nadi-gold/5 p-5">
-            <p className="text-[10px] tracking-widest text-nadi-gold">오늘의 한 줄</p>
+          <div className="rounded-3xl border border-nadip-gold/30 bg-nadip-gold/5 p-5">
+            <p className="text-[10px] tracking-widest text-nadip-gold">오늘의 한 줄</p>
             <textarea
               value={draft}
               onChange={(e) => setDraft(e.target.value.slice(0, 140))}
               placeholder="140자 — 오늘의 결을 한 줄로 흘려보내세요"
               rows={3}
-              className="mt-3 w-full resize-none rounded-xl border border-nadi-gold/20 bg-transparent px-4 py-3 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
+              className="mt-3 w-full resize-none rounded-xl border border-nadip-gold/20 bg-transparent px-4 py-3 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold"
             />
             <div className="mt-3">
               <AiPolishButton
@@ -186,12 +186,12 @@ export function ResonanceClient({ userId }: { userId: string }) {
               <button
                 onClick={submitNote}
                 disabled={sending || !draft.trim()}
-                className="rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-2 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90 disabled:opacity-50"
+                className="rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-6 py-2 text-xs tracking-[0.3em] text-nadip-night hover:opacity-90 disabled:opacity-50"
               >
                 {sending ? "흘려보내는 중…" : "흘려보내기"}
               </button>
             </div>
-            {err && <p className="mt-2 text-[11px] text-nadi-rose">{err}</p>}
+            {err && <p className="mt-2 text-[11px] text-nadip-rose">{err}</p>}
           </div>
         )}
       </section>
@@ -199,7 +199,7 @@ export function ResonanceClient({ userId }: { userId: string }) {
       {/* 같은 박자 피드 */}
       <section className="mt-12">
         <div className="flex items-center justify-between">
-          <p className="serif text-xs tracking-[0.4em] text-nadi-gold">같은 박자</p>
+          <p className="serif text-xs tracking-[0.4em] text-nadip-gold">같은 박자</p>
           <span className="text-[10px] tracking-widest text-ink-100/45">
             {feed.canEcho ? "공명 1번 남음" : "오늘 공명 사용됨"}
           </span>
@@ -226,7 +226,7 @@ export function ResonanceClient({ userId }: { userId: string }) {
                       <span>{n.alias}</span>
                       <span style={{ color: w.hue }}>{w.title}</span>
                     </div>
-                    <p className="serif mt-2 text-base leading-relaxed text-nadi-glow">
+                    <p className="serif mt-2 text-base leading-relaxed text-nadip-glow">
                       “{n.text}”
                     </p>
                     <div className="mt-3 flex items-center justify-between gap-2">
@@ -242,8 +242,8 @@ export function ResonanceClient({ userId }: { userId: string }) {
                           }
                           className={
                             n.echoed
-                              ? "rounded-full border border-nadi-gold/60 bg-nadi-gold/15 px-4 py-1 text-[11px] tracking-[0.25em] text-nadi-glow"
-                              : "rounded-full border border-ink-100/15 px-4 py-1 text-[11px] tracking-[0.25em] text-ink-100/65 hover:border-nadi-gold/40 hover:text-nadi-glow disabled:opacity-40"
+                              ? "rounded-full border border-nadip-gold/60 bg-nadip-gold/15 px-4 py-1 text-[11px] tracking-[0.25em] text-nadip-glow"
+                              : "rounded-full border border-ink-100/15 px-4 py-1 text-[11px] tracking-[0.25em] text-ink-100/65 hover:border-nadip-gold/40 hover:text-nadip-glow disabled:opacity-40"
                           }
                         >
                           {n.echoed ? "✦ 공명함" : echoLoading === n.id ? "…" : "공명하기"}

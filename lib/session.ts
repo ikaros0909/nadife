@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-const COOKIE = "nadife_uid";
+const COOKIE = "nadipe_uid";
 const MAX_AGE = 60 * 60 * 24 * 365; // 1년
 
 export function setUidCookie(res: NextResponse, userId: string): NextResponse {

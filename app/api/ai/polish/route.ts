@@ -60,7 +60,7 @@ const Body = z.object({
   context: z.string().max(2000).optional().nullable()
 });
 
-const SYSTEM_BASE = `너는 NADIFE의 "글쓰기 도우미"다.
+const SYSTEM_BASE = `너는 NADIPE의 "글쓰기 도우미"다.
 사용자가 적은 거친 메모 — 몇 단어, 짧은 한 줄, 또는 정리되지 않은 두세 문장 — 을 받아,
 같은 감정과 의도를 유지한 채 **가독성 높고 시(詩)에 가까운 한국어 문장**으로 다듬어준다.
 

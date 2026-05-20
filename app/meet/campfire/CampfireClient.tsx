@@ -87,24 +87,24 @@ export function CampfireClient({ userId }: { userId: string }) {
       <PersonalNav userId={userId} current="meet" />
 
       <section className="pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
           CAMPFIRE · 세계 모닥불
         </p>
         {loading ? (
           <p className="mt-6 text-sm text-ink-100/50">불을 피우는 중…</p>
         ) : err ? (
-          <p className="mt-6 text-sm text-nadi-rose">{err}</p>
+          <p className="mt-6 text-sm text-nadip-rose">{err}</p>
         ) : (
           world &&
           me && (
             <>
-              <h1 className="serif mt-4 text-3xl leading-tight text-nadi-glow">
+              <h1 className="serif mt-4 text-3xl leading-tight text-nadip-glow">
                 <span style={{ color: world.hue }}>{world.title}</span>의 사람들이
                 <br />
                 지금 이곳에 있어요.
               </h1>
               <p className="mt-2 text-xs tracking-widest text-ink-100/45">
-                나는 — <span className="text-nadi-glow">{me.alias}</span>
+                나는 — <span className="text-nadip-glow">{me.alias}</span>
               </p>
             </>
           )
@@ -115,7 +115,7 @@ export function CampfireClient({ userId }: { userId: string }) {
       {!loading && !err && room && (
         <section className="mt-10">
           <div className="flex items-center justify-between">
-            <p className="serif text-xs tracking-[0.4em] text-nadi-gold">
+            <p className="serif text-xs tracking-[0.4em] text-nadip-gold">
               지금 모인 사람들
             </p>
             <span className="text-[10px] tracking-widest text-ink-100/50">
@@ -129,7 +129,7 @@ export function CampfireClient({ userId }: { userId: string }) {
                   <span
                     className={
                       p.isMe
-                        ? "rounded-full border border-nadi-gold/60 bg-nadi-gold/15 px-3 py-1 text-xs text-nadi-glow"
+                        ? "rounded-full border border-nadip-gold/60 bg-nadip-gold/15 px-3 py-1 text-xs text-nadip-glow"
                         : "rounded-full border border-ink-100/15 bg-black/30 px-3 py-1 text-xs text-ink-100/65"
                     }
                   >
@@ -148,7 +148,7 @@ export function CampfireClient({ userId }: { userId: string }) {
       {/* 속삭임 피드 */}
       {!loading && !err && room && (
         <section className="mt-10">
-          <p className="serif text-xs tracking-[0.4em] text-nadi-gold">속삭임</p>
+          <p className="serif text-xs tracking-[0.4em] text-nadip-gold">속삭임</p>
           <p className="mt-1 text-[10px] tracking-widest text-ink-100/40">
             하루 5개까지 · 24시간 뒤 사라짐
           </p>
@@ -173,7 +173,7 @@ export function CampfireClient({ userId }: { userId: string }) {
                     transition={{ duration: 0.4 }}
                     className={
                       w.isMe
-                        ? "rounded-2xl border border-nadi-gold/40 bg-nadi-gold/10 px-5 py-4"
+                        ? "rounded-2xl border border-nadip-gold/40 bg-nadip-gold/10 px-5 py-4"
                         : "rounded-2xl border border-ink-100/10 bg-black/30 px-5 py-4"
                     }
                   >
@@ -181,7 +181,7 @@ export function CampfireClient({ userId }: { userId: string }) {
                       <span>{w.alias}{w.isMe && " · 나"}</span>
                       <span>{new Date(w.createdAt).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}</span>
                     </div>
-                    <p className="serif mt-2 text-base leading-relaxed text-nadi-glow">
+                    <p className="serif mt-2 text-base leading-relaxed text-nadip-glow">
                       {w.text}
                     </p>
                     {!w.isMe && (
@@ -196,13 +196,13 @@ export function CampfireClient({ userId }: { userId: string }) {
           </div>
 
           {/* 입력 */}
-          <div className="mt-6 rounded-2xl border border-nadi-gold/20 bg-black/30 p-3">
+          <div className="mt-6 rounded-2xl border border-nadip-gold/20 bg-black/30 p-3">
             <textarea
               value={draft}
               onChange={(e) => setDraft(e.target.value.slice(0, 140))}
               placeholder="140자까지 — 같은 세계 사람들에게만 닿아요"
               rows={2}
-              className="w-full resize-none bg-transparent px-2 py-1 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none"
+              className="w-full resize-none bg-transparent px-2 py-1 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none"
             />
             <div className="mt-2 px-1">
               <AiPolishButton
@@ -218,13 +218,13 @@ export function CampfireClient({ userId }: { userId: string }) {
               <button
                 onClick={sendWhisper}
                 disabled={sending || !draft.trim()}
-                className="rounded-full bg-nadi-gold/15 px-5 py-1.5 text-xs tracking-[0.3em] text-nadi-glow ring-1 ring-nadi-gold/40 hover:bg-nadi-gold/25 disabled:opacity-40"
+                className="rounded-full bg-nadip-gold/15 px-5 py-1.5 text-xs tracking-[0.3em] text-nadip-glow ring-1 ring-nadip-gold/40 hover:bg-nadip-gold/25 disabled:opacity-40"
               >
                 {sending ? "보내는 중…" : "흘려보내기"}
               </button>
             </div>
             {whisperErr && (
-              <p className="mt-2 px-2 text-[11px] text-nadi-rose">{whisperErr}</p>
+              <p className="mt-2 px-2 text-[11px] text-nadip-rose">{whisperErr}</p>
             )}
           </div>
 

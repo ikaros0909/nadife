@@ -21,13 +21,13 @@ export function ShareJourney({
 
   const shareUrl = origin ? `${origin}/j/${userId}` : `/j/${userId}`;
   const ogUrl = origin ? `${origin}/api/og/journey/${userId}` : `/api/og/journey/${userId}`;
-  const headline = `${stats.daysSinceStart}일, ${stats.uniqueWorlds}개의 세계 — NADIFE`;
-  const description = `${stats.daysSinceStart}일 동안 거쳐온 ${stats.uniqueWorlds}개의 세계, 현재는 "${latestTitle}". NADIFE에서 매일 다른 나의 디지털 페르소나를 발견하세요.`;
+  const headline = `${stats.daysSinceStart}일, ${stats.uniqueWorlds}개의 세계 — NADIPE`;
+  const description = `${stats.daysSinceStart}일 동안 거쳐온 ${stats.uniqueWorlds}개의 세계, 현재는 "${latestTitle}". NADIPE에서 매일 다른 나의 디지털 페르소나를 발견하세요.`;
 
   return (
-    <div className="mt-12 rounded-3xl border border-nadi-gold/30 bg-gradient-to-br from-nadi-gold/5 to-nadi-rose/5 p-7">
-      <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">SHARE</p>
-      <h3 className="serif mt-3 text-2xl leading-snug text-nadi-glow">
+    <div className="mt-12 rounded-3xl border border-nadip-gold/30 bg-gradient-to-br from-nadip-gold/5 to-nadip-rose/5 p-7">
+      <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">SHARE</p>
+      <h3 className="serif mt-3 text-2xl leading-snug text-nadip-glow">
         이 궤적을 공유하세요.
       </h3>
       <p className="mt-2 text-xs text-ink-100/60">
@@ -42,10 +42,10 @@ export function ShareJourney({
         />
         <a
           href={`/api/og/journey/${userId}`}
-          download={`nadife-journey-${userId}.png`}
+          download={`nadipe-journey-${userId}.png`}
           target="_blank"
           rel="noreferrer"
-          className="mt-3 block rounded-2xl border border-nadi-gold/30 bg-nadi-gold/5 px-4 py-3 text-center text-xs tracking-[0.25em] text-nadi-glow hover:bg-nadi-gold/15"
+          className="mt-3 block rounded-2xl border border-nadip-gold/30 bg-nadip-gold/5 px-4 py-3 text-center text-xs tracking-[0.25em] text-nadip-glow hover:bg-nadip-gold/15"
         >
           궤적 이미지 저장
         </a>

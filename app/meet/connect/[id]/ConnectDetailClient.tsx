@@ -138,23 +138,23 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
       <PersonalNav userId={userId} current="meet" />
 
       <header className="flex items-center justify-between pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">CONNECT</p>
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">CONNECT</p>
         <Link
           href={`/meet/connect?u=${userId}`}
-          className="text-xs tracking-widest text-ink-100/45 hover:text-nadi-glow"
+          className="text-xs tracking-widest text-ink-100/45 hover:text-nadip-glow"
         >
           ← 연결 목록
         </Link>
       </header>
 
       {loading && <p className="mt-10 text-sm text-ink-100/45">불러오는 중…</p>}
-      {err && <p className="mt-6 text-sm text-nadi-rose">{err}</p>}
+      {err && <p className="mt-6 text-sm text-nadip-rose">{err}</p>}
 
       {data && (
         <>
           {/* 상단 — 상대 카드 */}
           <section
-            className="mt-8 rounded-3xl border border-nadi-gold/30 p-6"
+            className="mt-8 rounded-3xl border border-nadip-gold/30 p-6"
             style={
               data.partner.hue
                 ? {
@@ -167,16 +167,16 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
               {data.partner.worldTitle ?? "디지털 자아"}
               {data.partner.vibe && ` · ${data.partner.vibe}`}
             </p>
-            <h1 className="serif mt-3 text-2xl text-nadi-glow">{data.partner.alias}</h1>
+            <h1 className="serif mt-3 text-2xl text-nadip-glow">{data.partner.alias}</h1>
             {data.partner.oneLiner && (
               <p className="mt-2 text-sm leading-relaxed text-ink-100/65">“{data.partner.oneLiner}”</p>
             )}
             {data.partner.revealed && (
-              <div className="mt-4 rounded-2xl border border-nadi-gold/40 bg-nadi-gold/10 p-4 text-xs">
-                <p className="text-[10px] tracking-widest text-nadi-gold">연결됨 — 공개된 윤곽</p>
+              <div className="mt-4 rounded-2xl border border-nadip-gold/40 bg-nadip-gold/10 p-4 text-xs">
+                <p className="text-[10px] tracking-widest text-nadip-gold">연결됨 — 공개된 윤곽</p>
                 <div className="mt-2 grid grid-cols-2 gap-2 text-ink-100/75">
                   {data.partner.revealed.nickname && (
-                    <p>닉네임 · <span className="text-nadi-glow">{data.partner.revealed.nickname}</span></p>
+                    <p>닉네임 · <span className="text-nadip-glow">{data.partner.revealed.nickname}</span></p>
                   )}
                   {data.partner.revealed.gender && <p>성별 · {data.partner.revealed.gender}</p>}
                   {data.partner.revealed.country && <p>국적 · {data.partner.revealed.country}</p>}
@@ -192,12 +192,12 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
             <div
               className={
                 data.match.matched
-                  ? "rounded-2xl border border-nadi-gold/40 bg-nadi-gold/5 px-5 py-4"
-                  : "rounded-2xl border border-nadi-rose/30 bg-nadi-rose/5 px-5 py-4"
+                  ? "rounded-2xl border border-nadip-gold/40 bg-nadip-gold/5 px-5 py-4"
+                  : "rounded-2xl border border-nadip-rose/30 bg-nadip-rose/5 px-5 py-4"
               }
             >
-              <p className="text-[10px] tracking-[0.3em] text-nadi-gold">조건</p>
-              <p className="serif mt-2 text-sm text-nadi-glow">
+              <p className="text-[10px] tracking-[0.3em] text-nadip-gold">조건</p>
+              <p className="serif mt-2 text-sm text-nadip-glow">
                 {data.match.matched
                   ? "두 사람의 조건이 맞아요"
                   : "조건이 맞지 않아요"}
@@ -210,11 +210,11 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
               )}
             </div>
 
-            <div className="rounded-2xl border border-nadi-gold/25 bg-black/30 px-5 py-4">
-              <p className="text-[10px] tracking-[0.3em] text-nadi-gold">거리</p>
+            <div className="rounded-2xl border border-nadip-gold/25 bg-black/30 px-5 py-4">
+              <p className="text-[10px] tracking-[0.3em] text-nadip-gold">거리</p>
               {data.distance.bothOptIn ? (
                 <>
-                  <p className="serif mt-2 text-sm text-nadi-glow">
+                  <p className="serif mt-2 text-sm text-nadip-glow">
                     {data.distance.bucket ?? "—"}
                   </p>
                   {data.distance.approxKm !== null && (
@@ -245,7 +245,7 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
 
           {/* 인연의 결 — 카테고리별 요약 */}
           <section className="mt-8">
-            <p className="serif text-xs tracking-[0.4em] text-nadi-gold">인연의 결</p>
+            <p className="serif text-xs tracking-[0.4em] text-nadip-gold">인연의 결</p>
             <p className="mt-1 text-[11px] text-ink-100/45">
               {data.affinity.typesCount}가지 결로 만났어요 (연결까지 최소 {data.affinity.requiredTypes}가지 필요).
             </p>
@@ -305,7 +305,7 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
           {/* 타임라인 — 겹쳐온 순간들 */}
           {data.affinity.timeline.length > 0 && (
             <section className="mt-10">
-              <p className="serif text-xs tracking-[0.4em] text-nadi-gold">겹쳐온 순간</p>
+              <p className="serif text-xs tracking-[0.4em] text-nadip-gold">겹쳐온 순간</p>
               <ol className="mt-4 space-y-2">
                 {data.affinity.timeline.map((ev, i) => (
                   <motion.li
@@ -321,7 +321,7 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
                         day: "2-digit"
                       })}
                     </span>
-                    <span className="shrink-0 text-[10px] tracking-[0.3em] text-nadi-gold">
+                    <span className="shrink-0 text-[10px] tracking-[0.3em] text-nadip-gold">
                       {SOURCE_LABEL[ev.source] ?? ev.source}
                     </span>
                     <span className="text-xs text-ink-100/70">{ev.description}</span>
@@ -342,8 +342,8 @@ export function ConnectDetailClient({ userId, partnerId }: { userId: string; par
 function KindRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-ink-100/10 bg-black/30 px-4 py-3">
-      <div className="text-[10px] tracking-[0.3em] text-nadi-gold">{label}</div>
-      <div className="serif mt-1 text-sm text-nadi-glow">{value}</div>
+      <div className="text-[10px] tracking-[0.3em] text-nadip-gold">{label}</div>
+      <div className="serif mt-1 text-sm text-nadip-glow">{value}</div>
     </div>
   );
 }
@@ -367,8 +367,8 @@ function ActionPanel({
   if (status === "BLOCKED") {
     if (c?.iBlocked) {
       return (
-        <section className="mt-12 rounded-3xl border border-nadi-rose/40 bg-nadi-rose/5 p-6 text-center">
-          <p className="serif text-base text-nadi-glow">이 사람을 차단했어요.</p>
+        <section className="mt-12 rounded-3xl border border-nadip-rose/40 bg-nadip-rose/5 p-6 text-center">
+          <p className="serif text-base text-nadip-glow">이 사람을 차단했어요.</p>
           <p className="mt-2 text-xs text-ink-100/55">
             언제든 해제할 수 있지만, 차분히 결정하세요.
           </p>
@@ -379,7 +379,7 @@ function ActionPanel({
           >
             {acting === "unblock" ? "해제 중…" : "차단 해제"}
           </button>
-          {actionErr && <p className="mt-3 text-[11px] text-nadi-rose">{actionErr}</p>}
+          {actionErr && <p className="mt-3 text-[11px] text-nadip-rose">{actionErr}</p>}
         </section>
       );
     }
@@ -393,9 +393,9 @@ function ActionPanel({
   // 연결됨
   if (status === "CONNECTED") {
     return (
-      <section className="mt-12 rounded-3xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/10 to-nadi-rose/10 p-7">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">✦ 연결됨</p>
-        <h3 className="serif mt-3 text-xl leading-snug text-nadi-glow">
+      <section className="mt-12 rounded-3xl border border-nadip-gold/40 bg-gradient-to-br from-nadip-gold/10 to-nadip-rose/10 p-7">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">✦ 연결됨</p>
+        <h3 className="serif mt-3 text-xl leading-snug text-nadip-glow">
           서로를 알아본 사이.
         </h3>
         <p className="mt-2 text-xs leading-relaxed text-ink-100/65">
@@ -428,12 +428,12 @@ function ActionPanel({
               )
             }
             disabled={acting === "block"}
-            className="flex-1 rounded-xl border border-nadi-rose/40 bg-nadi-rose/5 px-4 py-2 text-xs tracking-widest text-nadi-rose hover:bg-nadi-rose/15 disabled:opacity-50"
+            className="flex-1 rounded-xl border border-nadip-rose/40 bg-nadip-rose/5 px-4 py-2 text-xs tracking-widest text-nadip-rose hover:bg-nadip-rose/15 disabled:opacity-50"
           >
             차단
           </button>
         </div>
-        {actionErr && <p className="mt-3 text-[11px] text-nadi-rose">{actionErr}</p>}
+        {actionErr && <p className="mt-3 text-[11px] text-nadip-rose">{actionErr}</p>}
       </section>
     );
   }
@@ -441,9 +441,9 @@ function ActionPanel({
   // 내가 받은 제안
   if ((status === "PROPOSED_A" || status === "PROPOSED_B") && c && !c.iAmProposer) {
     return (
-      <section className="mt-12 rounded-3xl border border-nadi-rose/40 bg-gradient-to-br from-nadi-rose/10 to-nadi-gold/5 p-7">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-rose">✦ 연결 제안</p>
-        <h3 className="serif mt-3 text-xl leading-snug text-nadi-glow">
+      <section className="mt-12 rounded-3xl border border-nadip-rose/40 bg-gradient-to-br from-nadip-rose/10 to-nadip-gold/5 p-7">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-rose">✦ 연결 제안</p>
+        <h3 className="serif mt-3 text-xl leading-snug text-nadip-glow">
           이 사람이 — 당신과 정식으로 연결되기를 청해왔어요.
         </h3>
         <p className="mt-2 text-xs leading-relaxed text-ink-100/65">
@@ -458,7 +458,7 @@ function ActionPanel({
               )
             }
             disabled={!!acting}
-            className="w-full rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-3 text-sm tracking-[0.3em] text-nadi-night hover:opacity-90 disabled:opacity-50"
+            className="w-full rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-6 py-3 text-sm tracking-[0.3em] text-nadip-night hover:opacity-90 disabled:opacity-50"
           >
             {acting === "accept" ? "수락 중…" : "✦ 연결 수락"}
           </button>
@@ -477,12 +477,12 @@ function ActionPanel({
               )
             }
             disabled={!!acting}
-            className="w-full rounded-full border border-nadi-rose/30 bg-nadi-rose/5 px-6 py-3 text-xs tracking-widest text-nadi-rose hover:bg-nadi-rose/15 disabled:opacity-50"
+            className="w-full rounded-full border border-nadip-rose/30 bg-nadip-rose/5 px-6 py-3 text-xs tracking-widest text-nadip-rose hover:bg-nadip-rose/15 disabled:opacity-50"
           >
             차단 (영원히 안 만나기)
           </button>
         </div>
-        {actionErr && <p className="mt-3 text-[11px] text-nadi-rose">{actionErr}</p>}
+        {actionErr && <p className="mt-3 text-[11px] text-nadip-rose">{actionErr}</p>}
       </section>
     );
   }
@@ -490,9 +490,9 @@ function ActionPanel({
   // 내가 제안한 상태 — 기다리는 중
   if ((status === "PROPOSED_A" || status === "PROPOSED_B") && c?.iAmProposer) {
     return (
-      <section className="mt-12 rounded-3xl border border-nadi-gold/30 bg-nadi-gold/5 p-7">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">연결 제안 보냄</p>
-        <h3 className="serif mt-3 text-xl leading-snug text-nadi-glow">
+      <section className="mt-12 rounded-3xl border border-nadip-gold/30 bg-nadip-gold/5 p-7">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">연결 제안 보냄</p>
+        <h3 className="serif mt-3 text-xl leading-snug text-nadip-glow">
           답을 기다리는 중…
         </h3>
         <p className="mt-2 text-xs leading-relaxed text-ink-100/55">
@@ -517,21 +517,21 @@ function ActionPanel({
           <button
             onClick={() => act("propose", "다시 연결을 제안할까요?")}
             disabled={!!acting}
-            className="mt-4 w-full rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-3 text-sm tracking-[0.3em] text-nadi-night hover:opacity-90 disabled:opacity-50"
+            className="mt-4 w-full rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-6 py-3 text-sm tracking-[0.3em] text-nadip-night hover:opacity-90 disabled:opacity-50"
           >
             다시 ✦ 연결 제안
           </button>
         )}
-        {actionErr && <p className="mt-3 text-[11px] text-nadi-rose">{actionErr}</p>}
+        {actionErr && <p className="mt-3 text-[11px] text-nadip-rose">{actionErr}</p>}
       </section>
     );
   }
 
   // 깊어지는 중 / 충분히 깊어짐 — 첫 제안
   return (
-    <section className="mt-12 rounded-3xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/10 to-nadi-deep/40 p-7">
-      <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">✦ 연결 — 신중하게</p>
-      <h3 className="serif mt-3 text-xl leading-snug text-nadi-glow">
+    <section className="mt-12 rounded-3xl border border-nadip-gold/40 bg-gradient-to-br from-nadip-gold/10 to-nadip-deep/40 p-7">
+      <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">✦ 연결 — 신중하게</p>
+      <h3 className="serif mt-3 text-xl leading-snug text-nadip-glow">
         충분히 검토한 뒤에 — 결정해주세요.
       </h3>
       <ul className="mt-3 space-y-2 text-[12px] leading-relaxed text-ink-100/65">
@@ -550,7 +550,7 @@ function ActionPanel({
             )
           }
           disabled={!!acting}
-          className="mt-6 w-full rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-3 text-sm tracking-[0.3em] text-nadi-night hover:opacity-90 disabled:opacity-50"
+          className="mt-6 w-full rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-6 py-3 text-sm tracking-[0.3em] text-nadip-night hover:opacity-90 disabled:opacity-50"
         >
           {acting === "propose" ? "보내는 중…" : "✦ 연결 제안하기"}
         </button>
@@ -573,11 +573,11 @@ function ActionPanel({
           )
         }
         disabled={!!acting}
-        className="mt-3 w-full rounded-full border border-nadi-rose/30 bg-nadi-rose/5 px-6 py-2 text-[11px] tracking-widest text-nadi-rose hover:bg-nadi-rose/15 disabled:opacity-50"
+        className="mt-3 w-full rounded-full border border-nadip-rose/30 bg-nadip-rose/5 px-6 py-2 text-[11px] tracking-widest text-nadip-rose hover:bg-nadip-rose/15 disabled:opacity-50"
       >
         차단 (영원히 안 만나기)
       </button>
-      {actionErr && <p className="mt-3 text-[11px] text-nadi-rose">{actionErr}</p>}
+      {actionErr && <p className="mt-3 text-[11px] text-nadip-rose">{actionErr}</p>}
     </section>
   );
 }
@@ -592,9 +592,9 @@ function ConnectedUnlocks({
   distance: { bothOptIn: boolean; bucket: string | null; approxKm: number | null };
 }) {
   return (
-    <section className="mt-6 rounded-3xl border border-nadi-gold/40 bg-gradient-to-br from-nadi-gold/10 to-nadi-rose/10 p-6">
-      <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">✦ 연결된 사이</p>
-      <h3 className="serif mt-3 text-lg leading-snug text-nadi-glow">
+    <section className="mt-6 rounded-3xl border border-nadip-gold/40 bg-gradient-to-br from-nadip-gold/10 to-nadip-rose/10 p-6">
+      <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">✦ 연결된 사이</p>
+      <h3 className="serif mt-3 text-lg leading-snug text-nadip-glow">
         끊임없이 편지를 주고받을 수 있어요.
       </h3>
       <p className="mt-2 text-[11px] leading-relaxed text-ink-100/65">
@@ -604,7 +604,7 @@ function ConnectedUnlocks({
       </p>
       <a
         href={`/meet/letter/new?u=${meId}&to=${partnerId}`}
-        className="mt-5 inline-flex rounded-full bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-2 text-xs tracking-[0.3em] text-nadi-night hover:opacity-90"
+        className="mt-5 inline-flex rounded-full bg-gradient-to-r from-nadip-gold to-nadip-rose px-6 py-2 text-xs tracking-[0.3em] text-nadip-night hover:opacity-90"
       >
         ✉ 편지 띄우기
       </a>
@@ -657,18 +657,18 @@ function JourneyOverlay({ meId, partnerId }: { meId: string; partnerId: string }
   const sharedWorlds = computeSharedWorlds(data.me.points, data.partner.points);
 
   return (
-    <section className="mt-6 rounded-3xl border border-nadi-gold/30 bg-black/30 p-6">
-      <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+    <section className="mt-6 rounded-3xl border border-nadip-gold/30 bg-black/30 p-6">
+      <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
         ✦ 공통 궤적
       </p>
-      <h3 className="serif mt-3 text-lg leading-snug text-nadi-glow">
+      <h3 className="serif mt-3 text-lg leading-snug text-nadip-glow">
         같은 평면 위 — 두 사람의 결.
       </h3>
       <p className="mt-2 text-[11px] leading-relaxed text-ink-100/55">
-        나(<span className="text-nadi-gold">금색</span>)와 그쪽(<span className="text-nadi-rose">분홍</span>)의 궤적이 16개의 세계 위에 겹쳐 그려졌어요.
+        나(<span className="text-nadip-gold">금색</span>)와 그쪽(<span className="text-nadip-rose">분홍</span>)의 궤적이 16개의 세계 위에 겹쳐 그려졌어요.
       </p>
 
-      <div className="mt-4 overflow-hidden rounded-2xl border border-nadi-gold/20 bg-[radial-gradient(circle_at_center,_rgba(212,175,111,0.06),_transparent_70%),linear-gradient(180deg,#0b0e1a,#11142b)]">
+      <div className="mt-4 overflow-hidden rounded-2xl border border-nadip-gold/20 bg-[radial-gradient(circle_at_center,_rgba(212,175,111,0.06),_transparent_70%),linear-gradient(180deg,#0b0e1a,#11142b)]">
         <svg
           viewBox={`0 0 ${OVERLAY_SIZE} ${OVERLAY_SIZE}`}
           className="block w-full"
@@ -745,17 +745,17 @@ function JourneyOverlay({ meId, partnerId }: { meId: string; partnerId: string }
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-2 text-[10px] tracking-widest">
-        <div className="rounded-lg border border-nadi-gold/25 bg-nadi-gold/5 px-3 py-2 text-center">
+        <div className="rounded-lg border border-nadip-gold/25 bg-nadip-gold/5 px-3 py-2 text-center">
           <div className="text-ink-100/55">내 점</div>
-          <div className="serif mt-1 text-nadi-gold">{meCount}</div>
+          <div className="serif mt-1 text-nadip-gold">{meCount}</div>
         </div>
-        <div className="rounded-lg border border-nadi-rose/25 bg-nadi-rose/5 px-3 py-2 text-center">
+        <div className="rounded-lg border border-nadip-rose/25 bg-nadip-rose/5 px-3 py-2 text-center">
           <div className="text-ink-100/55">그쪽 점</div>
-          <div className="serif mt-1 text-nadi-rose">{theirCount}</div>
+          <div className="serif mt-1 text-nadip-rose">{theirCount}</div>
         </div>
-        <div className="rounded-lg border border-nadi-glow/25 bg-black/40 px-3 py-2 text-center">
+        <div className="rounded-lg border border-nadip-glow/25 bg-black/40 px-3 py-2 text-center">
           <div className="text-ink-100/55">겹친 세계</div>
-          <div className="serif mt-1 text-nadi-glow">{sharedWorlds.size}</div>
+          <div className="serif mt-1 text-nadip-glow">{sharedWorlds.size}</div>
         </div>
       </div>
     </section>

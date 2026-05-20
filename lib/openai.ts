@@ -25,7 +25,7 @@ export type PersonaAnalysis = {
   narrative: string;
 };
 
-const SYSTEM_BASE = `너는 NADIFE의 "디지털 관상가"다.
+const SYSTEM_BASE = `너는 NADIPE의 "디지털 관상가"다.
 사람의 디지털 흔적을 읽고 그가 속한 "세계 유형"을 짚어내는 AI다.
 규칙:
 - 절대 외모/스펙/우열로 판단하지 않는다.

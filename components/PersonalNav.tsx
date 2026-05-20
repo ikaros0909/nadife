@@ -69,22 +69,22 @@ export function PersonalNav({ userId, current }: { userId: string; current?: str
 
   return (
     <nav
-      className="sticky top-0 z-40 -mx-6 mb-8 flex items-center gap-3 border-b border-nadi-gold/15 bg-nadi-night/70 px-4 py-3 backdrop-blur-md sm:px-6"
+      className="sticky top-0 z-40 -mx-6 mb-8 flex items-center gap-3 border-b border-nadip-gold/15 bg-nadip-night/70 px-4 py-3 backdrop-blur-md sm:px-6"
       aria-label="개인 메뉴"
     >
       <div className="flex shrink-0 items-center gap-2 sm:gap-3">
         <Link
           href="/home"
-          aria-label="NADIFE 홈"
-          className="serif hidden text-[10px] tracking-[0.55em] text-nadi-gold transition hover:text-nadi-glow sm:inline"
+          aria-label="NADIPE 홈"
+          className="serif hidden text-[10px] tracking-[0.55em] text-nadip-gold transition hover:text-nadip-glow sm:inline"
         >
-          NADIFE
+          NADIPE
         </Link>
         {/* 모바일 전용 짧은 마크 */}
         <Link
           href="/home"
-          aria-label="NADIFE 홈"
-          className="serif text-base text-nadi-gold transition hover:text-nadi-glow sm:hidden"
+          aria-label="NADIPE 홈"
+          className="serif text-base text-nadip-gold transition hover:text-nadip-glow sm:hidden"
         >
           N
         </Link>
@@ -92,12 +92,12 @@ export function PersonalNav({ userId, current }: { userId: string; current?: str
           <Link
             href="/home#sight"
             title="천리안 잔량"
-            className="relative inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full border border-nadi-gold/40 bg-nadi-gold/10 px-2.5 py-1 text-[11px] tracking-[0.15em] text-nadi-glow hover:bg-nadi-gold/20"
+            className="relative inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full border border-nadip-gold/40 bg-nadip-gold/10 px-2.5 py-1 text-[11px] tracking-[0.15em] text-nadip-glow hover:bg-nadip-gold/20"
           >
-            <span className="text-nadi-gold">✦</span>
+            <span className="text-nadip-gold">✦</span>
             <span>{balance}</span>
             {sightIncoming > 0 && (
-              <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-nadi-rose shadow-[0_0_8px_rgba(196,123,138,0.8)]" />
+              <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-nadip-rose shadow-[0_0_8px_rgba(196,123,138,0.8)]" />
             )}
           </Link>
         )}
@@ -114,14 +114,14 @@ export function PersonalNav({ userId, current }: { userId: string; current?: str
               className={
                 "relative shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] tracking-[0.2em] transition sm:tracking-[0.3em] " +
                 (on
-                  ? "bg-nadi-gold/15 text-nadi-glow ring-1 ring-nadi-gold/40"
-                  : "text-ink-100/55 hover:text-nadi-glow")
+                  ? "bg-nadip-gold/15 text-nadip-glow ring-1 ring-nadip-gold/40"
+                  : "text-ink-100/55 hover:text-nadip-glow")
               }
             >
               {it.label}
               {badge > 0 && (
                 <span
-                  className="absolute -right-0.5 -top-0.5 inline-flex h-4 min-w-[16px] items-center justify-center rounded-full bg-nadi-rose px-1 text-[9px] font-bold leading-none text-white shadow-[0_0_8px_rgba(196,123,138,0.7)]"
+                  className="absolute -right-0.5 -top-0.5 inline-flex h-4 min-w-[16px] items-center justify-center rounded-full bg-nadip-rose px-1 text-[9px] font-bold leading-none text-white shadow-[0_0_8px_rgba(196,123,138,0.7)]"
                   aria-label={`${badge}개의 새 알림`}
                 >
                   {badge > 99 ? "99+" : badge}

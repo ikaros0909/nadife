@@ -33,7 +33,7 @@ export type ShareSheetProps = {
   url: string;
   /** 공유 카드 헤드라인 */
   title: string;
-  /** 공유 카드 본문 — NADIFE가 무엇인지 한 줄로 설명 권장 */
+  /** 공유 카드 본문 — NADIPE가 무엇인지 한 줄로 설명 권장 */
   description: string;
   /** 카드 미리보기 이미지 (1200×1200 권장) — 반드시 절대 URL */
   imageUrl?: string;
@@ -52,7 +52,7 @@ export function ShareSheet({ url, title, description, imageUrl }: ShareSheetProp
       return;
     }
     // SDK 미로드 시 동적 로드
-    const exist = document.querySelector<HTMLScriptElement>(`script[data-nadi-kakao]`);
+    const exist = document.querySelector<HTMLScriptElement>(`script[data-nadip-kakao]`);
     if (exist) {
       exist.addEventListener("load", () => initKakao());
       return;
@@ -149,7 +149,7 @@ export function ShareSheet({ url, title, description, imageUrl }: ShareSheetProp
     <div className="flex flex-col gap-3">
       <button
         onClick={nativeShare}
-        className="w-full rounded-2xl bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-4 text-sm tracking-[0.3em] text-nadi-night transition hover:opacity-90"
+        className="w-full rounded-2xl bg-gradient-to-r from-nadip-gold to-nadip-rose px-6 py-4 text-sm tracking-[0.3em] text-nadip-night transition hover:opacity-90"
       >
         공유하기
       </button>
@@ -186,12 +186,12 @@ function ShareBtn({
 }) {
   const cls =
     tone === "blue"
-      ? "border-[#1877f2]/60 bg-[#1877f2]/10 text-nadi-glow hover:bg-[#1877f2]/20"
+      ? "border-[#1877f2]/60 bg-[#1877f2]/10 text-nadip-glow hover:bg-[#1877f2]/20"
       : tone === "kakao"
       ? "border-yellow-300/50 bg-yellow-300/10 text-yellow-100 hover:bg-yellow-300/20"
       : tone === "ink"
-      ? "border-ink-100/30 bg-black/40 text-nadi-glow hover:bg-black/55"
-      : "border-nadi-gold/30 bg-nadi-gold/5 text-nadi-glow hover:bg-nadi-gold/15";
+      ? "border-ink-100/30 bg-black/40 text-nadip-glow hover:bg-black/55"
+      : "border-nadip-gold/30 bg-nadip-gold/5 text-nadip-glow hover:bg-nadip-gold/15";
   return (
     <button
       onClick={onClick}

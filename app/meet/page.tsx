@@ -75,11 +75,11 @@ export default async function MeetHub({
       <PersonalNav userId={userId} current="meet" />
 
       <section className="pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">MEET</p>
-        <h1 className="serif mt-4 text-3xl leading-[1.2] text-nadi-glow sm:text-4xl">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">MEET</p>
+        <h1 className="serif mt-4 text-3xl leading-[1.2] text-nadip-glow sm:text-4xl">
           오늘의 만남
           <br />
-          <span className="bg-gradient-to-r from-nadi-gold to-nadi-rose bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-nadip-gold to-nadip-rose bg-clip-text text-transparent">
             세 갈래 길
           </span>
         </h1>
@@ -90,20 +90,20 @@ export default async function MeetHub({
 
       <section className="mt-12 space-y-5">
         {/* ─── 분류 1. 그저 있어도 되는 만남 ─── */}
-        <p className="serif text-[10px] tracking-[0.45em] text-nadi-gold/70">
+        <p className="serif text-[10px] tracking-[0.45em] text-nadip-gold/70">
           있는 만남
         </p>
 
         {/* 1. 세계 모닥불 */}
         <Link
           href={`/meet/campfire?u=${userId}`}
-          className="group block overflow-hidden rounded-3xl border border-nadi-gold/30 p-7 transition hover:-translate-y-0.5"
+          className="group block overflow-hidden rounded-3xl border border-nadip-gold/30 p-7 transition hover:-translate-y-0.5"
           style={{
             background: `radial-gradient(circle at 0% 0%, ${baseWorld.hue}22, transparent 55%), rgba(11,14,26,0.55)`
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+            <span className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
               CAMPFIRE · 세계 모닥불
             </span>
             <span
@@ -113,7 +113,7 @@ export default async function MeetHub({
               지금 {campfirePresenceCount}명
             </span>
           </div>
-          <h3 className="serif mt-6 text-2xl leading-snug text-nadi-glow">
+          <h3 className="serif mt-6 text-2xl leading-snug text-nadip-glow">
             <span style={{ color: baseWorld.hue }}>{baseWorld.title}</span>의 사람들
             <br />
             오늘의 모닥불에 모이는 중
@@ -123,7 +123,7 @@ export default async function MeetHub({
             <br />
             24시간 후, 모닥불은 사라집니다.
           </p>
-          <p className="mt-5 text-[10px] tracking-widest text-nadi-gold group-hover:text-nadi-glow">
+          <p className="mt-5 text-[10px] tracking-widest text-nadip-gold group-hover:text-nadip-glow">
             들어가기 →
           </p>
         </Link>
@@ -131,21 +131,21 @@ export default async function MeetHub({
         {/* 2. 페르소나 미러 */}
         <Link
           href={`/meet/mirror?u=${userId}`}
-          className="group block overflow-hidden rounded-3xl border border-nadi-rose/30 p-7 transition hover:-translate-y-0.5"
+          className="group block overflow-hidden rounded-3xl border border-nadip-rose/30 p-7 transition hover:-translate-y-0.5"
           style={{
             background:
               "radial-gradient(circle at 100% 0%, rgba(196,123,138,0.18), transparent 55%), rgba(11,14,26,0.55)"
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="serif text-[10px] tracking-[0.5em] text-nadi-rose">
+            <span className="serif text-[10px] tracking-[0.5em] text-nadip-rose">
               MIRROR · 페르소나 미러
             </span>
-            <span className="rounded-full border border-nadi-rose/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadi-rose">
+            <span className="rounded-full border border-nadip-rose/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadip-rose">
               {mirror?.signal ? "신호 보냄" : "오늘 1명"}
             </span>
           </div>
-          <h3 className="serif mt-6 text-2xl leading-snug text-nadi-glow">
+          <h3 className="serif mt-6 text-2xl leading-snug text-nadip-glow">
             나와 가장 먼 세계의
             <br />
             한 사람을 만나기
@@ -153,7 +153,7 @@ export default async function MeetHub({
           <p className="mt-3 text-xs leading-relaxed text-ink-100/65">
             매일 오직 한 명. 정해진 세 가지 신호 중 하나만 보낼 수 있어요. 답이 와도 안 와도 괜찮습니다.
           </p>
-          <p className="mt-5 text-[10px] tracking-widest text-nadi-rose group-hover:text-nadi-glow">
+          <p className="mt-5 text-[10px] tracking-widest text-nadip-rose group-hover:text-nadip-glow">
             오늘의 거울 →
           </p>
         </Link>
@@ -162,7 +162,7 @@ export default async function MeetHub({
         <Link
           href={`/meet/resonance?u=${userId}`}
           className={`group block overflow-hidden rounded-3xl border p-7 transition hover:-translate-y-0.5 ${
-            daily ? "border-nadi-gold/30" : "border-ink-100/15"
+            daily ? "border-nadip-gold/30" : "border-ink-100/15"
           }`}
           style={{
             background:
@@ -170,14 +170,14 @@ export default async function MeetHub({
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+            <span className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
               RESONANCE · 오늘 합주
             </span>
-            <span className="rounded-full border border-nadi-gold/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadi-gold">
+            <span className="rounded-full border border-nadip-gold/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadip-gold">
               {myNote ? "한 줄 보냄" : daily ? "한 줄 가능" : "오늘 미체크"}
             </span>
           </div>
-          <h3 className="serif mt-6 text-2xl leading-snug text-nadi-glow">
+          <h3 className="serif mt-6 text-2xl leading-snug text-nadip-glow">
             오늘 같은 박자를
             <br />
             살아가는 사람들의 한 줄
@@ -185,34 +185,34 @@ export default async function MeetHub({
           <p className="mt-3 text-xs leading-relaxed text-ink-100/65">
             댓글도 메시지도 없어요. 그저 읽고, 가장 와닿는 한 줄에 ‘공명’ 한 번.
           </p>
-          <p className="mt-5 text-[10px] tracking-widest text-nadi-gold group-hover:text-nadi-glow">
+          <p className="mt-5 text-[10px] tracking-widest text-nadip-gold group-hover:text-nadip-glow">
             {daily ? "들어가기 →" : "오늘의 페르소나 먼저 →"}
           </p>
         </Link>
 
         {/* ─── 분류 2. 글이 오가는 만남 ─── */}
-        <p className="serif mt-8 text-[10px] tracking-[0.45em] text-nadi-gold/70">
+        <p className="serif mt-8 text-[10px] tracking-[0.45em] text-nadip-gold/70">
           오가는 만남
         </p>
 
         {/* 4. 편지함 */}
         <Link
           href={`/meet/letter?u=${userId}`}
-          className="group block overflow-hidden rounded-3xl border border-nadi-gold/30 p-7 transition hover:-translate-y-0.5"
+          className="group block overflow-hidden rounded-3xl border border-nadip-gold/30 p-7 transition hover:-translate-y-0.5"
           style={{
             background:
               "radial-gradient(circle at 0% 100%, rgba(212,175,111,0.18), transparent 55%), rgba(11,14,26,0.55)"
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+            <span className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
               LETTER · 편지함
             </span>
-            <span className="rounded-full border border-nadi-gold/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadi-gold">
+            <span className="rounded-full border border-nadip-gold/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadip-gold">
               진행 {letterInboxCount}통
             </span>
           </div>
-          <h3 className="serif mt-6 text-2xl leading-snug text-nadi-glow">
+          <h3 className="serif mt-6 text-2xl leading-snug text-nadip-glow">
             한 사람과 다섯 왕복.
             <br />
             천천히 도착하는 익명 편지.
@@ -220,7 +220,7 @@ export default async function MeetHub({
           <p className="mt-3 text-xs leading-relaxed text-ink-100/65">
             300~400자 한 통. 답장은 하루 안에. 5왕복이 끝나면 편지함은 닫혀요.
           </p>
-          <p className="mt-5 text-[10px] tracking-widest text-nadi-gold group-hover:text-nadi-glow">
+          <p className="mt-5 text-[10px] tracking-widest text-nadip-gold group-hover:text-nadip-glow">
             편지함 →
           </p>
         </Link>
@@ -228,21 +228,21 @@ export default async function MeetHub({
         {/* 5. 우연의 시간 */}
         <Link
           href={`/meet/coincidence?u=${userId}`}
-          className="group block overflow-hidden rounded-3xl border border-nadi-rose/30 p-7 transition hover:-translate-y-0.5"
+          className="group block overflow-hidden rounded-3xl border border-nadip-rose/30 p-7 transition hover:-translate-y-0.5"
           style={{
             background:
               "radial-gradient(circle at 100% 100%, rgba(196,123,138,0.18), transparent 55%), rgba(11,14,26,0.55)"
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="serif text-[10px] tracking-[0.5em] text-nadi-rose">
+            <span className="serif text-[10px] tracking-[0.5em] text-nadip-rose">
               COINCIDENCE · 우연의 시간
             </span>
-            <span className="rounded-full border border-nadi-rose/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadi-rose">
+            <span className="rounded-full border border-nadip-rose/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadip-rose">
               하루 6번 · 1분
             </span>
           </div>
-          <h3 className="serif mt-6 text-2xl leading-snug text-nadi-glow">
+          <h3 className="serif mt-6 text-2xl leading-snug text-nadip-glow">
             11:11, 12:34, 22:22, 23:33 — 1분.
             <br />
             그 60초 안의 우연.
@@ -250,7 +250,7 @@ export default async function MeetHub({
           <p className="mt-3 text-xs leading-relaxed text-ink-100/65">
             정해진 시각에 입장한 사람과 단 한 줄을 주고받습니다. 이어갈 수 없어요.
           </p>
-          <p className="mt-5 text-[10px] tracking-widest text-nadi-rose group-hover:text-nadi-glow">
+          <p className="mt-5 text-[10px] tracking-widest text-nadip-rose group-hover:text-nadip-glow">
             우연의 시간 →
           </p>
         </Link>
@@ -258,21 +258,21 @@ export default async function MeetHub({
         {/* 6. 듀엣 */}
         <Link
           href={`/meet/duet?u=${userId}`}
-          className="group block overflow-hidden rounded-3xl border border-nadi-gold/30 p-7 transition hover:-translate-y-0.5"
+          className="group block overflow-hidden rounded-3xl border border-nadip-gold/30 p-7 transition hover:-translate-y-0.5"
           style={{
             background:
               "radial-gradient(circle at 100% 0%, rgba(212,175,111,0.15), transparent 55%), rgba(11,14,26,0.55)"
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+            <span className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
               DUET · 미러 듀엣
             </span>
-            <span className="rounded-full border border-nadi-gold/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadi-gold">
+            <span className="rounded-full border border-nadip-gold/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadip-gold">
               열린 책 {openDuetCount}권
             </span>
           </div>
-          <h3 className="serif mt-6 text-2xl leading-snug text-nadi-glow">
+          <h3 className="serif mt-6 text-2xl leading-snug text-nadip-glow">
             서로 본 두 사람이
             <br />
             함께 쓰는 짧은 책.
@@ -282,7 +282,7 @@ export default async function MeetHub({
             <br />
             미러에서 서로 천리안이 닿은 두 사람만.
           </p>
-          <p className="mt-5 text-[10px] tracking-widest text-nadi-gold group-hover:text-nadi-glow">
+          <p className="mt-5 text-[10px] tracking-widest text-nadip-gold group-hover:text-nadip-glow">
             듀엣 →
           </p>
         </Link>
@@ -290,21 +290,21 @@ export default async function MeetHub({
         {/* 7. 공중 한 줄 */}
         <Link
           href={`/meet/postbox?u=${userId}`}
-          className="group block overflow-hidden rounded-3xl border border-nadi-rose/30 p-7 transition hover:-translate-y-0.5"
+          className="group block overflow-hidden rounded-3xl border border-nadip-rose/30 p-7 transition hover:-translate-y-0.5"
           style={{
             background:
               "radial-gradient(circle at 0% 0%, rgba(196,123,138,0.18), transparent 55%), rgba(11,14,26,0.55)"
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="serif text-[10px] tracking-[0.5em] text-nadi-rose">
+            <span className="serif text-[10px] tracking-[0.5em] text-nadip-rose">
               POSTBOX · 공중 한 줄
             </span>
-            <span className="rounded-full border border-nadi-rose/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadi-rose">
+            <span className="rounded-full border border-nadip-rose/40 px-3 py-1 text-[10px] tracking-[0.3em] text-nadip-rose">
               일주일 1회
             </span>
           </div>
-          <h3 className="serif mt-6 text-2xl leading-snug text-nadi-glow">
+          <h3 className="serif mt-6 text-2xl leading-snug text-nadip-glow">
             공중에 띄우는 한 줄,
             <br />
             그 답신 중 한 명만 별표.
@@ -312,43 +312,43 @@ export default async function MeetHub({
           <p className="mt-3 text-xs leading-relaxed text-ink-100/65">
             모두에게 보이지만 누구도 명시적으로 부르지 않아요. 답신은 익명. 별표받은 사람만 그 사실을 알게 됩니다.
           </p>
-          <p className="mt-5 text-[10px] tracking-widest text-nadi-rose group-hover:text-nadi-glow">
+          <p className="mt-5 text-[10px] tracking-widest text-nadip-rose group-hover:text-nadip-glow">
             공중 한 줄 →
           </p>
         </Link>
 
         {/* ─── 분류 3. 인연이 깊어진 사람과의 연결 ─── */}
-        <p className="serif mt-8 text-[10px] tracking-[0.45em] text-nadi-gold/70">
+        <p className="serif mt-8 text-[10px] tracking-[0.45em] text-nadip-gold/70">
           이어지는 인연
         </p>
 
         {/* 8. 연결 */}
         <Link
           href={`/meet/connect?u=${userId}`}
-          className="group block overflow-hidden rounded-3xl border border-nadi-gold/40 p-7 transition hover:-translate-y-0.5"
+          className="group block overflow-hidden rounded-3xl border border-nadip-gold/40 p-7 transition hover:-translate-y-0.5"
           style={{
             background:
               "radial-gradient(circle at 100% 50%, rgba(212,175,111,0.22), transparent 55%), radial-gradient(circle at 0% 100%, rgba(196,123,138,0.18), transparent 55%), rgba(11,14,26,0.6)"
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+            <span className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
               CONNECT · 연결
             </span>
             <span className="flex items-center gap-2">
               {connectProposalsToMe > 0 && (
-                <span className="rounded-full bg-nadi-rose px-2 py-0.5 text-[10px] font-bold text-white">
+                <span className="rounded-full bg-nadip-rose px-2 py-0.5 text-[10px] font-bold text-white">
                   제안 {connectProposalsToMe}
                 </span>
               )}
               {connectedCount > 0 && (
-                <span className="rounded-full border border-nadi-gold/40 bg-nadi-gold/10 px-3 py-1 text-[10px] tracking-[0.3em] text-nadi-glow">
+                <span className="rounded-full border border-nadip-gold/40 bg-nadip-gold/10 px-3 py-1 text-[10px] tracking-[0.3em] text-nadip-glow">
                   연결 {connectedCount}
                 </span>
               )}
             </span>
           </div>
-          <h3 className="serif mt-6 text-2xl leading-snug text-nadi-glow">
+          <h3 className="serif mt-6 text-2xl leading-snug text-nadip-glow">
             우연이 천천히 쌓여
             <br />
             인연이 된 사람들.
@@ -356,7 +356,7 @@ export default async function MeetHub({
           <p className="mt-3 text-xs leading-relaxed text-ink-100/65">
             편지·천리안·공명·듀엣·우연이 충분히 겹친 사람과만 정식 연결을 제안할 수 있어요. 양측이 모두 동의해야 시작되고, 언제든 해제·차단할 수 있습니다.
           </p>
-          <p className="mt-5 text-[10px] tracking-widest text-nadi-gold group-hover:text-nadi-glow">
+          <p className="mt-5 text-[10px] tracking-widest text-nadip-gold group-hover:text-nadip-glow">
             연결 →
           </p>
         </Link>

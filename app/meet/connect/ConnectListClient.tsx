@@ -59,10 +59,10 @@ export function ConnectListClient({ userId }: { userId: string }) {
       <PersonalNav userId={userId} current="meet" />
 
       <section className="pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
           CONNECT · 연결
         </p>
-        <h1 className="serif mt-4 text-3xl leading-tight text-nadi-glow">
+        <h1 className="serif mt-4 text-3xl leading-tight text-nadip-glow">
           겹쳐온 시간 속에서
           <br />
           깊어진 사람들.
@@ -74,13 +74,13 @@ export function ConnectListClient({ userId }: { userId: string }) {
         </p>
       </section>
 
-      {err && <p className="mt-6 text-sm text-nadi-rose">{err}</p>}
+      {err && <p className="mt-6 text-sm text-nadip-rose">{err}</p>}
 
       {items === null ? (
         <p className="mt-8 text-sm text-ink-100/45">불러오는 중…</p>
       ) : items.length === 0 ? (
         <section className="mt-12 rounded-3xl border border-dashed border-ink-100/15 bg-black/20 p-8 text-center">
-          <p className="serif text-base text-nadi-glow">아직 깊어진 사람이 없어요.</p>
+          <p className="serif text-base text-nadip-glow">아직 깊어진 사람이 없어요.</p>
           <p className="mt-2 text-xs leading-relaxed text-ink-100/55">
             편지·미러·합주·공중·듀엣·우연을 천천히 쌓아가다 보면
             <br />
@@ -161,9 +161,9 @@ function Group({
 }) {
   const c =
     tone === "rose"
-      ? "text-nadi-rose"
+      ? "text-nadip-rose"
       : tone === "gold"
-      ? "text-nadi-gold"
+      ? "text-nadip-gold"
       : "text-ink-100/55";
   return (
     <section className="mt-10">
@@ -184,7 +184,7 @@ function Card({ it, userId }: { it: Item; userId: string }) {
     >
       <Link
         href={`/meet/connect/${it.partnerId}?u=${userId}`}
-        className="block rounded-2xl border border-nadi-gold/25 bg-black/30 px-5 py-4 transition hover:border-nadi-gold/50"
+        className="block rounded-2xl border border-nadip-gold/25 bg-black/30 px-5 py-4 transition hover:border-nadip-gold/50"
         style={it.hue ? { borderLeft: `2px solid ${it.hue}` } : undefined}
       >
         <div className="flex items-center justify-between">
@@ -196,7 +196,7 @@ function Card({ it, userId }: { it: Item; userId: string }) {
               <span className="text-ink-100/40">·</span>
               <span className="text-ink-100/55">{it.stageLabel}</span>
             </div>
-            <p className="serif mt-1 truncate text-base text-nadi-glow">{it.alias}</p>
+            <p className="serif mt-1 truncate text-base text-nadip-glow">{it.alias}</p>
             {it.summary.length > 0 && (
               <p className="mt-1 truncate text-[11px] tracking-widest text-ink-100/45">
                 {it.summary.slice(0, 4).join(" · ")}

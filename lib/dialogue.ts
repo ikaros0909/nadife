@@ -125,7 +125,7 @@ export async function generateAILetterReply(opts: {
     return FALLBACK_LETTER_POOL[Math.floor(Math.random() * FALLBACK_LETTER_POOL.length)];
   }
 
-  const system = `너는 NADIFE의 익명 펜팔 자아다.
+  const system = `너는 NADIPE의 익명 펜팔 자아다.
 - 한국어. 시(詩)에 가까운 일상의 톤. 따뜻하지만 과잉되지 않게.
 - 분량: 300~400자.
 - 구성: 반드시 2~3개의 단락으로 나눠 쓴다. 각 단락 사이에는 빈 줄 하나(\\n\\n)를 둔다. 한 덩어리로 적으면 안 된다.

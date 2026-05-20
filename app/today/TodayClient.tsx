@@ -75,7 +75,7 @@ export function TodayClient({
             transition={{ duration: 0.5 }}
             className="mt-14"
           >
-            <h1 className="serif text-3xl leading-snug text-nadi-glow sm:text-4xl">
+            <h1 className="serif text-3xl leading-snug text-nadip-glow sm:text-4xl">
               오늘 당신은
               <br />
               어떤 사람인가요?
@@ -90,7 +90,7 @@ export function TodayClient({
                   key={m}
                   onClick={() => submit(m)}
                   disabled={loading}
-                  className="rounded-full border border-ink-100/15 px-4 py-2 text-sm text-ink-100/70 transition hover:border-nadi-gold/50 hover:bg-nadi-gold/10 hover:text-nadi-glow disabled:opacity-50"
+                  className="rounded-full border border-ink-100/15 px-4 py-2 text-sm text-ink-100/70 transition hover:border-nadip-gold/50 hover:bg-nadip-gold/10 hover:text-nadip-glow disabled:opacity-50"
                 >
                   {m}
                 </button>
@@ -102,18 +102,18 @@ export function TodayClient({
                 value={mood}
                 onChange={(e) => setMood(e.target.value)}
                 placeholder="직접 적어보기"
-                className="flex-1 rounded-xl border border-nadi-gold/30 bg-transparent px-4 py-3 text-sm text-nadi-glow placeholder:text-ink-100/30 outline-none focus:border-nadi-gold"
+                className="flex-1 rounded-xl border border-nadip-gold/30 bg-transparent px-4 py-3 text-sm text-nadip-glow placeholder:text-ink-100/30 outline-none focus:border-nadip-gold"
               />
               <button
                 onClick={() => mood.trim() && submit(mood.trim())}
                 disabled={loading || !mood.trim()}
-                className="rounded-xl bg-nadi-gold/15 px-6 py-3 text-sm tracking-[0.25em] text-nadi-glow ring-1 ring-nadi-gold/40 hover:bg-nadi-gold/25 disabled:opacity-50"
+                className="rounded-xl bg-nadip-gold/15 px-6 py-3 text-sm tracking-[0.25em] text-nadip-glow ring-1 ring-nadip-gold/40 hover:bg-nadip-gold/25 disabled:opacity-50"
               >
                 {loading ? "AI…" : "결정"}
               </button>
             </div>
 
-            {err && <p className="mt-4 text-xs text-nadi-rose">{err}</p>}
+            {err && <p className="mt-4 text-xs text-nadip-rose">{err}</p>}
           </motion.div>
         ) : (
           <motion.div
@@ -124,16 +124,16 @@ export function TodayClient({
             className="mt-14"
           >
             <div
-              className="rounded-3xl border border-nadi-gold/30 p-8"
+              className="rounded-3xl border border-nadip-gold/30 p-8"
               style={{
                 background: `radial-gradient(circle at 30% 0%, ${world!.hue}33, transparent 60%), linear-gradient(180deg, rgba(11,14,26,0.8), rgba(17,20,43,0.95))`
               }}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] tracking-[0.4em] text-nadi-gold">
+                <span className="text-[10px] tracking-[0.4em] text-nadip-gold">
                   TODAY · {today.date}
                 </span>
-                <span className="rounded-full border border-nadi-gold/30 px-3 py-1 text-[10px] tracking-[0.3em] text-ink-100/70">
+                <span className="rounded-full border border-nadip-gold/30 px-3 py-1 text-[10px] tracking-[0.3em] text-ink-100/70">
                   오늘의 컨디션 · {today.mood}
                 </span>
               </div>
@@ -148,7 +148,7 @@ export function TodayClient({
                 {world!.glyph}  {world!.vibe}
               </p>
 
-              <p className="serif mt-8 text-xl leading-snug text-nadi-glow">
+              <p className="serif mt-8 text-xl leading-snug text-nadip-glow">
                 “{today.oneLiner}”
               </p>
             </div>
@@ -160,10 +160,10 @@ export function TodayClient({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="mt-6 rounded-2xl border border-nadi-gold/40 bg-gradient-to-r from-nadi-gold/15 to-nadi-rose/15 px-5 py-4 text-center"
+                  className="mt-6 rounded-2xl border border-nadip-gold/40 bg-gradient-to-r from-nadip-gold/15 to-nadip-rose/15 px-5 py-4 text-center"
                 >
-                  <p className="serif text-base text-nadi-glow">
-                    <span className="text-nadi-gold">✦ 천리안 +1</span>
+                  <p className="serif text-base text-nadip-glow">
+                    <span className="text-nadip-gold">✦ 천리안 +1</span>
                   </p>
                   <p className="mt-1 text-[11px] tracking-widest text-ink-100/65">
                     누군가의 윤곽을 들여다볼 수 있는 한 번이 쌓였어요.
@@ -174,20 +174,20 @@ export function TodayClient({
 
             <Link
               href="/home"
-              className="mt-6 block rounded-2xl bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-4 text-center text-sm tracking-[0.3em] text-nadi-night hover:opacity-90"
+              className="mt-6 block rounded-2xl bg-gradient-to-r from-nadip-gold to-nadip-rose px-6 py-4 text-center text-sm tracking-[0.3em] text-nadip-night hover:opacity-90"
             >
               내 화면으로 →
             </Link>
             <div className="mt-3 flex gap-3">
               <Link
                 href={`/journey?u=${userId}`}
-                className="flex-1 rounded-2xl border border-nadi-gold/30 bg-nadi-gold/5 py-3 text-center text-xs tracking-[0.3em] text-nadi-glow hover:bg-nadi-gold/15"
+                className="flex-1 rounded-2xl border border-nadip-gold/30 bg-nadip-gold/5 py-3 text-center text-xs tracking-[0.3em] text-nadip-glow hover:bg-nadip-gold/15"
               >
                 내 궤적
               </Link>
               <Link
                 href={`/explore?u=${userId}&kind=today`}
-                className="flex-1 rounded-2xl border border-nadi-rose/30 bg-nadi-rose/5 py-3 text-center text-xs tracking-[0.3em] text-nadi-glow hover:bg-nadi-rose/15"
+                className="flex-1 rounded-2xl border border-nadip-rose/30 bg-nadip-rose/5 py-3 text-center text-xs tracking-[0.3em] text-nadip-glow hover:bg-nadip-rose/15"
               >
                 같은 오늘을 사는 사람들
               </Link>
@@ -199,12 +199,12 @@ export function TodayClient({
       {history.length > 1 && (
         <div className="mt-16">
           <div className="flex items-center justify-between">
-            <h3 className="serif text-sm tracking-[0.35em] text-nadi-gold">
+            <h3 className="serif text-sm tracking-[0.35em] text-nadip-gold">
               지난 페르소나 일기
             </h3>
             <Link
               href={`/journey?u=${userId}`}
-              className="text-[10px] tracking-widest text-nadi-gold hover:text-nadi-glow"
+              className="text-[10px] tracking-widest text-nadip-gold hover:text-nadip-glow"
             >
               전체 궤적 →
             </Link>
@@ -219,7 +219,7 @@ export function TodayClient({
                   style={{ borderTop: `2px solid ${w.hue}` }}
                 >
                   <div className="text-[10px] tracking-widest text-ink-100/40">{d.date}</div>
-                  <div className="serif mt-2 text-base text-nadi-glow">{w.title}</div>
+                  <div className="serif mt-2 text-base text-nadip-glow">{w.title}</div>
                   <div className="mt-1 text-[10px] text-ink-100/50">{d.mood}</div>
                 </div>
               );

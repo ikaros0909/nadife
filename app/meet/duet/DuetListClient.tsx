@@ -44,10 +44,10 @@ export function DuetListClient({ userId }: { userId: string }) {
       <PersonalNav userId={userId} current="meet" />
 
       <section className="pt-2">
-        <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+        <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
           DUET · 미러 듀엣
         </p>
-        <h1 className="serif mt-4 text-3xl leading-tight text-nadi-glow">
+        <h1 className="serif mt-4 text-3xl leading-tight text-nadip-glow">
           서로 본 두 사람이
           <br />
           함께 쓰는 짧은 책
@@ -59,8 +59,8 @@ export function DuetListClient({ userId }: { userId: string }) {
       </section>
 
       <section className="mt-10">
-        <p className="serif text-xs tracking-[0.4em] text-nadi-gold">쓰는 중</p>
-        {err && <p className="mt-3 text-sm text-nadi-rose">{err}</p>}
+        <p className="serif text-xs tracking-[0.4em] text-nadip-gold">쓰는 중</p>
+        {err && <p className="mt-3 text-sm text-nadip-rose">{err}</p>}
         {books === null ? (
           <p className="mt-4 text-sm text-ink-100/45">불러오는 중…</p>
         ) : open.length === 0 ? (
@@ -80,7 +80,7 @@ export function DuetListClient({ userId }: { userId: string }) {
 
       {done.length > 0 && (
         <section className="mt-12">
-          <p className="serif text-xs tracking-[0.4em] text-nadi-gold/70">완성된 책</p>
+          <p className="serif text-xs tracking-[0.4em] text-nadip-gold/70">완성된 책</p>
           <ul className="mt-4 space-y-3">
             {done.map((b) => (
               <BookCard key={b.id} b={b} userId={userId} done />
@@ -98,8 +98,8 @@ function BookCard({ b, userId, done }: { b: BookItem; userId: string; done?: boo
       href={`/meet/duet/${b.id}?u=${userId}`}
       className={
         done
-          ? "block rounded-2xl border border-nadi-gold/20 bg-black/20 px-5 py-4 hover:border-nadi-gold/40"
-          : "block rounded-2xl border border-nadi-gold/30 bg-gradient-to-br from-nadi-gold/5 to-nadi-rose/5 px-5 py-4 hover:-translate-y-0.5"
+          ? "block rounded-2xl border border-nadip-gold/20 bg-black/20 px-5 py-4 hover:border-nadip-gold/40"
+          : "block rounded-2xl border border-nadip-gold/30 bg-gradient-to-br from-nadip-gold/5 to-nadip-rose/5 px-5 py-4 hover:-translate-y-0.5"
       }
     >
       <div className="flex items-center justify-between text-[10px] tracking-widest text-ink-100/45">
@@ -108,7 +108,7 @@ function BookCard({ b, userId, done }: { b: BookItem; userId: string; done?: boo
         </span>
         <span>{done ? "완성됨" : "진행 중"}</span>
       </div>
-      <p className="serif mt-3 text-sm leading-relaxed text-nadi-glow line-clamp-2">
+      <p className="serif mt-3 text-sm leading-relaxed text-nadip-glow line-clamp-2">
         {b.themes.slice(0, 3).join(" · ")}
         {b.themes.length > 3 && " …"}
       </p>

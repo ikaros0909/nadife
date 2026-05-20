@@ -35,7 +35,7 @@ export function PersonaCard({
       initial={{ opacity: 0, y: 30, rotateX: -8 }}
       animate={{ opacity: 1, y: 0, rotateX: 0 }}
       transition={{ duration: 0.9, ease: [0.22, 0.8, 0.18, 1] }}
-      className="relative w-full overflow-hidden rounded-3xl border border-nadi-gold/25 p-8 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
+      className="relative w-full overflow-hidden rounded-3xl border border-nadip-gold/25 p-8 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
       style={{
         background: `radial-gradient(circle at 20% 0%, ${world.hue}33, transparent 55%),
                      radial-gradient(circle at 100% 100%, ${world.hueAlt}55, transparent 55%),
@@ -46,9 +46,9 @@ export function PersonaCard({
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] shimmer-gold" />
 
       <div className="flex items-center justify-between">
-        <div className="serif text-[10px] tracking-[0.55em] text-nadi-gold">NADIFE</div>
+        <div className="serif text-[10px] tracking-[0.55em] text-nadip-gold">NADIPE</div>
         <div
-          className="rounded-full border border-nadi-gold/40 px-3 py-1 text-[10px] tracking-[0.3em]"
+          className="rounded-full border border-nadip-gold/40 px-3 py-1 text-[10px] tracking-[0.3em]"
           style={{ color: world.hue }}
         >
           {kindLabel}
@@ -73,9 +73,9 @@ export function PersonaCard({
         </div>
       </div>
 
-      <div className="mt-10 rounded-2xl border border-nadi-gold/15 bg-black/20 px-6 py-5">
-        <div className="text-[10px] tracking-[0.4em] text-nadi-gold">AI 한줄평</div>
-        <p className="serif mt-3 text-xl leading-snug text-nadi-glow sm:text-2xl">
+      <div className="mt-10 rounded-2xl border border-nadip-gold/15 bg-black/20 px-6 py-5">
+        <div className="text-[10px] tracking-[0.4em] text-nadip-gold">AI 한줄평</div>
+        <p className="serif mt-3 text-xl leading-snug text-nadip-glow sm:text-2xl">
           “{data.oneLiner}”
         </p>
       </div>
@@ -97,7 +97,7 @@ export function PersonaCard({
         </>
       )}
 
-      <div className="mt-8 flex items-center justify-between border-t border-nadi-gold/15 pt-4 text-[10px] tracking-[0.4em] text-ink-100/40">
+      <div className="mt-8 flex items-center justify-between border-t border-nadip-gold/15 pt-4 text-[10px] tracking-[0.4em] text-ink-100/40">
         <span>나의 디지털 페르소나</span>
         <span>{world.keywords.join(" · ")}</span>
       </div>
@@ -109,7 +109,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-ink-100/10 bg-black/20 px-4 py-3">
       <div className="text-[10px] tracking-[0.35em] text-ink-100/45">{label}</div>
-      <div className="serif mt-1 text-base text-nadi-glow">{value}</div>
+      <div className="serif mt-1 text-base text-nadip-glow">{value}</div>
     </div>
   );
 }

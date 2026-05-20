@@ -77,12 +77,12 @@ export function RevealCeremony({ persona, worldHue, worldHueAlt, worldVibe, kind
             transition={{ duration: 0.8 }}
             className="flex min-h-[80vh] flex-col items-center justify-center text-center"
           >
-            <p className="serif text-xs tracking-[0.6em] text-nadi-gold">NADIFE</p>
-            <h1 className="serif mt-10 text-3xl text-nadi-glow sm:text-4xl">
+            <p className="serif text-xs tracking-[0.6em] text-nadip-gold">NADIPE</p>
+            <h1 className="serif mt-10 text-3xl text-nadip-glow sm:text-4xl">
               디지털 흔적을 읽는 중…
             </h1>
             <div className="mt-10 h-[2px] w-40 overflow-hidden bg-ink-100/10">
-              <div className="h-full w-full animate-pulse bg-nadi-gold" />
+              <div className="h-full w-full animate-pulse bg-nadip-gold" />
             </div>
           </motion.div>
         )}
@@ -96,8 +96,8 @@ export function RevealCeremony({ persona, worldHue, worldHueAlt, worldVibe, kind
             transition={{ duration: 1.0 }}
             className="flex min-h-[80vh] flex-col items-center justify-center text-center"
           >
-            <p className="serif text-xs tracking-[0.6em] text-nadi-gold/80">결과 도착</p>
-            <h2 className="serif mt-8 text-4xl leading-snug text-nadi-glow sm:text-5xl">
+            <p className="serif text-xs tracking-[0.6em] text-nadip-gold/80">결과 도착</p>
+            <h2 className="serif mt-8 text-4xl leading-snug text-nadip-glow sm:text-5xl">
               당신의
               <br />
               {kindHint === "SUB" ? "또 다른 얼굴이" : "디지털 관상이"}
@@ -145,13 +145,13 @@ export function RevealCeremony({ persona, worldHue, worldHueAlt, worldVibe, kind
             transition={{ duration: 0.8 }}
           >
             <header className="mb-6 flex items-center justify-between pt-4">
-              <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+              <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
                 {kindHint === "SUB" ? "AI가 들킨 당신의 부캐" : "AI가 읽은 당신의 메인캐"}
               </p>
               {userId && (
                 <Link
                   href="/home"
-                  className="text-xs tracking-widest text-ink-100/40 hover:text-nadi-glow"
+                  className="text-xs tracking-widest text-ink-100/40 hover:text-nadip-glow"
                 >
                   내 화면 →
                 </Link>
@@ -168,12 +168,12 @@ export function RevealCeremony({ persona, worldHue, worldHueAlt, worldVibe, kind
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.7 }}
-                className="mt-14 rounded-3xl border border-nadi-rose/30 bg-gradient-to-br from-nadi-rose/10 to-nadi-deep/30 p-7"
+                className="mt-14 rounded-3xl border border-nadip-rose/30 bg-gradient-to-br from-nadip-rose/10 to-nadip-deep/30 p-7"
               >
-                <p className="serif text-[10px] tracking-[0.55em] text-nadi-rose">
+                <p className="serif text-[10px] tracking-[0.55em] text-nadip-rose">
                   다음 의식
                 </p>
-                <h3 className="serif mt-3 text-2xl leading-snug text-nadi-glow">
+                <h3 className="serif mt-3 text-2xl leading-snug text-nadip-glow">
                   당신 안에는 또 다른 사람이
                   <br />
                   살고 있습니다.
@@ -181,16 +181,16 @@ export function RevealCeremony({ persona, worldHue, worldHueAlt, worldVibe, kind
                 <p className="mt-3 text-sm leading-relaxed text-ink-100/70">
                   AI는 메인캐와 결이 가장 다른,
                   <br />
-                  <span className="text-nadi-rose">당신도 몰랐던 부캐</span>를 찾을 수 있습니다.
+                  <span className="text-nadip-rose">당신도 몰랐던 부캐</span>를 찾을 수 있습니다.
                 </p>
                 <button
                   onClick={revealSub}
                   disabled={subLoading}
-                  className="mt-6 w-full rounded-2xl bg-gradient-to-r from-nadi-rose to-nadi-gold px-6 py-4 text-sm tracking-[0.3em] text-nadi-night transition hover:opacity-90 disabled:opacity-50"
+                  className="mt-6 w-full rounded-2xl bg-gradient-to-r from-nadip-rose to-nadip-gold px-6 py-4 text-sm tracking-[0.3em] text-nadip-night transition hover:opacity-90 disabled:opacity-50"
                 >
                   {subLoading ? "부캐를 깨우는 중…" : "내 부캐 보러 가기 →"}
                 </button>
-                {subErr && <p className="mt-3 text-xs text-nadi-rose">{subErr}</p>}
+                {subErr && <p className="mt-3 text-xs text-nadip-rose">{subErr}</p>}
               </motion.div>
             )}
 
@@ -200,12 +200,12 @@ export function RevealCeremony({ persona, worldHue, worldHueAlt, worldVibe, kind
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.7 }}
-                className="mt-10 rounded-3xl border border-nadi-gold/30 bg-nadi-gold/5 p-7"
+                className="mt-10 rounded-3xl border border-nadip-gold/30 bg-nadip-gold/5 p-7"
               >
-                <p className="serif text-[10px] tracking-[0.5em] text-nadi-gold">
+                <p className="serif text-[10px] tracking-[0.5em] text-nadip-gold">
                   매일의 의식
                 </p>
-                <h3 className="serif mt-3 text-xl leading-snug text-nadi-glow">
+                <h3 className="serif mt-3 text-xl leading-snug text-nadip-glow">
                   오늘부터 매일,
                   <br />
                   당신은 다른 사람일 수 있습니다.
@@ -213,30 +213,30 @@ export function RevealCeremony({ persona, worldHue, worldHueAlt, worldVibe, kind
                 <p className="mt-3 text-xs leading-relaxed text-ink-100/65">
                   하루 한 단어를 적어두면, AI가 그날의 세계를 골라드립니다.
                   <br />
-                  쌓인 기록은 — 오직 당신만의 <span className="text-nadi-gold">궤적</span>이 됩니다.
+                  쌓인 기록은 — 오직 당신만의 <span className="text-nadip-gold">궤적</span>이 됩니다.
                 </p>
                 <Link
                   href={`/today?u=${userId}`}
-                  className="mt-5 block rounded-2xl bg-gradient-to-r from-nadi-gold to-nadi-rose px-6 py-4 text-center text-sm tracking-[0.3em] text-nadi-night hover:opacity-90"
+                  className="mt-5 block rounded-2xl bg-gradient-to-r from-nadip-gold to-nadip-rose px-6 py-4 text-center text-sm tracking-[0.3em] text-nadip-night hover:opacity-90"
                 >
                   오늘의 페르소나 시작 →
                 </Link>
                 <div className="mt-3 flex gap-3">
                   <Link
                     href={`/journey?u=${userId}`}
-                    className="flex-1 rounded-2xl border border-nadi-gold/30 bg-nadi-gold/5 py-3 text-center text-xs tracking-[0.3em] text-nadi-glow hover:bg-nadi-gold/15"
+                    className="flex-1 rounded-2xl border border-nadip-gold/30 bg-nadip-gold/5 py-3 text-center text-xs tracking-[0.3em] text-nadip-glow hover:bg-nadip-gold/15"
                   >
                     궤적
                   </Link>
                   <Link
                     href={`/map?u=${userId}`}
-                    className="flex-1 rounded-2xl border border-nadi-gold/30 bg-nadi-gold/5 py-3 text-center text-xs tracking-[0.3em] text-nadi-glow hover:bg-nadi-gold/15"
+                    className="flex-1 rounded-2xl border border-nadip-gold/30 bg-nadip-gold/5 py-3 text-center text-xs tracking-[0.3em] text-nadip-glow hover:bg-nadip-gold/15"
                   >
                     좌표
                   </Link>
                   <Link
                     href={`/explore?u=${userId}`}
-                    className="flex-1 rounded-2xl border border-nadi-rose/30 bg-nadi-rose/5 py-3 text-center text-xs tracking-[0.3em] text-nadi-glow hover:bg-nadi-rose/15"
+                    className="flex-1 rounded-2xl border border-nadip-rose/30 bg-nadip-rose/5 py-3 text-center text-xs tracking-[0.3em] text-nadip-glow hover:bg-nadip-rose/15"
                   >
                     다른 세계
                   </Link>

@@ -13,7 +13,7 @@ export default async function TodayPage({
       <main className="relative z-10 mx-auto flex min-h-screen max-w-md items-center justify-center px-6 text-center">
         <div className="text-ink-100/60">
           <p>먼저 디지털 관상을 만들어주세요.</p>
-          <a href="/onboard" className="mt-6 inline-block text-nadi-gold underline">시작하기 →</a>
+          <a href="/onboard" className="mt-6 inline-block text-nadip-gold underline">시작하기 →</a>
         </div>
       </main>
     );
